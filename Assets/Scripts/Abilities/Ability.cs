@@ -4,12 +4,17 @@ using System.Collections;
 public abstract class Ability : MonoBehaviour
 {
 
+	public string abilityName;
+	public TextAsset activeDescription;
+	public TextAsset upgradeDescription;
+	public TextAsset passiveDescription;
 
 	public float activateRate;
 	public bool canActivate = true;
 	public float effectSize;
 	public Texture2D icon;
 	public Ability upgrade;
+
 
 	public void triggerActive(Transform player)
 	{

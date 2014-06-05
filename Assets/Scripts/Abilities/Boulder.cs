@@ -11,13 +11,13 @@ public class Boulder : ProjectileAttack
 	public int clusterSize;
 	public float clusterForce;
 
+
 	void Start()
 	{
 		base.Start();
 		if(clusterPool == null && clusterObj != null) {
 			clusterPool = ObjectPool.GetPoolByRepresentative(clusterObj);
 		}
-
 	}
 
 	override public void activeEffect(Transform player)

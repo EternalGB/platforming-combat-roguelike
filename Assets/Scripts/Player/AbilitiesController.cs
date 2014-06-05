@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class AbilitiesController : MonoBehaviour
 {
 
-	float[] abInput;
+	public float[] abInput;
 	public Ability[] abilities;
 	public Transform channeller;
 

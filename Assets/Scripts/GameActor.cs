@@ -13,6 +13,7 @@ public abstract class GameActor : MonoBehaviour
 	public float maxHealth;
 	public float healthRegen;
 	const float regenInterval = 0.5f;
+	const float globalMaxSpeed = 18;
 	List<DamageOverTime> dots;
 
 
@@ -58,6 +59,8 @@ public abstract class GameActor : MonoBehaviour
 
 		if(dots.Count == 0)
 			GetComponent<SpriteRenderer>().color = defaultColor;
+
+		rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity,globalMaxSpeed);
 
 		if(currentHealth <= 0)
 			Die();
