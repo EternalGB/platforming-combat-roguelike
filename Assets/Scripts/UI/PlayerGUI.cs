@@ -101,7 +101,7 @@ public class PlayerGUI : MonoBehaviour
 					                         abIconSize, abIconSize), ab.icon.texture);
 				}
 			}
-
+			GUI.color = tmpColor;
 			//draw the player's health bar
 			float percentHealth = pCont.currentHealth/pCont.maxHealth;
 			GUI.DrawTexture(new Rect(healthBarDefault.x,healthBarDefault.y
@@ -110,7 +110,7 @@ public class PlayerGUI : MonoBehaviour
 			GUI.DrawTexture(new Rect(healthBarDefault.x + healthBarDefault.height,healthBarDefault.y,
 			                         healthBarDefault.width*percentHealth,healthBarDefault.height),
 			                healthBarTexture);
-			GUI.color = tmpColor;
+
 		} else if(mode == GUIMode.ABILITY_PREVIEW) {
 			float groupWidth = 880;
 			float groupHeight = 720;
