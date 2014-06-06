@@ -12,7 +12,7 @@ public abstract class Ability : MonoBehaviour
 	public float activateRate;
 	public bool canActivate = true;
 	public float effectSize;
-	public Texture2D icon;
+	public Sprite icon;
 	public Ability upgrade;
 
 

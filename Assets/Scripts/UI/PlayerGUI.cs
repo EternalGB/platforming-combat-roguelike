@@ -98,7 +98,7 @@ public class PlayerGUI : MonoBehaviour
 						GUI.color = tmpColor;
 					GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
 					                         abBarArea.y + abSpacing,
-					                         abIconSize, abIconSize), ab.icon);
+					                         abIconSize, abIconSize), ab.icon.texture);
 				}
 			}
 
@@ -122,7 +122,7 @@ public class PlayerGUI : MonoBehaviour
 			GUI.Label (new Rect(0,0,400,titleHeight),
 			           lastReceivedAbility.abilityName,skin.FindStyle("AbilityName"));
 			//icon
-			DrawRotatedTexture(new Rect(200,titleHeight+50,200,200),lastReceivedAbility.icon,-10);
+			DrawRotatedTexture(new Rect(200,titleHeight+50,200,200),lastReceivedAbility.icon.texture,-10);
 			//Description group
 			GUI.BeginGroup (new Rect(500,titleHeight,380,groupHeight - titleHeight));
 			GUI.Label (new Rect(0,0,380,50),"Active", skin.FindStyle("SubTitle"));
