@@ -31,6 +31,7 @@ public class PlayerGUI : MonoBehaviour
 
 	float upgradeButton = 0;
 
+	public Texture abilityPreviewOverlay;
 	Ability lastReceivedAbility;
 
 	AbilitiesController abCont;
@@ -46,12 +47,27 @@ public class PlayerGUI : MonoBehaviour
 
 	void Update()
 	{
+		upgradeButton = Input.GetAxisRaw("Upgrade");
+		if(Input.GetButtonDown("Pause"))
+			TogglePause();
+
+
 		if(paused)
 			Time.timeScale = 0;
 		else
 			Time.timeScale = 1;
 
-		upgradeButton = Input.GetAxisRaw("Upgrade");
+
+		if(Input.GetKeyDown("f2")) {
+			GetAbility((Ability)GameObject.Find ("Boulder").GetComponent<Boulder>());
+		}
+	}
+
+	void TogglePause()
+	{
+		paused = !paused;
+		if(mode == GUIMode.ABILITY_PREVIEW)
+			mode = GUIMode.GAME;
 	}
 
 	void OnGUI()
@@ -64,6 +80,8 @@ public class PlayerGUI : MonoBehaviour
 		Matrix4x4 lastMat = GUI.matrix;
 
 		GUI.matrix = Matrix4x4.TRS (Vector3.zero,Quaternion.identity,scale);
+
+
 
 		if(mode == GUIMode.GAME) {
 			//draw the abilities overlay and ability icons
@@ -94,20 +112,59 @@ public class PlayerGUI : MonoBehaviour
 			                healthBarTexture);
 			GUI.color = tmpColor;
 		} else if(mode == GUIMode.ABILITY_PREVIEW) {
-			if(paused)
-				GUI.DrawTexture(new Rect(0,0,origWidth,origHeight), pauseOverlay);
-			GUI.Label (new Rect(origWidth/2,20,200,50),lastReceivedAbility.abilityName,skin.FindStyle("AbilityName"));
+			float groupWidth = 880;
+			float groupHeight = 720;
+			float titleHeight = 100;
+			//main group
+			GUI.BeginGroup(new Rect(200,0,880,720));
+			GUI.DrawTexture(new Rect(0,0,880,720),abilityPreviewOverlay);
+			//title
+			GUI.Label (new Rect(0,0,400,titleHeight),
+			           lastReceivedAbility.abilityName,skin.FindStyle("AbilityName"));
+			//icon
+			DrawRotatedTexture(new Rect(200,titleHeight+50,200,200),lastReceivedAbility.icon,-10);
+			//Description group
+			GUI.BeginGroup (new Rect(500,titleHeight,380,groupHeight - titleHeight));
+			GUI.Label (new Rect(0,0,380,50),"Active", skin.FindStyle("SubTitle"));
+			GUI.TextArea(new Rect(0,50,380,150),
+			             lastReceivedAbility.activeDescription.text, skin.FindStyle("DescriptiveText"));
+			GUI.Label (new Rect(0,200,380,50),"Upgrade", skin.FindStyle("SubTitle"));
+			GUI.TextArea(new Rect(0,250,380,150),
+			             lastReceivedAbility.upgradeDescription.text, skin.FindStyle("DescriptiveText"));
+			GUI.Label (new Rect(0,400,380,50),"Passive", skin.FindStyle("SubTitle"));
+			GUI.TextArea(new Rect(0,450,380,150),
+			             lastReceivedAbility.passiveDescription.text, skin.FindStyle("DescriptiveText"));
+			GUI.EndGroup ();
+			//Help text group
+			GUI.BeginGroup (new Rect(100,500,500,220));
+			GUI.TextArea(new Rect(0,0,500,220),
+			             "Press (ABILITY) to assign\n\n" +
+			             "Press (UPG)+(AB) to upgrade an ability\n\n" +
+			             "Press (MENU) to manage abilities\n\n" +
+			             "Press (PAUSE) to continue", skin.FindStyle("DescriptiveText"));
+			GUI.EndGroup ();
+
+			GUI.EndGroup ();
+
 			//TODO
 			//Draw ability icon
 			//Draw descriptive text
 			//Draw help text
 		}
-
+		if(paused)
+			GUI.DrawTexture(new Rect(0,0,origWidth,origHeight), pauseOverlay);
 
 		GUI.matrix = lastMat;
 	}
 		
-
+	void DrawRotatedTexture(Rect loc, Texture texture, float angle)
+	{
+		Matrix4x4 mat = GUI.matrix;
+		Matrix4x4 rot = Matrix4x4.TRS(new Vector3(-loc.width/2,loc.height/2),Quaternion.Euler(0,0,angle),Vector3.one);
+		GUI.matrix = rot*mat;
+		GUI.DrawTexture(loc,texture);
+		GUI.matrix = mat;
+	}
 
 	void GetAbility(Ability ab)
 	{
