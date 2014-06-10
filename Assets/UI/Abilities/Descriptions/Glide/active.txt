@@ -1,0 +1,1 @@
+Slows falling speed for a short time

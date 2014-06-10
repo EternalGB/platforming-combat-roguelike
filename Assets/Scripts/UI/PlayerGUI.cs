@@ -276,6 +276,13 @@ public class PlayerGUI : MonoBehaviour
 			//draw the ability description area
 			GUI.BeginGroup(new Rect(820,50,410,480));
 			GUI.DrawTexture(new Rect(0,0,410,480),abilityPreviewOverlay,ScaleMode.StretchToFill);
+			GUI.Label (new Rect(0,0,410,60),abCont.allAbilities[abMenuSelected].abilityName,skin.GetStyle("AbilityName"));
+			GUI.Label(new Rect(0,60,410,30),"Active Effect",skin.GetStyle("SubTitle"));
+			GUI.TextArea(new Rect(0,90,410,110), abCont.allAbilities[abMenuSelected].activeDescription.text, skin.GetStyle("DescriptiveText"));
+			GUI.Label(new Rect(0,200,410,30),"Upgrade Effect",skin.GetStyle("SubTitle"));
+			GUI.TextArea(new Rect(0,230,410,110), abCont.allAbilities[abMenuSelected].upgradeDescription.text, skin.GetStyle("DescriptiveText"));
+			GUI.Label(new Rect(0,340,410,30),"Passive Effect",skin.GetStyle("SubTitle"));
+			GUI.TextArea(new Rect(0,370,410,110), abCont.allAbilities[abMenuSelected].passiveDescription.text, skin.GetStyle("DescriptiveText"));
 			GUI.EndGroup ();
 
 		}

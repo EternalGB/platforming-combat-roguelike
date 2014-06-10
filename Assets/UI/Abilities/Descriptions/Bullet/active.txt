@@ -1,0 +1,1 @@
+Fires a medium speed projectile that damages and lightly knocksback enemies

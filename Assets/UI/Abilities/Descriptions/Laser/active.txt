@@ -1,0 +1,1 @@
+Fires a fast moving projectile that damages enemies

@@ -1,0 +1,1 @@
+Creates a floating mine near you that actives after a few seconds, pulling nearby objects towards it
