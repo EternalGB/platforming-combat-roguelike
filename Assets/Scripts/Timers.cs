@@ -13,5 +13,13 @@ public class Timers
 		callback();
 	}
 
+	public static IEnumerator CountdownRealtime(float duration, Action callback)
+	{
+		float start = Time.realtimeSinceStartup;
+		while(Time.realtimeSinceStartup < start + duration)
+			yield return 0;
+		callback();
+	}
+
 }
 
