@@ -49,6 +49,7 @@ public class Mortar : ProjectileAttack
 			scale = explosionSize*scale;
 			explosion.transform.localScale = scale;
 			explosion.SendMessage("SetBlastEffect",new UpgradeAction(blastEffect,explosionTargets));
+			explosion.SendMessage("StartDelay",0f);
 		}
 	}
 
