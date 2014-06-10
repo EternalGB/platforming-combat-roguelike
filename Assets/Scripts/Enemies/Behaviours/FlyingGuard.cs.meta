@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 4553eb7c6ddfe134c9a8b9696455700d
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - healthBar: {instanceID: 0}
+  - tether: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

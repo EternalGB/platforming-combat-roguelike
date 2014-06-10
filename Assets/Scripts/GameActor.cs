@@ -13,6 +13,7 @@ public abstract class GameActor : MonoBehaviour
 	float dashPower;
 	float savedGravity = 1;
 	protected bool facingRight = true;
+	public Texture healthBar;
 	public float currentHealth;
 	public float maxHealth;
 	public float healthRegen;
@@ -147,6 +148,11 @@ public abstract class GameActor : MonoBehaviour
 		rigidbody2D.gravityScale = savedGravity;
 		rigidbody2D.velocity = Vector2.zero;
 		dashing = false;
+	}
+
+	protected void DrawLocalHealthBar()
+	{
+
 	}
 
 	protected abstract float horizontalMovingDir();
