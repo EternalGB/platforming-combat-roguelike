@@ -129,7 +129,7 @@ public abstract class GameActor : MonoBehaviour
 
 	protected void Regen()
 	{
-		currentHealth = Mathf.Clamp(currentHealth + healthRegen,0,maxHealth);
+		currentHealth = Mathf.Clamp(currentHealth + healthRegen,-maxHealth,maxHealth);
 	}
 
 	protected void Dash(float dashPower)

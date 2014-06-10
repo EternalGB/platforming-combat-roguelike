@@ -3,10 +3,12 @@ using System.Collections;
 
 public class DOTBlast : CloseBlast
 {
+	
+	public int intervals;
 
 	override public void burstEffect(Transform blast, Transform target)
 	{
-		//do a DOT
+		target.SendMessage("ApplyDOT",new Vector2(effectSize,intervals));
 	}
 
 }
