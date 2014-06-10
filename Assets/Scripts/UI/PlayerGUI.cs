@@ -196,10 +196,10 @@ public class PlayerGUI : MonoBehaviour
 			                healthBarIcon);
 			GUI.DrawTexture(new Rect(healthBarDefault.x + healthBarDefault.height,healthBarDefault.y,
 			                         healthBarDefault.width,healthBarDefault.height),
-			                healthBarBacking);
+			                healthBarBacking,ScaleMode.StretchToFill);
 			GUI.DrawTexture(new Rect(healthBarDefault.x + healthBarDefault.height,healthBarDefault.y,
 			                         healthBarDefault.width*percentHealth,healthBarDefault.height),
-			                healthBarTexture);
+			                healthBarTexture,ScaleMode.StretchToFill);
 
 		} else if(mode == GUIMode.ABILITY_PREVIEW) {
 			float groupWidth = 880;

@@ -22,6 +22,7 @@ public abstract class GameActor : MonoBehaviour
 	const float regenInterval = 0.5f;
 	const float globalMaxSpeed = 18;
 	List<DamageOverTime> dots;
+	protected SpriteRenderer spriteRenderer;
 
 
 	public Vector2 facingDir
@@ -43,9 +44,11 @@ public abstract class GameActor : MonoBehaviour
 	protected void Start()
 	{
 		InvokeRepeating("Regen",0,regenInterval);
-		defaultColor = GetComponent<SpriteRenderer>().color;
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		defaultColor = spriteRenderer.color;
 		horiAcceleration = maxSpeed/5;
 		savedGravity = rigidbody2D.gravityScale;
+
 	}
 
 	protected void FixedUpdate()
@@ -154,16 +157,16 @@ public abstract class GameActor : MonoBehaviour
 
 	void OnGUI()
 	{
-		if(drawLocalHealthBar)
+		if(drawLocalHealthBar && currentHealth < maxHealth)
 			DrawLocalHealthBar();
 	}
 
 	protected void DrawLocalHealthBar()
 	{
-		Bounds bounds = GetComponent<SpriteRenderer>().bounds;
+		Bounds bounds = spriteRenderer.bounds;
 
-		Vector3 topLeft = Camera.main.WorldToScreenPoint(new Vector2(bounds.min.x,collider2D.bounds.max.y));
-		Vector3 topRight = Camera.main.WorldToScreenPoint(new Vector2(bounds.max.x,collider2D.bounds.max.y));
+		Vector3 topLeft = Camera.main.WorldToScreenPoint(new Vector2(bounds.min.x,bounds.max.y));
+		Vector3 topRight = Camera.main.WorldToScreenPoint(new Vector2(bounds.max.x,bounds.max.y));
 		float width = topRight.x - topLeft.x;
 		float height = 5;
 		float padding = 5;
