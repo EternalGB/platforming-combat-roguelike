@@ -11,7 +11,6 @@ public class PlatformGuard : GameActor
 	float patrolDir = -1;
 	BehaviourState behaviour;
 	Transform target;
-	float acceleration;
 	public Transform forwardGroundCheck;
 	bool groundInFront = false;
 	float groundCheckRadius = 0.2f;
@@ -23,7 +22,7 @@ public class PlatformGuard : GameActor
 	void Start()
 	{
 		base.Start ();
-		acceleration = maxSpeed/10;
+		horiAcceleration = maxSpeed/10;
 		behaviour = BehaviourState.PATROL;
 		facingRight = false;
 	}
@@ -32,7 +31,7 @@ public class PlatformGuard : GameActor
 	void FixedUpdate()
 	{
 		groundInFront = Physics2D.OverlapCircle(forwardGroundCheck.position,groundCheckRadius,groundLayer);
-		float movementPower = acceleration;
+		float movementPower = horiAcceleration;
 
 		if((target = getTarget())) {
 			behaviour = BehaviourState.CHASE;

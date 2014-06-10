@@ -8,6 +8,10 @@ public abstract class GameActor : MonoBehaviour
 
 	Color defaultColor;
 	public float maxSpeed;
+	protected float horiAcceleration;
+	public bool dashing = false;
+	float dashPower;
+	float savedGravity = 1;
 	protected bool facingRight = true;
 	public float currentHealth;
 	public float maxHealth;
@@ -37,6 +41,8 @@ public abstract class GameActor : MonoBehaviour
 	{
 		InvokeRepeating("Regen",0,regenInterval);
 		defaultColor = GetComponent<SpriteRenderer>().color;
+		horiAcceleration = maxSpeed/5;
+		savedGravity = rigidbody2D.gravityScale;
 	}
 
 	protected void FixedUpdate()
@@ -60,7 +66,17 @@ public abstract class GameActor : MonoBehaviour
 		if(dots.Count == 0)
 			GetComponent<SpriteRenderer>().color = defaultColor;
 
-		rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity,globalMaxSpeed);
+		if(dashing) {
+
+			rigidbody2D.velocity = dashPower*facingDir;
+			//doing it this way allows for other physics forces to affect the player
+		} else {
+			horizontalPhysicsMovement(horizontalMovingDir(),horiAcceleration);
+			rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity,globalMaxSpeed);
+		}
+
+
+
 
 		if(currentHealth <= 0)
 			Die();
@@ -114,6 +130,23 @@ public abstract class GameActor : MonoBehaviour
 	protected void Regen()
 	{
 		currentHealth = Mathf.Clamp(currentHealth + healthRegen,0,maxHealth);
+	}
+
+	protected void Dash(float dashPower)
+	{
+		dashing = true;
+		this.dashPower = dashPower;
+
+		savedGravity = rigidbody2D.gravityScale;
+		rigidbody2D.gravityScale = 0;
+		StartCoroutine(Timers.Countdown(0.05f,EndDash));
+	}
+
+	void EndDash()
+	{
+		rigidbody2D.gravityScale = savedGravity;
+		rigidbody2D.velocity = Vector2.zero;
+		dashing = false;
 	}
 
 	protected abstract float horizontalMovingDir();
