@@ -128,9 +128,9 @@ public abstract class GameActor : MonoBehaviour
 		currentHealth -= amount;
 	}
 
-	protected void Die()
+	protected virtual void Die()
 	{
-		Destroy(gameObject);
+		GameObject.Destroy(gameObject);
 	}
 
 	protected void Regen()
@@ -175,6 +175,13 @@ public abstract class GameActor : MonoBehaviour
 		GUI.DrawTexture(new Rect(topLeft.x,Screen.height - (topLeft.y + height + padding),
 		                         width*pHealth,height),healthBar);
 
+	}
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if(col.gameObject.layer == LayerMask.NameToLayer("KillTriggers")) {
+			Die();
+		}
 	}
 
 	protected abstract float horizontalMovingDir();

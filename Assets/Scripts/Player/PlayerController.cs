@@ -8,7 +8,7 @@ public class PlayerController : GameActor
 	float hori = 0f;
 	float vert = 0f;
 	float strafe = 0f;
-
+	
 	public Animator anim;
 
 
@@ -76,6 +76,16 @@ public class PlayerController : GameActor
 		}
 
 		base.FixedUpdate();
+	}
+
+	override protected void Die()
+	{
+		hori = 0;
+		vert = 0;
+		strafe = 0;
+		rigidbody2D.velocity = Vector2.zero;
+		currentHealth = maxHealth;
+		transform.position = GameObject.Find("PlayerSpawn").transform.position;
 	}
 
 	static void DoFriction(Rigidbody2D body, float power, float max)
