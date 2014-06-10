@@ -4,6 +4,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - healthBar: {fileID: 2800000, guid: a417f5b3cd47558408a9b36f5ff6073d, type: 3}
+  - healthBarBacking: {fileID: 2800000, guid: 3be20c5f20a7759488af77ba4058d07d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

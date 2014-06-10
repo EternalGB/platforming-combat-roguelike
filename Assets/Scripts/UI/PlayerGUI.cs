@@ -27,6 +27,7 @@ public class PlayerGUI : MonoBehaviour
 
 	public Texture healthBarIcon;
 	public Texture healthBarTexture;
+	public Texture healthBarBacking;
 	public Rect healthBarDefault;
 
 	float upgradeButton = 0;
@@ -193,6 +194,9 @@ public class PlayerGUI : MonoBehaviour
 			GUI.DrawTexture(new Rect(healthBarDefault.x,healthBarDefault.y
 			                         ,healthBarDefault.height,healthBarDefault.height),
 			                healthBarIcon);
+			GUI.DrawTexture(new Rect(healthBarDefault.x + healthBarDefault.height,healthBarDefault.y,
+			                         healthBarDefault.width,healthBarDefault.height),
+			                healthBarBacking);
 			GUI.DrawTexture(new Rect(healthBarDefault.x + healthBarDefault.height,healthBarDefault.y,
 			                         healthBarDefault.width*percentHealth,healthBarDefault.height),
 			                healthBarTexture);

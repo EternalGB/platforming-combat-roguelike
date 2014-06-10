@@ -14,6 +14,7 @@ public abstract class GameActor : MonoBehaviour
 	float savedGravity = 1;
 	protected bool facingRight = true;
 	public Texture healthBar;
+	public Texture healthBarBacking;
 	public bool drawLocalHealthBar = true;
 	public float currentHealth;
 	public float maxHealth;
@@ -159,14 +160,18 @@ public abstract class GameActor : MonoBehaviour
 
 	protected void DrawLocalHealthBar()
 	{
+		Bounds bounds = GetComponent<SpriteRenderer>().bounds;
 
-		/*
-		Vector3 topLeft = Camera.main.WorldToScreenPoint(new Vector2(collider2D.bounds.min.x,collider2D.bounds.max.y));
-		Vector3 topRight = Camera.main.WorldToScreenPoint(new Vector2(collider2D.bounds.max.x,collider2D.bounds.max.y));
+		Vector3 topLeft = Camera.main.WorldToScreenPoint(new Vector2(bounds.min.x,collider2D.bounds.max.y));
+		Vector3 topRight = Camera.main.WorldToScreenPoint(new Vector2(bounds.max.x,collider2D.bounds.max.y));
 		float width = topRight.x - topLeft.x;
-		float height = 10;
-		GUI.DrawTexture(new Rect(topLeft.x,topLeft.y,width,height),healthBar);
-		*/
+		float height = 5;
+		float padding = 5;
+		float pHealth = currentHealth/maxHealth;
+		GUI.DrawTexture(new Rect(topLeft.x,Screen.height - (topLeft.y + height + padding),width,height),healthBarBacking);
+		GUI.DrawTexture(new Rect(topLeft.x,Screen.height - (topLeft.y + height + padding),
+		                         width*pHealth,height),healthBar);
+
 	}
 
 	protected abstract float horizontalMovingDir();
