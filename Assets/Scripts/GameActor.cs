@@ -14,6 +14,7 @@ public abstract class GameActor : MonoBehaviour
 	float savedGravity = 1;
 	protected bool facingRight = true;
 	public Texture healthBar;
+	public bool drawLocalHealthBar = true;
 	public float currentHealth;
 	public float maxHealth;
 	public float healthRegen;
@@ -150,9 +151,22 @@ public abstract class GameActor : MonoBehaviour
 		dashing = false;
 	}
 
+	void OnGUI()
+	{
+		if(drawLocalHealthBar)
+			DrawLocalHealthBar();
+	}
+
 	protected void DrawLocalHealthBar()
 	{
 
+		/*
+		Vector3 topLeft = Camera.main.WorldToScreenPoint(new Vector2(collider2D.bounds.min.x,collider2D.bounds.max.y));
+		Vector3 topRight = Camera.main.WorldToScreenPoint(new Vector2(collider2D.bounds.max.x,collider2D.bounds.max.y));
+		float width = topRight.x - topLeft.x;
+		float height = 10;
+		GUI.DrawTexture(new Rect(topLeft.x,topLeft.y,width,height),healthBar);
+		*/
 	}
 
 	protected abstract float horizontalMovingDir();
