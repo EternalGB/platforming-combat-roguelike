@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class PoolableProjectile : MonoBehaviour
@@ -10,6 +10,7 @@ public class PoolableProjectile : MonoBehaviour
 	public Action<Transform> onDestroy;
 	public Action<Transform, Transform> onCollision;
 	LayerMask onCollisionTargets;
+	List<Collider2D> ignored;
 
 	void OnEnable()
 	{
@@ -27,6 +28,7 @@ public class PoolableProjectile : MonoBehaviour
 			onDestroy(transform);
 		ResetOnDestroy();
 		ResetOnCollision();
+		ResetIgnores();
 		CancelInvoke();
 	}
 
@@ -42,6 +44,24 @@ public class PoolableProjectile : MonoBehaviour
 			   || col.gameObject.layer == LayerMask.NameToLayer ("NonCollProj"))
 				col.gameObject.SendMessage("Destroy");
 			Destroy();
+		}
+	}
+
+	void IgnoreCollider(Collider2D col)
+	{
+		Physics2D.IgnoreCollision(collider2D,col);
+		if(ignored != null) {
+			ignored = new List<Collider2D>();
+		}
+		ignored.Add(col);
+	}
+
+	void ResetIgnores()
+	{
+		if(ignored != null) {
+			foreach(Collider2D col in ignored)
+				Physics2D.IgnoreCollision(collider2D,col,false);
+			ignored.Clear();
 		}
 	}
 

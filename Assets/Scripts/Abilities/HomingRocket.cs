@@ -21,13 +21,11 @@ public class HomingRocket : ProjectileAttack
 		blastEffect = defaultBlast;
 	}
 
-	override public void activeEffect(Transform player)
+	override protected void fireProjectile(GameObject bullet, Transform player)
 	{
 		if(channeler == null) {
 			channeler = player.FindChild("channeler");
 		}
-		GameObject bullet = projectiles.getPooled();
-		bullet.SetActive(true);
 		bullet.SendMessage("SetOnDestroy",new UpgradeAction(createExplosion));
 		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
 		bullet.transform.position = channeler.position;

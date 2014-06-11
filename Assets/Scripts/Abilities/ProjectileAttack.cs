@@ -26,14 +26,20 @@ public class ProjectileAttack : Ability
 	}
 
 
-	override public void activeEffect(Transform player)
+	override sealed public void activeEffect(Transform player)
 	{
-		
+		GameObject bullet = projectiles.getPooled();
+		bullet.SetActive(true);
+		bullet.SendMessage("IgnoreCollider",player.collider2D);
+		fireProjectile(bullet,player);
+	}
+
+	protected virtual void fireProjectile(GameObject bullet, Transform player)
+	{
 		if(channeler == null) {
 			channeler = player.FindChild("channeler");
 		}
-		GameObject bullet = projectiles.getPooled();
-		bullet.SetActive(true);
+
 		bullet.SendMessage("SetOnDestroy",new UpgradeAction(onDestroy));
 		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
 		bullet.transform.position = channeler.position;

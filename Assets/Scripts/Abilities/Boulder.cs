@@ -20,14 +20,11 @@ public class Boulder : ProjectileAttack
 		}
 	}
 
-	override public void activeEffect(Transform player)
+	override protected void fireProjectile(GameObject bullet, Transform player)
 	{
 		if(channeler == null) {
 			channeler = player.FindChild("channeler");
 		}
-
-		GameObject bullet = projectiles.getPooled();
-		bullet.SetActive(true);
 		bullet.transform.position = channeler.position;
 		bullet.SendMessage("SetOnDestroy",new UpgradeAction(spawnClusters));
 		float angle = 45*Mathf.Sign (player.localScale.x);
