@@ -13,21 +13,34 @@ public abstract class Spawner : MonoBehaviour
 	public SpawnType spawnType;
 	public float range;
 	public float spawnInterval;
-
+	public bool randomisedIntervals;
+	float interval;
 	
 	protected void Start()
 	{
-		if(spawnType == SpawnType.CIRCLE) {
-			InvokeRepeating("SpawnCircle",spawnInterval,spawnInterval);
-		} else if(spawnType == SpawnType.HORI_LINE) {
-			InvokeRepeating("SpawnLineHorizontal",spawnInterval,spawnInterval);
-		} else if(spawnType == SpawnType.VERT_LINE) {
-			InvokeRepeating("SpawnLineVertical",spawnInterval,spawnInterval);
-		} else if(spawnType == SpawnType.SQUARE) {
-			InvokeRepeating("SpawnSquare",spawnInterval,spawnInterval);
-		}
+		SpawnCaller();
 	}
-	
+
+	protected void SpawnCaller()
+	{
+		if(randomisedIntervals)
+			interval = Random.Range (0,spawnInterval);
+		else
+			interval = spawnInterval;
+
+		if(spawnType == SpawnType.CIRCLE) {
+			Invoke("SpawnCircle",interval);
+		} else if(spawnType == SpawnType.HORI_LINE) {
+			Invoke("SpawnLineHorizontal",interval);
+		} else if(spawnType == SpawnType.VERT_LINE) {
+			Invoke("SpawnLineVertical",interval);
+		} else if(spawnType == SpawnType.SQUARE) {
+			Invoke("SpawnSquare",interval);
+		}
+
+		Invoke("SpawnCaller",interval);
+	}
+
 	protected void SpawnCircle()
 	{
 		Spawn((Vector2)transform.position + Random.insideUnitCircle*range);
