@@ -25,7 +25,6 @@ public class ActiveEnemiesSingleton : MonoBehaviour
 	public void AddEnemy(GameObject enemy)
 	{
 		enemies.Add(enemy.GetInstanceID(),enemy);
-		print("Added enemy " + enemy.GetInstanceID());
 	}
 
 	public bool RemoveEnemy(GameObject enemy)

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Mortar : ProjectileAttack 
+public class HomingRocket : ProjectileAttack 
 {
 
 	public GameObject explosionRep;
@@ -32,10 +32,10 @@ public class Mortar : ProjectileAttack
 		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
 		bullet.transform.position = channeler.position;
 		
-		float angle = 45*Mathf.Sign (player.localScale.x);
-		Vector3 facingDir = player.right*Mathf.Sign (player.localScale.x);
-		Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*facingDir;
-		bullet.rigidbody2D.AddForce(firingDir*bulletVelocity);
+		//float angle = 45*Mathf.Sign (player.localScale.x);
+		//Vector3 facingDir = player.right*Mathf.Sign (player.localScale.x);
+		//Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*facingDir;
+		//bullet.rigidbody2D.AddForce(firingDir*bulletVelocity);
 	}
 
 	public void createExplosion(Transform projectile)

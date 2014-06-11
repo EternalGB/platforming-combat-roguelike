@@ -19,8 +19,10 @@ public class FixedPointText : MonoBehaviour
 
 	void OnGUI()
 	{
-		screenPos = Camera.main.WorldToScreenPoint(transform.position);
-		GUI.Label(new Rect(screenPos.x,Screen.height - (screenPos.y+height),width,height),content,style);
+		if(!PlayerGUI.paused) {
+			screenPos = Camera.main.WorldToScreenPoint(transform.position);
+			GUI.Label(new Rect(screenPos.x,Screen.height - (screenPos.y+height),width,height),content,style);
+		}
 	}
 
 }

@@ -23,7 +23,7 @@ public class PlayerGUI : MonoBehaviour
 	float abIconSize = 100;
 	float abSpacing = 20;
 
-	bool paused = false;
+	public static bool paused = false;
 
 	public Texture healthBarIcon;
 	public Texture healthBarTexture;
