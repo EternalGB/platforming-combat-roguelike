@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlatformGuard : GameActor
+public class PlatformGuard : BaseEnemyBehaviour
 {
 
 	public enum BehaviourState

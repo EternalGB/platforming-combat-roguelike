@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Stationary : GameActor
+public class Stationary : BaseEnemyBehaviour
 {
 
 	override protected float horizontalMovingDir()

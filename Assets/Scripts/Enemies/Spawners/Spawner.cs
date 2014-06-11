@@ -49,7 +49,7 @@ public abstract class Spawner : MonoBehaviour
 		Spawn(new Vector2(transform.position.x + Random.Range(-halfRange,halfRange),
 		                  transform.position.y + Random.Range(-halfRange,halfRange)));
 	}
-	
+
 	protected abstract void Spawn(Vector2 pos);
 	
 	

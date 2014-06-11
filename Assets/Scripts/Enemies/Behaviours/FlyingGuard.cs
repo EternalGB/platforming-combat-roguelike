@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class FlyingGuard : GameActor
+public class FlyingGuard : BaseEnemyBehaviour
 {
 	
 	public Transform tether;
