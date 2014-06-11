@@ -26,14 +26,12 @@ public class HomingRocket : ProjectileAttack
 		if(channeler == null) {
 			channeler = player.FindChild("channeler");
 		}
+		bullet.transform.position = channeler.position;
+		bullet.rigidbody2D.velocity = player.right*Mathf.Sign (player.localScale.x);
 		bullet.SendMessage("SetOnDestroy",new UpgradeAction(createExplosion));
 		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
-		bullet.transform.position = channeler.position;
-		
-		//float angle = 45*Mathf.Sign (player.localScale.x);
-		//Vector3 facingDir = player.right*Mathf.Sign (player.localScale.x);
-		//Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*facingDir;
-		//bullet.rigidbody2D.AddForce(firingDir*bulletVelocity);
+
+
 	}
 
 	public void createExplosion(Transform projectile)
