@@ -288,6 +288,7 @@ public class PlayerGUI : MonoBehaviour
 			GUI.Label(new Rect(0,340,410,30),"Passive Effect",skin.GetStyle("SubTitle"));
 			GUI.TextArea(new Rect(0,370,410,110), abCont.allAbilities[abMenuSelected].passiveDescription.text, skin.GetStyle("DescriptiveText"));
 			GUI.EndGroup ();
+			//draw the help text area
 
 		}
 		if(paused)

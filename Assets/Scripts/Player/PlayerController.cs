@@ -61,6 +61,7 @@ public class PlayerController : GameActor
 		anim.SetBool("onGround",onGround);
 
 		if(onGround) {
+			//TODO should only be able apply the jump force exactly once
 			if(vert > 0) {
 				onGround = false;
 				rigidbody2D.AddForce(new Vector2(0,jumpPower));

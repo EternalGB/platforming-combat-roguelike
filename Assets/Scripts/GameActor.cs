@@ -46,7 +46,7 @@ public abstract class GameActor : MonoBehaviour
 		InvokeRepeating("Regen",0,regenInterval);
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		defaultColor = spriteRenderer.color;
-		horiAcceleration = maxSpeed/5;
+		horiAcceleration = maxSpeed;
 		savedGravity = rigidbody2D.gravityScale;
 
 	}
