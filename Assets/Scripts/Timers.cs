@@ -21,5 +21,13 @@ public class Timers
 		callback();
 	}
 
+	public static IEnumerator Countdown<T>(float duration, Action<T> callback, T arg)
+	{
+		for(float timer = duration; timer >= 0; timer -= Time.deltaTime)
+			yield return 0;
+		
+		callback(arg);
+	}
+
 }
 
