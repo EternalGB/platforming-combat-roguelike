@@ -20,7 +20,7 @@ public abstract class GameActor : MonoBehaviour
 	public float maxHealth;
 	public float healthRegen;
 	const float regenInterval = 0.5f;
-	const float globalMaxSpeed = 18;
+	const float globalMaxSpeed = 30;
 	List<DamageOverTime> dots;
 	protected SpriteRenderer spriteRenderer;
 
