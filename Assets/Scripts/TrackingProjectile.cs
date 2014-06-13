@@ -8,28 +8,32 @@ public class TrackingProjectile : PoolableProjectile
 	public bool tracking = true;
 	public float speed;
 	public float rearmingTime = 1f;
-	public float stability = 5;
+	public float maxTurn = 20;
+	public float instability = 20;
+	Vector3 destination;
 
 	void FixedUpdate()
 	{
 		if(target != null) {
-			rigidbody2D.velocity = (target.position - transform.position).normalized*speed;
-		} else if(tracking) {
-			target = findTarget();
-			if(target == null) {
-				tracking = false;
-				Invoke("EnableTracking",rearmingTime);
-			}
+			destination = target.position;
 		} else {
-			//move randomly
-			if(rigidbody2D.velocity.magnitude > 0) {
-				float angleDiff = Random.Range (-stability,stability);
-				transform.right = Quaternion.AngleAxis(angleDiff,Vector3.forward)*rigidbody2D.velocity;
-			}
-			rigidbody2D.velocity = transform.right*speed;
+			if(!IsInvoking("findTarget"))
+				Invoke("findTarget",rearmingTime);
+			//otherwise just go in the direction we're already going
+			destination = transform.position + transform.right;
 		}
 
-		transform.right = rigidbody2D.velocity.normalized;
+		//jiggle the destination a bit
+		float instabAngle = Random.Range (-instability,instability);
+		Vector3 toDir = (destination - transform.position).normalized;
+		toDir = Quaternion.AngleAxis(instabAngle,Vector3.forward)*toDir;
+
+		//face the destination
+		transform.right = Vector3.RotateTowards(transform.right,toDir,maxTurn*Time.fixedDeltaTime,1);
+
+		//appy force
+		rigidbody2D.velocity = transform.right*speed;
+
 	}
 
 	void EnableTracking()
@@ -37,13 +41,14 @@ public class TrackingProjectile : PoolableProjectile
 		tracking = true;
 	}
 
-	Transform findTarget()
+	void findTarget()
 	{
+		//TODO may have to swap this to some kind of culled list eventually if it gets too slow
 		GameObject nearest = ActiveEnemiesSingleton.Instance.GetClosestEnemy(transform.position);
 		if(nearest == null)
-			return null;
+			target = null;
 		else
-			return nearest.transform;
+			target = nearest.transform;
 	}
 }
 

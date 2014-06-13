@@ -31,22 +31,30 @@ public class ActiveEnemiesSingleton : MonoBehaviour
 	{
 		return enemies.Remove(enemy.GetInstanceID());
 	}
-
+	
 	public GameObject GetClosestEnemy(Vector2 worldPos)
 	{
 		float bestDist = float.MaxValue;
 		GameObject best = null;
 		foreach(GameObject enemy in enemies.Values) {
 			float dist = Vector2.Distance(worldPos,enemy.transform.position);
-			if(best == null) {
-				best = enemy;
-				bestDist = dist;
-			} else if(dist < bestDist) {
+			if(dist < bestDist) {
 				best = enemy;
 				bestDist = dist;
 			}
 		}
 		return best;
+	}
+
+	public GameObject getFirstWithinRadius(Vector2 worldPos, float radius)
+	{
+		foreach(GameObject enemy in enemies.Values) {
+			float dist = Vector2.Distance(worldPos,enemy.transform.position);
+			if(dist < radius) {
+				return enemy;
+			}
+		}
+		return null;
 	}
 
 

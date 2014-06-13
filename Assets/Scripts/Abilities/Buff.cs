@@ -19,15 +19,7 @@ public abstract class Buff : Ability
 		}
 	}
 
-	override protected void upgradeOtherAbility(Ability other)
-	{
 
-	}
-
-	override public void passiveEffect(Transform player)
-	{
-
-	}
 
 }
 

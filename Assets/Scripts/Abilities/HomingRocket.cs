@@ -27,7 +27,7 @@ public class HomingRocket : ProjectileAttack
 			channeler = player.FindChild("channeler");
 		}
 		bullet.transform.position = channeler.position;
-		bullet.rigidbody2D.velocity = player.right*Mathf.Sign (player.localScale.x);
+		bullet.transform.right = player.right*Mathf.Sign (player.localScale.x);
 		bullet.SendMessage("SetOnDestroy",new UpgradeAction(createExplosion));
 		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
 

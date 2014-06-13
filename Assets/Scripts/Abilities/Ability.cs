@@ -30,20 +30,23 @@ public abstract class Ability : MonoBehaviour
 		canActivate = true;
 	}
 
-	public virtual void upgradeAbility(Ability ab)
+	public void upgradeAbility(Ability ab)
 	{
 		upgrade = ab;
 		ab.upgradeOtherAbility(this);
 	}
 
-	public virtual void removeUpgrade()
+	public void removeUpgrade()
 	{
 		upgrade = null;
+		reset();
 	}
 
 	public abstract void activeEffect(Transform player);
 
 	protected abstract void upgradeOtherAbility(Ability other);
+
+	protected abstract void reset();
 
 	public abstract void passiveEffect(Transform player);
 

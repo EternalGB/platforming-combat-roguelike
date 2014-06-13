@@ -29,6 +29,11 @@ public class Dash : Ability
 		pa.bulletVelocity += effectSize;
 	}
 
+	override protected void reset()
+	{
+		
+	}
+
 	override public void passiveEffect(Transform player)
 	{
 

@@ -12,5 +12,6 @@ public class DOTBlast : CloseBlast
 		target.SendMessage("SetColor",Color.red);
 	}
 
+
 }
 

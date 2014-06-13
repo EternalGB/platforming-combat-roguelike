@@ -57,6 +57,11 @@ public abstract class CloseBlast : Ability
 		pa.onCollision = burstEffect;
 	}
 
+	override protected void reset()
+	{
+		
+	}
+
 	override public void passiveEffect(Transform player)
 	{
 

@@ -19,9 +19,7 @@ public class ProjectileAttack : Ability
 		onDestroy = null;
 		onCollision = defaultCollision;
 		if(upgrade != null) {
-			print(gameObject.name + " upgrading");
 			upgradeAbility(upgrade);
-			print(bulletVelocity);
 		}
 	}
 
@@ -61,7 +59,12 @@ public class ProjectileAttack : Ability
 	{
 		
 	}
-	
+
+	override protected void reset()
+	{
+
+	}
+
 	override public void passiveEffect(Transform player)
 	{
 		

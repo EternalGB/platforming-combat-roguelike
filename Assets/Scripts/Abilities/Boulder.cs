@@ -48,9 +48,8 @@ public class Boulder : ProjectileAttack
 		}
 	}
 
-	override public void removeUpgrade()
+	override protected void reset()
 	{
-		base.removeUpgrade();
 		onDestroy = spawnClusters;
 	}
 

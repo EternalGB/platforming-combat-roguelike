@@ -46,6 +46,11 @@ public class Glide : Ability
 		pa.rigidbody2D.gravityScale = 1;
 	}
 
+	override protected void reset()
+	{
+		
+	}
+
 	override public void passiveEffect(Transform player)
 	{
 		
