@@ -138,7 +138,7 @@ public class PlayerGUI : MonoBehaviour
 		}
 
 		if(Input.GetKeyDown("f2")) {
-			GetAbility((Ability)GameObject.Find ("Boulder").GetComponent<Boulder>());
+			GetAbility((Ability)GameObject.Find ("Boulder").GetComponent<ClusterShower>());
 		}
 	}
 

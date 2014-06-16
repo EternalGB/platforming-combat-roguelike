@@ -1,1 +1,1 @@
-Lobs a bomb that explodes on impact
+Lobs its projectile

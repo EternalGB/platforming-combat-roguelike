@@ -7,7 +7,7 @@ public abstract class CloseBlast : Ability
 
 	public GameObject blastObj;
 	ObjectPool blastPool;
-	Action<Transform, Transform> onHitByBurst;
+	public Action<Transform, Transform> onHitByBurst;
 	public Vector2 fireLocation;
 	public float blastDelay;
 	public LayerMask burstTargets;
@@ -40,14 +40,7 @@ public abstract class CloseBlast : Ability
 	
 	override protected void upgradeOtherAbility(Ability other)
 	{
-		//if the ability is not a direct child of the ability class
-		//then is may have some other base type that we have to check
-		if(other.GetType().BaseType != typeof(Ability)) {
-			if(other.GetType().BaseType == typeof(ProjectileAttack)) {
-				upgradeProjectileAttack((ProjectileAttack)other);
-			}
-			//else it's an instance of a direct child class
-		} else if(other.GetType () == typeof(ProjectileAttack)) {
+		if(other.GetType().BaseType == typeof(ProjectileAttack)) {
 			upgradeProjectileAttack((ProjectileAttack)other);
 		}
 	}

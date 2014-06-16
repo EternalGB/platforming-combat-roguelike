@@ -29,5 +29,13 @@ public class Timers
 		callback(arg);
 	}
 
+	public static IEnumerator Countdown<T1, T2>(float duration, Action<T1, T2> callback, T1 arg1, T2 arg2)
+	{
+		for(float timer = duration; timer >= 0; timer -= Time.deltaTime)
+			yield return 0;
+		
+		callback(arg1,arg2);
+	}
+
 }
 

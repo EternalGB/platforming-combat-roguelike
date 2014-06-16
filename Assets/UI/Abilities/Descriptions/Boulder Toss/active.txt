@@ -1,1 +1,1 @@
-Lobs a boulder that shatters into pieces on contact
+Showers the enemy with small rocks
