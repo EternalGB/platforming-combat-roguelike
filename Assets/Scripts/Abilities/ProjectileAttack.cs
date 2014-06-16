@@ -9,14 +9,12 @@ public class ProjectileAttack : Ability
 	public GameObject projectileRep;
 	protected Transform channeler;
 	public float bulletVelocity = 1000;
-	public Action<Transform> onDestroy;
 	public Action<Transform, Transform> onCollision;
 	public LayerMask onCollisionTargets;
 	
 	public void Start()
 	{
 		projectiles = ObjectPool.GetPoolByRepresentative(projectileRep);
-		onDestroy = null;
 		onCollision = defaultCollision;
 		if(upgrade != null) {
 			upgradeAbility(upgrade);
@@ -37,8 +35,7 @@ public class ProjectileAttack : Ability
 		if(channeler == null) {
 			channeler = player.FindChild("channeler");
 		}
-
-		bullet.SendMessage("SetOnDestroy",new UpgradeAction(onDestroy));
+		;
 		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
 		bullet.transform.position = channeler.position;
 		bullet.transform.rotation = channeler.rotation;

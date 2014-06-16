@@ -9,7 +9,7 @@ public class HomingRocket : ProjectileAttack
 	public GameObject explosionRep;
 	ObjectPool explosionPool;
 	public float explosionSize;
-	public LayerMask explosionTargets;
+	public float explosionDuration;
 	public Action<Transform, Transform> blastEffect;
 
 	void Start()
@@ -28,13 +28,12 @@ public class HomingRocket : ProjectileAttack
 		}
 		bullet.transform.position = channeler.position;
 		bullet.transform.right = player.right*Mathf.Sign (player.localScale.x);
-		bullet.SendMessage("SetOnDestroy",new UpgradeAction(createExplosion));
-		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
-
+		bullet.SendMessage("SetOnDestroy",new UpgradeAction(createExplosion,onCollisionTargets));
+		bullet.SendMessage("SetOnCollision",new UpgradeAction(createExplosion,onCollisionTargets));
 
 	}
 
-	public void createExplosion(Transform projectile)
+	public void createExplosion(Transform player, Transform projectile)
 	{
 		if(explosionPool != null) {
 			GameObject explosion = explosionPool.getPooled();
@@ -44,7 +43,8 @@ public class HomingRocket : ProjectileAttack
 			Vector3 scale = explosion.transform.localScale;
 			scale = explosionSize*scale;
 			explosion.transform.localScale = scale;
-			explosion.SendMessage("SetBlastEffect",new UpgradeAction(blastEffect,explosionTargets));
+			explosion.SendMessage("SetDuration",explosionDuration);
+			explosion.SendMessage("SetBlastEffect",new UpgradeAction(blastEffect,onCollisionTargets));
 			explosion.SendMessage("StartDelay",0f);
 		}
 	}
@@ -63,8 +63,7 @@ public class HomingRocket : ProjectileAttack
 	{
 		if(other.GetType().BaseType != typeof(Ability)) {
 			if(other.GetType().BaseType == typeof(ProjectileAttack)) {
-				ProjectileAttack pa = (ProjectileAttack)other;
-				pa.onDestroy = createExplosion;
+
 			}
 		}
 	}

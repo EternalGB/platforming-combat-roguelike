@@ -13,6 +13,7 @@ public class BlastController : MonoBehaviour
 	LayerMask blastTargets;
 	float delay = 0f;
 	Vector3 originalScale;
+	float origDuration;
 	Collider2D[] colliders;
 
 	void OnEnable()
@@ -20,7 +21,7 @@ public class BlastController : MonoBehaviour
 		if(colliders == null)
 			colliders = GetComponents<Collider2D>();
 		originalScale = transform.localScale;
-
+		origDuration = existanceTime;
 	}
 
 	void Destroy()
@@ -35,6 +36,7 @@ public class BlastController : MonoBehaviour
 			col.enabled = false;
 		GetComponent<SpriteRenderer>().sprite = preBlastSprite;
 		transform.localScale = originalScale;
+		existanceTime = origDuration;
 		CancelInvoke();
 	}
 
@@ -67,5 +69,9 @@ public class BlastController : MonoBehaviour
 
 	}
 
+	void SetDuration(float duration)
+	{
+		existanceTime = duration;
+	}
 
 }
