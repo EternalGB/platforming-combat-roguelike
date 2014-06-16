@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Boulder : ProjectileAttack 
+public class Boulder : CloseBlast 
 {
 
 	public GameObject clusterObj;
@@ -55,11 +55,14 @@ public class Boulder : ProjectileAttack
 
 	override protected void upgradeOtherAbility(Ability other)
 	{
-		if(other.GetType().BaseType != typeof(Ability)) {
-			if(other.GetType().BaseType == typeof(ProjectileAttack)) {
-				ProjectileAttack pa = (ProjectileAttack)other;
-				pa.onDestroy = spawnClusters;
-			}
+		if(other.GetType().BaseType == typeof(ProjectileAttack)) {
+
+		} else if(other.GetType().BaseType == typeof(CloseBlast)) {
+
+		} else if(other.GetType().BaseType == typeof(Buff)) {
+
+		} else if(other.GetType().BaseType == typeof(Special)) {
+			//individual ifs for each ab
 		}
 	}
 	
