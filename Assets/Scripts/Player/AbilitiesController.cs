@@ -52,7 +52,8 @@ public class AbilitiesController : MonoBehaviour
 
 	public void UpgradeAbility(Ability upg, int slot)
 	{
-		allAbilities.Add(upg);
+		if(!allAbilities.Contains(upg))
+			allAbilities.Add(upg);
 		if(slot >= 0 && activeAbilities[slot] != null)
 			activeAbilities[slot].upgradeAbility(upg);
 	}
@@ -68,6 +69,17 @@ public class AbilitiesController : MonoBehaviour
 			if(active != null && ab.abilityName == active.abilityName)
 				return true;
 		}
+		return false;
+	}
+
+	public bool IsUpgrade(Ability ab)
+	{
+		foreach(Ability active in activeAbilities) {
+			if(active != null && active.upgrade != null && active.upgrade.abilityName == ab.abilityName) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 

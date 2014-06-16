@@ -78,7 +78,7 @@ public class PlayerGUI : MonoBehaviour
 		upgradeButton = Input.GetAxisRaw("Upgrade");
 		//TODO ability activates immediately after assigning
 		if(mode == GUIMode.ABILITY_PREVIEW) {
-			if(Input.GetButtonDown("Upgrade")) {
+			if(Input.GetButton("Upgrade")) {
 				if(Input.GetButtonDown("A1")) {
 					abCont.UpgradeAbility(lastReceivedAbility,0);
 					TogglePause();
@@ -124,20 +124,16 @@ public class PlayerGUI : MonoBehaviour
 			}
 
 			Ability selectedAb = abCont.allAbilities[abMenuSelected];
-			if(!abCont.IsActive(selectedAb)) {
-				if(Input.GetButtonDown("Upgrade")) {
+			if(!abCont.IsActive(selectedAb) && !abCont.IsUpgrade(selectedAb)) {
+				if(Input.GetButton("Upgrade")) {
 					if(Input.GetButtonDown("A1")) {
 						abCont.UpgradeAbility(selectedAb,0);
-						TogglePause();
 					} else if(Input.GetButtonDown("A2")) {
 						abCont.UpgradeAbility(selectedAb,1);
-						TogglePause();
 					} else if(Input.GetButtonDown("A3")) {
 						abCont.UpgradeAbility(selectedAb,2);
-						TogglePause();
 					} else if(Input.GetButtonDown("A4")) {
 						abCont.UpgradeAbility(selectedAb,3);
-						TogglePause();
 					}
 				} else if(Input.GetButtonDown("A1")) {
 					abCont.SetAbility(abMenuSelected,0);
@@ -249,7 +245,7 @@ public class PlayerGUI : MonoBehaviour
 			abMenuPosition = GUI.BeginScrollView(new Rect(0,0,720,480),abMenuPosition,new Rect(0,0,720,abMenuHeight));
 			for(int i = 0; i < abCont.allAbilities.Count; i++) {
 				Ability ab = abCont.allAbilities[i];
-				if(abCont.IsActive(ab)) {
+				if(abCont.IsActive(ab) || abCont.IsUpgrade(ab)) {
 					GUI.color = Color.gray;
 				} else
 					GUI.color = tmpColor;
