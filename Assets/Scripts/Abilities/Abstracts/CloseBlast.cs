@@ -8,7 +8,6 @@ public abstract class CloseBlast : Ability
 	public GameObject blastObj;
 	ObjectPool blastPool;
 	public Action<Transform, Transform> onHitByBurst;
-	public Vector2 fireLocation;
 	public float blastDelay;
 	public LayerMask burstTargets;
 	protected Transform channeler;
@@ -28,20 +27,42 @@ public abstract class CloseBlast : Ability
 		if(channeler == null) {
 			channeler = player.FindChild("channeler");
 		}
+		createBlast(channeler,player);
+	}
+
+	void createBlast(Transform location, Transform player)
+	{
 		GameObject blast = blastPool.getPooled();
 		blast.SetActive(true);
 		blast.SendMessage ("StartDelay",blastDelay);
 		blast.SendMessage("SetBlastEffect",new UpgradeAction(onHitByBurst,burstTargets));
-		blast.transform.position = 
-			channeler.position + new Vector3(fireLocation.x*Mathf.Sign(player.localScale.x),fireLocation.y,0);
-		blast.transform.rotation = channeler.rotation;
-
+		blast.transform.position = location.position;
+		blast.transform.right = location.right*Mathf.Sign (location.localScale.x);
 	}
 	
 	override protected void upgradeOtherAbility(Ability other)
 	{
 		if(other.GetType().BaseType == typeof(ProjectileAttack)) {
-			upgradeProjectileAttack((ProjectileAttack)other);
+			ProjectileAttack pa = (ProjectileAttack)other;
+			pa.onCollision = createBlast;
+			pa.onCollisionTargets = burstTargets;
+		} else if(other.GetType().BaseType == typeof(CloseBlast)) {
+			CloseBlast cb = (CloseBlast)other;
+			cb.onHitByBurst = createBlast;
+			cb.burstTargets = burstTargets;
+		} else if(other.GetType().BaseType == typeof(Buff)) {
+			Buff b = (Buff)other;
+			
+		} else if(other.GetType().BaseType == typeof(Special)) {
+			if(other.GetType() == typeof(Dash)) {
+				
+			} else if(other.GetType() == typeof(Glide)) {
+				
+			} else if(other.GetType() == typeof(ClusterShower)) {
+				ClusterShower cs = (ClusterShower)other;
+				cs.onCollision = onHitByBurst;
+				cs.onCollisionTargets = burstTargets;
+			}
 		}
 	}
 

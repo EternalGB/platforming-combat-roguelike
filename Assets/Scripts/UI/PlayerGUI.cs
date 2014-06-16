@@ -78,7 +78,21 @@ public class PlayerGUI : MonoBehaviour
 		upgradeButton = Input.GetAxisRaw("Upgrade");
 		//TODO ability activates immediately after assigning
 		if(mode == GUIMode.ABILITY_PREVIEW) {
-			if(Input.GetButtonDown("A1")) {
+			if(Input.GetButtonDown("Upgrade")) {
+				if(Input.GetButtonDown("A1")) {
+					abCont.UpgradeAbility(lastReceivedAbility,0);
+					TogglePause();
+				} else if(Input.GetButtonDown("A2")) {
+					abCont.UpgradeAbility(lastReceivedAbility,1);
+					TogglePause();
+				} else if(Input.GetButtonDown("A3")) {
+					abCont.UpgradeAbility(lastReceivedAbility,2);
+					TogglePause();
+				} else if(Input.GetButtonDown("A4")) {
+					abCont.UpgradeAbility(lastReceivedAbility,3);
+					TogglePause();
+				}
+			} else if(Input.GetButtonDown("A1")) {
 				abCont.AddAbility(lastReceivedAbility,0);
 				TogglePause();
 			} else if(Input.GetButtonDown("A2")) {
@@ -94,21 +108,7 @@ public class PlayerGUI : MonoBehaviour
 			} else if(Input.GetButtonDown("Pause")) {
 				abCont.AddAbility(lastReceivedAbility,-1);
 				TogglePause();
-			} else if(Input.GetButtonDown("Upgrade")) {
-				if(Input.GetButtonDown("A1")) {
-					abCont.UpgradeAbility(lastReceivedAbility,0);
-					TogglePause();
-				} else if(Input.GetButtonDown("A2")) {
-					abCont.UpgradeAbility(lastReceivedAbility,1);
-					TogglePause();
-				} else if(Input.GetButtonDown("A3")) {
-					abCont.UpgradeAbility(lastReceivedAbility,2);
-					TogglePause();
-				} else if(Input.GetButtonDown("A4")) {
-					abCont.UpgradeAbility(lastReceivedAbility,3);
-					TogglePause();
-				}
-			}
+			} 
 		} else if(mode == GUIMode.ABILITY_MENU) {
 			if(abMenuCanSelect) {
 				int hori = (int)Input.GetAxisRaw("Horizontal");
@@ -125,7 +125,21 @@ public class PlayerGUI : MonoBehaviour
 
 			Ability selectedAb = abCont.allAbilities[abMenuSelected];
 			if(!abCont.IsActive(selectedAb)) {
-				if(Input.GetButtonDown("A1")) {
+				if(Input.GetButtonDown("Upgrade")) {
+					if(Input.GetButtonDown("A1")) {
+						abCont.UpgradeAbility(selectedAb,0);
+						TogglePause();
+					} else if(Input.GetButtonDown("A2")) {
+						abCont.UpgradeAbility(selectedAb,1);
+						TogglePause();
+					} else if(Input.GetButtonDown("A3")) {
+						abCont.UpgradeAbility(selectedAb,2);
+						TogglePause();
+					} else if(Input.GetButtonDown("A4")) {
+						abCont.UpgradeAbility(selectedAb,3);
+						TogglePause();
+					}
+				} else if(Input.GetButtonDown("A1")) {
 					abCont.SetAbility(abMenuSelected,0);
 				} else if(Input.GetButtonDown ("A2")) {
 					abCont.SetAbility(abMenuSelected,1);
@@ -172,23 +186,8 @@ public class PlayerGUI : MonoBehaviour
 
 		if(mode == GUIMode.GAME) {
 			//draw the abilities overlay and ability icons
-			GUI.DrawTexture(new Rect(0,0,origWidth,origHeight),abilitiesOverlay);
+			DrawAbilityIcons();
 
-			Color tmpColor = GUI.color;
-			for(int i = 0; i < abCont.activeAbilities.Length; i++) {
-				Ability ab = abCont.activeAbilities[i];
-				if(ab != null && ab.icon != null) {
-					//greyout the ability if it's on cooldown
-					if(!ab.canActivate)
-						GUI.color = Color.gray;
-					else
-						GUI.color = tmpColor;
-					GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
-					                         abBarArea.y + abSpacing,
-					                         abIconSize, abIconSize), ab.icon.texture);
-				}
-			}
-			GUI.color = tmpColor;
 			//draw the player's health bar
 			float percentHealth = pCont.currentHealth/pCont.maxHealth;
 			GUI.DrawTexture(new Rect(healthBarDefault.x,healthBarDefault.y
@@ -237,17 +236,7 @@ public class PlayerGUI : MonoBehaviour
 			GUI.EndGroup ();
 		} else if(mode == GUIMode.ABILITY_MENU) {
 			//draw the abilities overlay and ability icons
-			GUI.DrawTexture(new Rect(0,0,origWidth,origHeight),abilitiesOverlay);
-			
-
-			for(int i = 0; i < abCont.activeAbilities.Length; i++) {
-				Ability ab = abCont.activeAbilities[i];
-				if(ab != null && ab.icon != null) {
-					GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
-					                         abBarArea.y + abSpacing,
-					                         abIconSize, abIconSize), ab.icon.texture);
-				}
-			}
+			DrawAbilityIcons();
 			//draw the abilities area
 			float iconSize = 100;
 			float iconMargin = 30;
@@ -297,6 +286,32 @@ public class PlayerGUI : MonoBehaviour
 		GUI.matrix = lastMat;
 	}
 		
+	void DrawAbilityIcons()
+	{
+		GUI.DrawTexture(new Rect(0,0,origWidth,origHeight),abilitiesOverlay);
+		
+		Color tmpColor = GUI.color;
+		for(int i = 0; i < abCont.activeAbilities.Length; i++) {
+			Ability ab = abCont.activeAbilities[i];
+			if(ab != null && ab.icon != null) {
+				//greyout the ability if it's on cooldown
+				if(!ab.canActivate)
+					GUI.color = Color.gray;
+				else
+					GUI.color = tmpColor;
+				GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
+				                         abBarArea.y + abSpacing,
+				                         abIconSize, abIconSize), ab.icon.texture);
+			}
+			if(ab.upgrade != null) {
+				GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
+				                         abBarArea.y + abSpacing,
+				                         abIconSize/2, abIconSize/2), ab.upgrade.icon.texture);
+			}
+		}
+		GUI.color = tmpColor;
+	}
+
 	void DrawRotatedTexture(Rect loc, Texture texture, float angle)
 	{
 		Matrix4x4 mat = GUI.matrix;

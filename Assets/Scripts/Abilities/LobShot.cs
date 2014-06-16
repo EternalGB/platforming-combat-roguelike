@@ -6,12 +6,6 @@ using System;
 public class LobShot : ProjectileAttack 
 {
 
-
-	void Start()
-	{
-		base.Start ();
-	}
-
 	override protected void fireProjectile(GameObject bullet, Transform player)
 	{
 		if(channeler == null) {
@@ -24,12 +18,6 @@ public class LobShot : ProjectileAttack
 		Vector3 facingDir = player.right*Mathf.Sign (player.localScale.x);
 		Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*facingDir;
 		bullet.rigidbody2D.AddForce(firingDir*bulletVelocity);
-	}
-	
-
-	override protected void upgradeOtherAbility(Ability other)
-	{
-
 	}
 	
 	override public void passiveEffect(Transform player)

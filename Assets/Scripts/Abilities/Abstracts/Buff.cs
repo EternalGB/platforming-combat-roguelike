@@ -19,6 +19,18 @@ public abstract class Buff : Ability
 		}
 	}
 
+	override protected void upgradeOtherAbility(Ability other)
+	{
+		if(other.GetType().BaseType == typeof(ProjectileAttack)) {
+			
+		} else if(other.GetType().BaseType == typeof(CloseBlast)) {
+			
+		} else if(other.GetType().BaseType == typeof(Buff)) {
+			
+		} else if(other.GetType().BaseType == typeof(Special)) {
+			
+		}
+	}
 
 
 }
