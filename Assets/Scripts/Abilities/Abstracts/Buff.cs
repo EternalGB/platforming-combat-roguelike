@@ -62,7 +62,15 @@ public abstract class Buff : Ability
 			b.buffs.Add(buffEffect,undoBuff);
 			b.buffDurations.Add(buffEffect,buffDuration);
 		} else if(other.GetType().BaseType == typeof(Special)) {
-			
+			if(other.GetType() == typeof(Dash)) {
+				
+			} else if(other.GetType() == typeof(Glide)) {
+				
+			} else if(other.GetType() == typeof(ClusterShower)) {
+				ClusterShower cs = (ClusterShower)other;
+				effectSize = -effectSize;
+				cs.onCollision = doBuff;
+			}
 		}
 	}
 

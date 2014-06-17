@@ -8,8 +8,10 @@ public class DOTBlast : CloseBlast
 
 	override public void burstEffect(Transform blast, Transform target)
 	{
-		target.SendMessage("ApplyDOT",new Vector2(effectSize,intervals));
-		target.SendMessage("SetColor",Color.red);
+		if(target.GetComponent<GameActor>()) {
+			target.SendMessage("ApplyDOT",new Vector2(effectSize,intervals));
+			target.SendMessage("SetColor",Color.red);
+		}
 	}
 
 

@@ -8,6 +8,7 @@ public abstract class CloseBlast : Ability
 	public GameObject blastObj;
 	ObjectPool blastPool;
 	public Action<Transform, Transform> onHitByBurst;
+	public Action<Transform, Transform> blastFunc;
 	public float blastDelay;
 	public LayerMask burstTargets;
 	protected Transform channeler;
@@ -19,6 +20,7 @@ public abstract class CloseBlast : Ability
 			blastPool = ObjectPool.GetPoolByRepresentative(blastObj);
 		}
 		onHitByBurst = burstEffect;
+		blastFunc = createBlast;
 	}
 
 	public abstract void burstEffect(Transform blast, Transform target);
@@ -28,7 +30,7 @@ public abstract class CloseBlast : Ability
 		if(channeler == null) {
 			channeler = player.FindChild("channeler");
 		}
-		createBlast(channeler,player);
+		blastFunc(channeler,player);
 	}
 
 	void createBlast(Transform location, Transform player)
@@ -63,7 +65,7 @@ public abstract class CloseBlast : Ability
 				
 			} else if(other.GetType() == typeof(ClusterShower)) {
 				ClusterShower cs = (ClusterShower)other;
-				cs.onCollision = onHitByBurst;
+				cs.onCollision = createBlast;
 				cs.onCollisionTargets = burstTargets;
 			}
 		}

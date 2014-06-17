@@ -25,15 +25,23 @@ public class PlayerController : GameActor
 	float groundCheckRadius = 0.2f;
 	public float baseGroundFriction;
 	public LayerMask groundLayer;
-
+	
+	public static GameObject GlobalPlayerInstance
+	{
+		get;
+		private set;
+	}
 
 	void Start()
 	{
 		base.Start();
 		jumpTimeStart = -1;
+		if(GlobalPlayerInstance != null && GlobalPlayerInstance != this) {
+			Destroy(gameObject);
 
+		}
 
-
+		GlobalPlayerInstance = gameObject;
 	}
 
 	void Update()

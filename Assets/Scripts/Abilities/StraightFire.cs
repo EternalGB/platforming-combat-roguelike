@@ -22,9 +22,6 @@ public class StraightFire : ProjectileAttack
 		bullet.rigidbody2D.AddForce(player.right*Mathf.Sign(player.localScale.x)*bulletVelocity);
 	}
 	
-	public void defaultCollision(Transform projectile, Transform target)
-	{
-		target.SendMessage("Damage",effectSize);
-	}
+
 }
 

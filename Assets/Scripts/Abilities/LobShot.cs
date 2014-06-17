@@ -6,6 +6,12 @@ using System;
 public class LobShot : ProjectileAttack 
 {
 
+	void Start()
+	{
+		base.Start();
+		onCollision = defaultCollision;
+	}
+
 	override protected void fireProjectile(GameObject bullet, Transform player)
 	{
 		if(channeler == null) {
@@ -20,6 +26,7 @@ public class LobShot : ProjectileAttack
 		bullet.rigidbody2D.AddForce(firingDir*bulletVelocity);
 	}
 	
+
 	override public void passiveEffect(Transform player)
 	{
 

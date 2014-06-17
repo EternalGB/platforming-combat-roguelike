@@ -7,6 +7,19 @@ public abstract class ProjectileAttack : Ability
 
 	protected ObjectPool projectiles;
 	public GameObject projectileRep;
+	public GameObject ProjectileRep
+	{
+		get
+		{
+			return projectileRep;
+		}
+		set
+		{
+			projectileRep = value;
+			projectiles = ObjectPool.GetPoolByRepresentative(projectileRep);
+		}
+
+	}
 	protected Transform channeler;
 	public float bulletVelocity = 1000;
 	public Action<Transform, Transform> onCollision;
@@ -15,7 +28,7 @@ public abstract class ProjectileAttack : Ability
 	public void Start()
 	{
 		base.Start();
-		projectiles = ObjectPool.GetPoolByRepresentative(projectileRep);
+		projectiles = ObjectPool.GetPoolByRepresentative(ProjectileRep);
 		if(upgrade != null) {
 			upgradeAbility(upgrade);
 		}
@@ -26,7 +39,7 @@ public abstract class ProjectileAttack : Ability
 	{
 		GameObject bullet = projectiles.getPooled();
 		bullet.SetActive(true);
-		bullet.SendMessage("IgnoreCollider",player.collider2D);
+		bullet.SendMessage("IgnoreCollider",PlayerController.GlobalPlayerInstance.collider2D);
 		fireProjectile(bullet,player);
 	}
 
@@ -58,6 +71,12 @@ public abstract class ProjectileAttack : Ability
 				cs.onCollisionTargets = onCollisionTargets;
 			}
 		}
+	}
+
+	protected void defaultCollision(Transform projectile, Transform target)
+	{
+		if(target.GetComponent<GameActor>())
+			target.SendMessage("Damage",effectSize);
 	}
 
 	override protected void reset()
