@@ -14,13 +14,18 @@ public abstract class Ability : MonoBehaviour
 	public float effectSize;
 	public Sprite icon;
 	public Ability upgrade;
+	public System.Action<Transform> activeFunc;
 
+	public void Start()
+	{
+		activeFunc = activeEffect;
+	}
 
 	public void triggerActive(Transform player)
 	{
 		if(canActivate) {
 			canActivate = false;
-			activeEffect(player);
+			activeFunc(player);
 			StartCoroutine(Timers.Countdown(1/activateRate,enableFire));
 		}
 	}

@@ -4,21 +4,19 @@ using System.Collections;
 public class Sprint : Buff
 {
 
-	override protected void buffEffect(GameActor actor)
+	override public void buffEffect(Transform applier, Transform target)
 	{
+		GameActor actor = target.GetComponent<GameActor>();
 		actor.maxSpeed = actor.maxSpeed + effectSize;
 	}
 
-	override protected void undoBuff(GameActor actor)
+	override public void undoBuff(Transform applier, Transform target)
 	{
+		GameActor actor = target.GetComponent<GameActor>();
 		actor.maxSpeed = actor.maxSpeed - effectSize;
 	}
 	
 
-	override protected void upgradeOtherAbility(Ability other)
-	{
-
-	}
 
 	override protected void reset()
 	{

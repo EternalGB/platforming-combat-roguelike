@@ -4,21 +4,18 @@ using System.Collections;
 public class Heal : Buff
 {
 
-	override protected void buffEffect(GameActor actor)
+	override public void buffEffect(Transform applier, Transform target)
 	{
+		GameActor actor = target.GetComponent<GameActor>();
 		actor.currentHealth = Mathf.Clamp (actor.currentHealth + effectSize,0,actor.maxHealth);
 	}
 
-	override protected void undoBuff(GameActor actor)
+	override public void undoBuff(Transform applier, Transform target)
 	{
 
 	}
 	
 
-	override protected void upgradeOtherAbility(Ability other)
-	{
-
-	}
 
 	override protected void reset()
 	{

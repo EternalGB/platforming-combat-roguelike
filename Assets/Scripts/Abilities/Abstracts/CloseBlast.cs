@@ -14,6 +14,7 @@ public abstract class CloseBlast : Ability
 
 	void Start()
 	{
+		base.Start();
 		if(blastObj != null) {
 			blastPool = ObjectPool.GetPoolByRepresentative(blastObj);
 		}
@@ -42,17 +43,19 @@ public abstract class CloseBlast : Ability
 	
 	override protected void upgradeOtherAbility(Ability other)
 	{
+		print(abilityName + " upgrading " + other.abilityName);
 		if(other.GetType().BaseType == typeof(ProjectileAttack)) {
 			ProjectileAttack pa = (ProjectileAttack)other;
 			pa.onCollision = createBlast;
 			pa.onCollisionTargets = burstTargets;
 		} else if(other.GetType().BaseType == typeof(CloseBlast)) {
 			CloseBlast cb = (CloseBlast)other;
-			cb.onHitByBurst = createBlast;
+			cb.onHitByBurst = onHitByBurst;
 			cb.burstTargets = burstTargets;
 		} else if(other.GetType().BaseType == typeof(Buff)) {
 			Buff b = (Buff)other;
-			
+			onHitByBurst = b.buffEffect;
+			b.activeFunc = activeEffect;
 		} else if(other.GetType().BaseType == typeof(Special)) {
 			if(other.GetType() == typeof(Dash)) {
 				

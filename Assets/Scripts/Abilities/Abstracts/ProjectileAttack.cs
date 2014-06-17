@@ -14,6 +14,7 @@ public abstract class ProjectileAttack : Ability
 	
 	public void Start()
 	{
+		base.Start();
 		projectiles = ObjectPool.GetPoolByRepresentative(projectileRep);
 		if(upgrade != null) {
 			upgradeAbility(upgrade);
@@ -33,6 +34,7 @@ public abstract class ProjectileAttack : Ability
 
 	override protected void upgradeOtherAbility(Ability other)
 	{
+		print(abilityName + " upgrading " + other.abilityName);
 		if(other.GetType().BaseType == typeof(ProjectileAttack)) {
 			ProjectileAttack pa = (ProjectileAttack)other;
 			pa.onCollision = onCollision;
@@ -43,7 +45,8 @@ public abstract class ProjectileAttack : Ability
 			cb.burstTargets = onCollisionTargets;
 		} else if(other.GetType().BaseType == typeof(Buff)) {
 			Buff b = (Buff)other;
-
+			onCollision = b.buffEffect;
+			b.activeFunc = activeEffect;
 		} else if(other.GetType().BaseType == typeof(Special)) {
 			if(other.GetType() == typeof(Dash)) {
 
