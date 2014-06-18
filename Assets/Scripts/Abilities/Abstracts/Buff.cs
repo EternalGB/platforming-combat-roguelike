@@ -61,10 +61,10 @@ public abstract class Buff : Ability
 			Buff b = (Buff)other;
 			b.buffs.Add(buffEffect,undoBuff);
 			b.buffDurations.Add(buffEffect,buffDuration);
-		} else if(other.GetType().BaseType == typeof(Special)) {
+		} else if(other.GetType().BaseType == typeof(Buff)) {
 			if(other.GetType() == typeof(Dash)) {
 				
-			} else if(other.GetType() == typeof(Glide)) {
+			} else if(other.GetType() == typeof(GravitySet)) {
 				
 			} else if(other.GetType() == typeof(ClusterShower)) {
 				ClusterShower cs = (ClusterShower)other;

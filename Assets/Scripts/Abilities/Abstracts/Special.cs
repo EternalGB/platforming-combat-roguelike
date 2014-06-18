@@ -5,6 +5,5 @@ public abstract class Special : Ability
 {
 
 
-
 }
 

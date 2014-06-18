@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class ClusterShower : Special 
+public class ClusterShower : Special
 {
 
 	public GameObject clusterObj;
@@ -100,7 +100,7 @@ public class ClusterShower : Special
 			Buff b = (Buff)other;
 			onCollision = b.buffEffect;
 			b.activeFunc = activeEffect;
-		} else if(other.GetType().BaseType == typeof(Special)) {
+		} else if(other.GetType().BaseType == typeof(Buff)) {
 			//individual ifs for each ab
 		}
 	}
