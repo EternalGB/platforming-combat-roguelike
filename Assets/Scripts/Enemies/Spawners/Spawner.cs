@@ -65,6 +65,19 @@ public abstract class Spawner : MonoBehaviour
 
 	protected abstract void Spawn(Vector2 pos);
 	
-	
+	void OnDrawGizmosSelected()
+	{
+		Vector3 pos = transform.position;
+		if(spawnType == SpawnType.CIRCLE) {
+			Gizmos.DrawWireSphere(pos,range);
+		} else if(spawnType == SpawnType.HORI_LINE) {
+			Gizmos.DrawLine(pos - Vector3.right*range,pos + Vector3.right*range);
+		} else if(spawnType == SpawnType.SQUARE) {
+			Gizmos.DrawWireCube(pos,new Vector3(range,range,1));
+		} else if(spawnType == SpawnType.VERT_LINE) {
+			Gizmos.DrawLine(pos - Vector3.up*range,pos + Vector3.up*range);
+		}
+	}
+
 }
 
