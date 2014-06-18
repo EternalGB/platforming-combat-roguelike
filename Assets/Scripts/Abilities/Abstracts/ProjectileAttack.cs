@@ -63,8 +63,6 @@ public abstract class ProjectileAttack : Ability
 		} else if(other.GetType().BaseType == typeof(Buff)) {
 			if(other.GetType() == typeof(Dash)) {
 
-			} else if(other.GetType() == typeof(GravitySet)) {
-
 			} else if(other.GetType() == typeof(ClusterShower)) {
 				ClusterShower cs = (ClusterShower)other;
 				cs.onCollision = onCollision;

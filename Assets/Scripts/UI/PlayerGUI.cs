@@ -289,21 +289,25 @@ public class PlayerGUI : MonoBehaviour
 		Color tmpColor = GUI.color;
 		for(int i = 0; i < abCont.activeAbilities.Length; i++) {
 			Ability ab = abCont.activeAbilities[i];
-			if(ab != null && ab.icon != null) {
+			if(ab != null) {
 				//greyout the ability if it's on cooldown
 				if(!ab.canActivate)
 					GUI.color = Color.gray;
 				else
 					GUI.color = tmpColor;
-				GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
-				                         abBarArea.y + abSpacing,
-				                         abIconSize, abIconSize), ab.icon.texture);
+
+				if(ab.icon != null) {
+					GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
+					                         abBarArea.y + abSpacing,
+					                         abIconSize, abIconSize), ab.icon.texture);
+				}
+				if(ab.upgrade != null && ab.upgrade.icon != null) {
+					GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
+					                         abBarArea.y + abSpacing,
+					                         abIconSize/2, abIconSize/2), ab.upgrade.icon.texture);
+				}
 			}
-			if(ab.upgrade != null) {
-				GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
-				                         abBarArea.y + abSpacing,
-				                         abIconSize/2, abIconSize/2), ab.upgrade.icon.texture);
-			}
+
 		}
 		GUI.color = tmpColor;
 	}

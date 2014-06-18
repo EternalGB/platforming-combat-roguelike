@@ -33,6 +33,8 @@ public abstract class GameActor : MonoBehaviour
 		}
 	}
 
+
+
 	protected void Flip()
 	{
 		facingRight = !facingRight;
