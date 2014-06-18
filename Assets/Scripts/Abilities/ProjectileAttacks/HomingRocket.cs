@@ -10,7 +10,7 @@ public class HomingRocket : ProjectileAttack
 	ObjectPool explosionPool;
 	public float explosionSize;
 	public float explosionDuration;
-	public Action<Transform, Transform> blastEffect;
+
 
 	void Start()
 	{
@@ -18,7 +18,7 @@ public class HomingRocket : ProjectileAttack
 		if(explosionPool == null && explosionRep != null) {
 			explosionPool = ObjectPool.GetPoolByRepresentative(explosionRep);
 		}
-		blastEffect = defaultBlast;
+		onCollision = defaultBlast;
 	}
 
 	override protected void fireProjectile(GameObject bullet, Transform player)
@@ -28,8 +28,8 @@ public class HomingRocket : ProjectileAttack
 		}
 		bullet.transform.position = channeler.position;
 		bullet.transform.right = player.right*Mathf.Sign (player.localScale.x);
-		bullet.SendMessage("SetOnDestroy",new UpgradeAction(createExplosion,onCollisionTargets));
-		bullet.SendMessage("SetOnCollision",new UpgradeAction(createExplosion,onCollisionTargets));
+		bullet.SendMessage("SetOnDestroy",new UpgradeAction(onCollision,onCollisionTargets));
+		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
 
 	}
 
@@ -44,29 +44,23 @@ public class HomingRocket : ProjectileAttack
 			scale = explosionSize*scale;
 			explosion.transform.localScale = scale;
 			explosion.SendMessage("SetDuration",explosionDuration);
-			explosion.SendMessage("SetBlastEffect",new UpgradeAction(blastEffect,onCollisionTargets));
+			explosion.SendMessage("SetBlastEffect",new UpgradeAction(defaultBlast,onCollisionTargets));
 			explosion.SendMessage("StartDelay",0f);
 		}
 	}
 
 	public void defaultBlast(Transform projectile, Transform target)
 	{
-		target.SendMessage("Damage",effectSize);
+		if(target.GetComponent<GameActor>())
+			target.SendMessage("Damage",effectSize);
 		if(target.rigidbody2D != null) {
 			Vector3 forceDir = target.position - projectile.position;
-			Vector3 force = forceDir.normalized*effectSize*10;//*1/Mathf.Pow(forceDir.magnitude,2);
+			Vector3 force = forceDir.normalized*effectSize*10;
 			target.rigidbody2D.AddForce(force);
 		}
 	}
 
-	override protected void upgradeOtherAbility(Ability other)
-	{
-		if(other.GetType().BaseType != typeof(Ability)) {
-			if(other.GetType().BaseType == typeof(ProjectileAttack)) {
 
-			}
-		}
-	}
 	
 	override public void passiveEffect(Transform player)
 	{
