@@ -3,30 +3,46 @@ using System.Collections;
 
 public class Dash : Special
 {
-	
+
+	float knockbackScaling = 5;
+	float speedScaling = 5;
+	public System.Action<Transform> preDashAction;
 
 	override public void activeEffect(Transform player)
 	{
-		player.SendMessage("Dash",effectSize);
+		if(player.GetComponent<PlayerController>()) {
+			if(preDashAction != null) 
+				preDashAction(player);
+			player.SendMessage("Dash",effectSize);
+		}
 	}
 	
 	override protected void upgradeOtherAbility(Ability other)
 	{
-		//if the ability is not a direct child of the ability class
-		//then is may have some other base type that we have to check
-		if(other.GetType().BaseType != typeof(Ability)) {
-			if(other.GetType().BaseType == typeof(ProjectileAttack)) {
-				upgradeProjectileAttack((ProjectileAttack)other);
+		if(other.GetType().BaseType == typeof(ProjectileAttack)) {
+			ProjectileAttack pa = (ProjectileAttack)other;
+			pa.bulletVelocity += speedScaling*effectSize;
+		} else if(other.GetType().BaseType == typeof(CloseBlast)) {
+			CloseBlast cb = (CloseBlast)other;
+			cb.onHitByBurst = knockback;
+		} else if(other.GetType().BaseType == typeof(Buff)) {
+			Buff b = (Buff)other;
+			b.effectSize += effectSize/5;
+		} else if(other.GetType().BaseType == typeof(Special)) {
+			if(other.GetType() == typeof(ClusterShower)) {
+				ClusterShower cs = (ClusterShower)other;
+				cs.onCollision = knockback;
 			}
-		//else it's an instance of a direct child class
-		} else if(other.GetType () == typeof(ProjectileAttack)) {
-			upgradeProjectileAttack((ProjectileAttack)other);
 		}
 	}
 
-	private void upgradeProjectileAttack(ProjectileAttack pa)
+	void knockback(Transform applier, Transform target)
 	{
-		pa.bulletVelocity += effectSize;
+		if(target.rigidbody2D != null) {
+			Vector3 forceDir = target.position - applier.position;
+			Vector3 force = forceDir.normalized*effectSize*knockbackScaling;
+			target.rigidbody2D.AddForce(force);
+		}
 	}
 
 	override protected void reset()

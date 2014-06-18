@@ -58,9 +58,10 @@ public abstract class CloseBlast : Ability
 			Buff b = (Buff)other;
 			onHitByBurst = b.buffEffect;
 			b.activeFunc = activeEffect;
-		} else if(other.GetType().BaseType == typeof(Buff)) {
+		} else if(other.GetType().BaseType == typeof(Special)) {
 			if(other.GetType() == typeof(Dash)) {
-				
+				Dash d = (Dash)other;
+				d.preDashAction = activeEffect;
 			} else if(other.GetType() == typeof(ClusterShower)) {
 				ClusterShower cs = (ClusterShower)other;
 				cs.onCollision = createBlast;

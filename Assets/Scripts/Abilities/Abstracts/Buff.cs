@@ -61,9 +61,10 @@ public abstract class Buff : Ability
 			Buff b = (Buff)other;
 			b.buffs.Add(buffEffect,undoBuff);
 			b.buffDurations.Add(buffEffect,buffDuration);
-		} else if(other.GetType().BaseType == typeof(Buff)) {
+		} else if(other.GetType().BaseType == typeof(Special)) {
 			if(other.GetType() == typeof(Dash)) {
-				
+				Dash d = (Dash)other;
+				d.preDashAction = activeEffect;
 			} else if(other.GetType() == typeof(ClusterShower)) {
 				ClusterShower cs = (ClusterShower)other;
 				effectSize = -effectSize;

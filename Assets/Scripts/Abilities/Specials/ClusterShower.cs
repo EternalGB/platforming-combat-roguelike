@@ -75,6 +75,11 @@ public class ClusterShower : Special
 		}
 	}
 
+	void sprayClusters(Transform location)
+	{
+		sprayClusters(location,null);
+	}
+	
 	public void defaultCollision(Transform projectile, Transform target)
 	{
 		if(target.GetComponent<GameActor>())
@@ -100,8 +105,11 @@ public class ClusterShower : Special
 			Buff b = (Buff)other;
 			onCollision = b.buffEffect;
 			b.activeFunc = activeEffect;
-		} else if(other.GetType().BaseType == typeof(Buff)) {
-			//individual ifs for each ab
+		} else if(other.GetType().BaseType == typeof(Special)) {
+			if(other.GetType() == typeof(Dash)) {
+				Dash d = (Dash)other;
+				d.preDashAction = sprayClusters;
+			} 
 		}
 	}
 	
