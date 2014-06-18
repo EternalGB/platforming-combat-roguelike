@@ -14,41 +14,55 @@ public class FlyingGuard : BaseEnemyBehaviour
 	Vector3 dest;
 
 	//TODO can't path around obstacles
-
-	// Use this for initialization
+	
 	void Start ()
 	{
-		tetherRadius = tether.GetComponent<CircleCollider2D>().radius;
-		dest = transform.position;
 		base.Start ();
+		dest = transform.position;
 	}
 
-	// Update is called once per frame
+
 	void FixedUpdate ()
 	{
 
+		withinTetherRadius = checkTether();
+		//print(withinTetherRadius);
+
+		Color lineColor = Color.green;
+
 		if((target = getTarget())) {
 			dest = target.position;
+			lineColor = Color.red;
 			CancelInvoke("GetRandomDest");
 		} else if(!withinTetherRadius) {
 			dest = tether.position;
 			CancelInvoke("GetRandomDest");
-		} else if(Vector3.Distance(transform.position,dest) <= 0.1) {
+		} else if(Vector2.Distance(transform.position,dest) <= 0.3) {
 			Invoke("GetRandomDest",0);
 		} else {
 			if(!IsInvoking("GetRandomDest"))
 				Invoke("GetRandomDest",patrolInterval);
 		}
 
-
-		transform.position += (dest - transform.position).normalized*maxSpeed*Time.fixedDeltaTime;
+		Debug.DrawLine(transform.position,dest,lineColor);
+		//transform.position += (dest - transform.position).normalized*maxSpeed*Time.fixedDeltaTime;
 		base.FixedUpdate();
 	}
 
-	void OnTriggerStay2D(Collider2D other)
+	override protected void physicsMove(Vector2 moveDir, float accel)
 	{
-		if(other.transform.GetInstanceID() == tether.GetInstanceID())
-			withinTetherRadius = true;
+		Vector2 newVel = rigidbody2D.velocity + moveDir*accel*Time.fixedDeltaTime;
+		if((newVel.magnitude <= maxSpeed)
+		   || (rigidbody2D.velocity.magnitude > maxSpeed && newVel.magnitude < rigidbody2D.velocity.magnitude))
+		{
+			rigidbody2D.velocity = newVel;
+		}
+	}
+
+
+	bool checkTether()
+	{
+		return Vector2.Distance(transform.position,tether.position) <= tetherRadius;
 	}
 
 	Transform getTarget()
@@ -65,15 +79,17 @@ public class FlyingGuard : BaseEnemyBehaviour
 		dest = (Vector2)tether.position + Random.insideUnitCircle*tetherRadius;
 	}
 
-	void SetTether(Transform tether)
+	public void SetTether(Transform tether, float radius)
 	{
+		print(GetInstanceID() + " got tether with radius " + radius);
 		this.tether = tether;
+		tetherRadius = radius;
 	}
 
 
-	override protected float horizontalMovingDir()
+	override protected Vector2 movingDir()
 	{
-		return (transform.position- dest).x;
+		return (dest - transform.position).normalized;
 	}
 	
 	override protected bool isStrafing()

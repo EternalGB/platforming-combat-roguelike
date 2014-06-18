@@ -7,7 +7,7 @@ public class PlatformGuard : BaseEnemyBehaviour
 	public enum BehaviourState
 	{CHASE,PATROL};
 
-	float movingDir = -1;
+	float travelDir = -1;
 	float patrolDir = -1;
 	BehaviourState behaviour;
 	Transform target;
@@ -22,7 +22,6 @@ public class PlatformGuard : BaseEnemyBehaviour
 	void Start()
 	{
 		base.Start ();
-		horiAcceleration = maxSpeed/10;
 		behaviour = BehaviourState.PATROL;
 		facingRight = false;
 	}
@@ -31,7 +30,8 @@ public class PlatformGuard : BaseEnemyBehaviour
 	void FixedUpdate()
 	{
 		groundInFront = Physics2D.OverlapCircle(forwardGroundCheck.position,groundCheckRadius,groundLayer);
-		float movementPower = horiAcceleration;
+
+		float savedAccel = acceleration;
 
 		if((target = getTarget())) {
 			behaviour = BehaviourState.CHASE;
@@ -46,20 +46,22 @@ public class PlatformGuard : BaseEnemyBehaviour
 			if(!groundInFront) {
 				patrolDir = -patrolDir;
 			}
-			movingDir = patrolDir;
+			travelDir = patrolDir;
 		} else if(behaviour == BehaviourState.CHASE) {
 			if(anim != null)
 				anim.SetBool("walking",true);
-			movingDir = (target.position - transform.position).x;
+			travelDir = (target.position - transform.position).x;
 			if(!groundInFront) {
 				if(anim != null)
 					anim.SetBool("walking",false);
-				movementPower = 0;
+				acceleration = 0;
 				//rigidbody2D.velocity = new Vector2(0,rigidbody2D.velocity.y);
 			}
 		}
-		horizontalPhysicsMovement(movingDir,movementPower);
+		//horizontalPhysicsMovement(travelDir,movementPower);
 		base.FixedUpdate();
+
+		acceleration = savedAccel;
 	}
 
 	Transform getTarget()
@@ -73,9 +75,10 @@ public class PlatformGuard : BaseEnemyBehaviour
 
 
 
-	override protected float horizontalMovingDir()
+
+	override protected Vector2 movingDir()
 	{
-		return movingDir;
+		return new Vector2(travelDir,0);
 	}
 	
 	override protected bool isStrafing()

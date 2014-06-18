@@ -4,9 +4,9 @@ using System.Collections;
 public class Stationary : BaseEnemyBehaviour
 {
 
-	override protected float horizontalMovingDir()
+	override protected Vector2 movingDir()
 	{
-		return 0;
+		return Vector2.zero;
 	}
 	
 	override protected bool isStrafing()

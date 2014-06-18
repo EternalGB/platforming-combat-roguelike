@@ -51,9 +51,9 @@ public class PlayerController : GameActor
 		}
 	}
 
-	override protected float horizontalMovingDir()
+	override protected Vector2 movingDir()
 	{
-		return hori;
+		return new Vector2(hori,0);
 	}
 
 	override protected bool isStrafing()

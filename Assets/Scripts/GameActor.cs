@@ -8,7 +8,7 @@ public abstract class GameActor : MonoBehaviour
 
 	Color defaultColor;
 	public float maxSpeed;
-	protected float horiAcceleration;
+	protected float acceleration;
 	public bool dashing = false;
 	float dashPower;
 	float savedGravity = 1;
@@ -48,7 +48,7 @@ public abstract class GameActor : MonoBehaviour
 		InvokeRepeating("Regen",0,regenInterval);
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		defaultColor = spriteRenderer.color;
-		horiAcceleration = maxSpeed;
+		acceleration = maxSpeed;
 		savedGravity = rigidbody2D.gravityScale;
 
 	}
@@ -56,9 +56,9 @@ public abstract class GameActor : MonoBehaviour
 	protected void FixedUpdate()
 	{
 		if(!isStrafing()) {
-			if(horizontalMovingDir() > 0 && !facingRight)
+			if(movingDir().x > 0 && !facingRight)
 				Flip();
-			else if(horizontalMovingDir() < 0 && facingRight)
+			else if(movingDir().x < 0 && facingRight)
 				Flip();
 		}
 
@@ -79,7 +79,7 @@ public abstract class GameActor : MonoBehaviour
 			rigidbody2D.velocity = dashPower*facingDir;
 			//doing it this way allows for other physics forces to affect the player
 		} else {
-			horizontalPhysicsMovement(horizontalMovingDir(),horiAcceleration);
+			physicsMove(movingDir(),acceleration);
 			rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity,globalMaxSpeed);
 		}
 
@@ -90,14 +90,15 @@ public abstract class GameActor : MonoBehaviour
 			Die();
 	}
 
-	protected void horizontalPhysicsMovement(float moveDir, float acceleration)
+	protected virtual void physicsMove(Vector2 moveDir, float accel)
 	{
-		if((Mathf.Abs(moveDir) > 0 && Mathf.Abs(rigidbody2D.velocity.x) < maxSpeed)
-		   || (rigidbody2D.velocity.x > maxSpeed && moveDir < 0)
-		   || (rigidbody2D.velocity.x < -maxSpeed && moveDir > 0)) 
+		if((moveDir.magnitude > 0 && Mathf.Abs(rigidbody2D.velocity.x) < maxSpeed)
+		   || (rigidbody2D.velocity.x > maxSpeed && moveDir.x < 0)
+		   || (rigidbody2D.velocity.x < -maxSpeed && moveDir.x > 0)) 
 		{
-			rigidbody2D.velocity = 
-				new Vector2(rigidbody2D.velocity.x + moveDir*acceleration, rigidbody2D.velocity.y);
+			rigidbody2D.velocity = rigidbody2D.velocity + moveDir*accel;
+			//rigidbody2D.velocity = 
+			//	new Vector2(rigidbody2D.velocity.x + moveDir.x*acceleration, rigidbody2D.velocity.y + moveDir.y*acceleration);
 		}
 	}
 
@@ -186,7 +187,7 @@ public abstract class GameActor : MonoBehaviour
 		}
 	}
 
-	protected abstract float horizontalMovingDir();
+	protected abstract Vector2 movingDir();
 
 	protected abstract bool isStrafing();
 
