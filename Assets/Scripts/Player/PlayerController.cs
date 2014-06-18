@@ -6,24 +6,20 @@ public class PlayerController : GameActor
 {
 
 	float hori = 0f;
-	float vert = 0f;
-	float strafe = 0f;
 	
 	public Animator anim;
 
 
+	bool jumpPressed = false;
 	public float jumpPower;
 	public float jumpDuration;
 	float jumpTimeStart;
 
 
 
-
-
 	bool onGround = false;
 	public Transform groundCheck;
 	float groundCheckRadius = 0.2f;
-	public float baseGroundFriction;
 	public LayerMask groundLayer;
 	
 	public static GameObject GlobalPlayerInstance
@@ -47,8 +43,12 @@ public class PlayerController : GameActor
 	void Update()
 	{
 		hori = Input.GetAxis ("Horizontal");
-		vert = Input.GetAxisRaw ("Vertical");
-		strafe = Input.GetAxisRaw ("Strafe");
+		if(onGround && Input.GetButtonDown("Jump")) {
+			//TODO should only be able apply the jump force exactly once
+			onGround = false;
+			rigidbody2D.AddForce(new Vector2(0,jumpPower));
+			jumpTimeStart = Time.time;				 
+		}
 	}
 
 	override protected float horizontalMovingDir()
@@ -58,7 +58,7 @@ public class PlayerController : GameActor
 
 	override protected bool isStrafing()
 	{
-		return strafe > 0;
+		return Input.GetButton("Strafe");
 	}
 
 	void FixedUpdate()
@@ -68,19 +68,9 @@ public class PlayerController : GameActor
 		onGround = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
 		anim.SetBool("onGround",onGround);
 
-		if(onGround) {
-			//TODO should only be able apply the jump force exactly once
-			if(vert > 0) {
-				onGround = false;
-				rigidbody2D.AddForce(new Vector2(0,jumpPower));
-				jumpTimeStart = Time.time;
-			} else {
-				DoFriction(rigidbody2D,baseGroundFriction,maxSpeed);
 
-			}
-		}
 
-		if(vert > 0 && jumpTimeStart > 0 && Time.time - jumpTimeStart <= jumpDuration) {
+		if(Input.GetButton ("Jump") && jumpTimeStart > 0 && Time.time - jumpTimeStart <= jumpDuration) {
 			rigidbody2D.AddForce (new Vector2(0,2*jumpPower*Time.fixedDeltaTime));
 		}
 
@@ -90,23 +80,12 @@ public class PlayerController : GameActor
 	override protected void Die()
 	{
 		hori = 0;
-		vert = 0;
-		strafe = 0;
 		rigidbody2D.velocity = Vector2.zero;
 		currentHealth = maxHealth;
 		transform.position = GameObject.Find("PlayerSpawn").transform.position;
 	}
 
-	static void DoFriction(Rigidbody2D body, float power, float max)
-	{
-		Vector2 final = new Vector2(body.velocity.x,body.velocity.y);
-		if(body.velocity.x < 0) {
-			final.x = Mathf.Clamp(final.x + power,-max,0);
-		} else if(body.velocity.x > 0) {
-			final.x = Mathf.Clamp(final.x - power,0,max);
-		}
-		body.velocity = final;
-	}
+
 	
 
 
