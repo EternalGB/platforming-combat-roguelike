@@ -160,7 +160,7 @@ public abstract class GameActor : MonoBehaviour
 
 	void OnGUI()
 	{
-		if(drawLocalHealthBar && currentHealth < maxHealth)
+		if(!PlayerGUI.paused && drawLocalHealthBar && currentHealth < maxHealth)
 			DrawLocalHealthBar();
 	}
 
