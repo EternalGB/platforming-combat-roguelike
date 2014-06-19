@@ -17,12 +17,7 @@ public class Sprint : Buff
 		actor.maxSpeed = actor.maxSpeed - effectSize;
 	}
 	
-
-
-	override protected void reset()
-	{
-		
-	}
+	
 
 	override public void passiveEffect(Transform player)
 	{

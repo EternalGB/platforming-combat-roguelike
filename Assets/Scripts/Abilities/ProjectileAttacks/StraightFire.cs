@@ -4,11 +4,7 @@ using System.Collections;
 public class StraightFire : ProjectileAttack
 {
 
-	void Start()
-	{
-		onCollision = defaultCollision;
-		base.Start();
-	}
+
 
 	override protected void fireProjectile(GameObject bullet, Transform player)
 	{

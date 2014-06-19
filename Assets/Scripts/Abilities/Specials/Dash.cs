@@ -8,6 +8,8 @@ public class Dash : Special
 	float speedScaling = 5;
 	public System.Action<Transform> preDashAction;
 
+
+
 	override public void activeEffect(Transform player)
 	{
 		if(player.GetComponent<PlayerController>()) {
@@ -47,7 +49,7 @@ public class Dash : Special
 
 	override protected void reset()
 	{
-		
+		preDashAction = null;
 	}
 
 	override public void passiveEffect(Transform player)

@@ -8,8 +8,8 @@ public class GravityReduce : Buff
 
 	void Start()
 	{
-		base.Start();
 		originalGravs = new Dictionary<Transform, float>();
+		base.Start();
 	}
 
 	override public void buffEffect(Transform applier, Transform target)
@@ -30,12 +30,6 @@ public class GravityReduce : Buff
 		}
 	}
 	
-	
-	
-	override protected void reset()
-	{
-		
-	}
 
 	override public void passiveEffect(Transform player)
 	{

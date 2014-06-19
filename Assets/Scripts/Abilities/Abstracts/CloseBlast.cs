@@ -6,12 +6,28 @@ public abstract class CloseBlast : Ability
 {
 
 	public GameObject blastObj;
+	public GameObject BlastObj
+	{
+		get
+		{
+			return blastObj;
+		}
+		set
+		{
+			blastObj = value;
+			blastPool = ObjectPool.GetPoolByRepresentative(blastObj);
+		}
+	}
 	ObjectPool blastPool;
 	public Action<Transform, Transform> onHitByBurst;
 	public Action<Transform, Transform> blastFunc;
 	public float blastDelay;
 	public LayerMask burstTargets;
 	protected Transform channeler;
+
+	private GameObject origBlastObj;
+	private float origBlastDelay;
+	private LayerMask origBurstTargets;
 
 	void Start()
 	{
@@ -21,6 +37,13 @@ public abstract class CloseBlast : Ability
 		}
 		onHitByBurst = burstEffect;
 		blastFunc = createBlast;
+
+		origBlastObj = blastObj;
+		origBlastDelay = blastDelay;
+		origBurstTargets = burstTargets;
+		if(upgrade != null) {
+			upgradeAbility(upgrade);
+		}
 	}
 
 	public abstract void burstEffect(Transform blast, Transform target);
@@ -77,7 +100,11 @@ public abstract class CloseBlast : Ability
 
 	override protected void reset()
 	{
-		
+		BlastObj = origBlastObj;
+		onHitByBurst = burstEffect;
+		blastFunc = createBlast;
+		blastDelay = origBlastDelay;
+		burstTargets = origBurstTargets;
 	}
 
 	override public void passiveEffect(Transform player)

@@ -7,6 +7,18 @@ public class ClusterShower : Special
 {
 
 	public GameObject clusterObj;
+	public GameObject ClusterObj
+	{
+		get
+		{
+			return clusterObj;
+		}
+		set
+		{
+			clusterObj = value;
+			clusterPool = ObjectPool.GetPoolByRepresentative(clusterObj);
+		}
+	}
 	ObjectPool clusterPool;
 	public float fireForce;
 	public int fireAmount = 5;
@@ -16,16 +28,24 @@ public class ClusterShower : Special
 	public Action<Transform, Transform> onCollision;
 	public LayerMask onCollisionTargets;
 
+	private GameObject origClusterObj;
+	private float origFireForce;
+	private int origFireAmount;
+	private LayerMask origOnCollisionTargets;
+
 	void Start()
 	{
-		base.Start();
-		if(upgrade != null) {
-			upgradeAbility(upgrade);
-		}
 		onCollision = defaultCollision;
 		if(clusterPool == null && clusterObj != null) {
 			clusterPool = ObjectPool.GetPoolByRepresentative(clusterObj);
 		}
+
+		origClusterObj = clusterObj;
+		origFireForce = fireForce;
+		origFireAmount = fireAmount;
+		origOnCollisionTargets = onCollisionTargets;
+
+		base.Start();
 	}
 
 	override public void activeEffect(Transform player)
@@ -90,7 +110,11 @@ public class ClusterShower : Special
 
 	override protected void reset()
 	{
-
+		onCollision = defaultCollision;
+		ClusterObj = origClusterObj;
+		fireForce = origFireForce;
+		fireAmount = origFireAmount;
+		onCollisionTargets = origOnCollisionTargets;
 	}
 
 	override protected void upgradeOtherAbility(Ability other)

@@ -14,11 +14,11 @@ public class HomingRocket : ProjectileAttack
 
 	void Start()
 	{
-		base.Start ();
+
 		if(explosionPool == null && explosionRep != null) {
 			explosionPool = ObjectPool.GetPoolByRepresentative(explosionRep);
 		}
-		onCollision = defaultBlast;
+		base.Start ();
 	}
 
 	override protected void fireProjectile(GameObject bullet, Transform player)
@@ -28,7 +28,7 @@ public class HomingRocket : ProjectileAttack
 		}
 		bullet.transform.position = channeler.position;
 		bullet.transform.right = player.right*Mathf.Sign (player.localScale.x);
-		bullet.SendMessage("SetOnDestroy",new UpgradeAction(onCollision,onCollisionTargets));
+		bullet.SendMessage("SetOnDestroy",new UpgradeAction(createExplosion,onCollisionTargets));
 		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
 
 	}
@@ -44,12 +44,12 @@ public class HomingRocket : ProjectileAttack
 			scale = explosionSize*scale;
 			explosion.transform.localScale = scale;
 			explosion.SendMessage("SetDuration",explosionDuration);
-			explosion.SendMessage("SetBlastEffect",new UpgradeAction(defaultBlast,onCollisionTargets));
+			explosion.SendMessage("SetBlastEffect",new UpgradeAction(defaultCollision,onCollisionTargets));
 			explosion.SendMessage("StartDelay",0f);
 		}
 	}
 
-	public void defaultBlast(Transform projectile, Transform target)
+	override protected void defaultCollision(Transform projectile, Transform target)
 	{
 		if(target.GetComponent<GameActor>())
 			target.SendMessage("Damage",effectSize);

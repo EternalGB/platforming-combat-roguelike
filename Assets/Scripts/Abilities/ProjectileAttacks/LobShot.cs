@@ -6,11 +6,7 @@ using System;
 public class LobShot : ProjectileAttack 
 {
 
-	void Start()
-	{
-		base.Start();
-		onCollision = defaultCollision;
-	}
+
 
 	override protected void fireProjectile(GameObject bullet, Transform player)
 	{

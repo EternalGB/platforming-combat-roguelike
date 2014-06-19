@@ -16,11 +16,14 @@ public abstract class Ability : MonoBehaviour
 	public Ability upgrade;
 	public System.Action<Transform> activeFunc;
 
-
+	private float origCooldown;
+	private float origEffectSize;
 
 	public void Start()
 	{
 		activeFunc = activeEffect;
+		origCooldown = cooldown;
+		origEffectSize = effectSize;
 	}
 
 	public void triggerActive(Transform player)
@@ -46,8 +49,12 @@ public abstract class Ability : MonoBehaviour
 	public void removeUpgrade()
 	{
 		upgrade = null;
+		cooldown = origCooldown;
+		effectSize = origEffectSize;
+		activeFunc = activeEffect;
 		reset();
 	}
+	
 
 	public abstract void activeEffect(Transform player);
 

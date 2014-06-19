@@ -17,12 +17,7 @@ public class Heal : Buff
 	}
 	
 
-
-	override protected void reset()
-	{
-		
-	}
-
+	
 	override public void passiveEffect(Transform player)
 	{
 

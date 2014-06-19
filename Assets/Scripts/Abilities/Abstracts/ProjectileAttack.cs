@@ -24,10 +24,19 @@ public abstract class ProjectileAttack : Ability
 	public float bulletVelocity = 1000;
 	public Action<Transform, Transform> onCollision;
 	public LayerMask onCollisionTargets;
-	
+
+	private GameObject origProjectileRep;
+	private float origBulletVel;
+	private LayerMask origCollisionTargets;
+
 	public void Start()
 	{
 		base.Start();
+		onCollision = defaultCollision;
+		origProjectileRep = projectileRep;
+		origBulletVel = bulletVelocity;
+		origCollisionTargets = onCollisionTargets;
+
 		projectiles = ObjectPool.GetPoolByRepresentative(ProjectileRep);
 		if(upgrade != null) {
 			upgradeAbility(upgrade);
@@ -72,7 +81,7 @@ public abstract class ProjectileAttack : Ability
 		}
 	}
 
-	protected void defaultCollision(Transform projectile, Transform target)
+	protected virtual void defaultCollision(Transform projectile, Transform target)
 	{
 		if(target.GetComponent<GameActor>())
 			target.SendMessage("Damage",effectSize);
@@ -80,7 +89,10 @@ public abstract class ProjectileAttack : Ability
 
 	override protected void reset()
 	{
-
+		ProjectileRep = origProjectileRep;
+		bulletVelocity = origBulletVel;
+		onCollision = defaultCollision;
+		onCollisionTargets = origCollisionTargets;
 	}
 
 	override public void passiveEffect(Transform player)

@@ -9,9 +9,20 @@ public abstract class Buff : Ability
 	Dictionary<Action<Transform, Transform>,Action<Transform, Transform> > buffs;
 	Dictionary<Action<Transform, Transform>, float> buffDurations;
 
+	private float origBuffDuration;
+
 	public void Start()
 	{
 		base.Start();
+		origBuffDuration = buffDuration;
+		initBuffs();
+		if(upgrade != null) {
+			upgradeAbility(upgrade);
+		}
+	}
+
+	void initBuffs()
+	{
 		buffs = new Dictionary<Action<Transform, Transform>, Action<Transform, Transform>>();
 		buffDurations = new Dictionary<Action<Transform, Transform>, float>();
 		buffs.Add(buffEffect, undoBuff);
@@ -71,6 +82,12 @@ public abstract class Buff : Ability
 				cs.onCollision = doBuff;
 			}
 		}
+	}
+
+	override protected void reset()
+	{
+		buffDuration = origBuffDuration;
+		initBuffs();
 	}
 
 
