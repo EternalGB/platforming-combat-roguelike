@@ -9,12 +9,14 @@ public abstract class Ability : MonoBehaviour
 	public TextAsset upgradeDescription;
 	public TextAsset passiveDescription;
 
-	public float activateRate;
+	public float cooldown;
 	public bool canActivate = true;
 	public float effectSize;
 	public Sprite icon;
 	public Ability upgrade;
 	public System.Action<Transform> activeFunc;
+
+
 
 	public void Start()
 	{
@@ -26,7 +28,7 @@ public abstract class Ability : MonoBehaviour
 		if(canActivate) {
 			canActivate = false;
 			activeFunc(player);
-			StartCoroutine(Timers.Countdown(1/activateRate,enableFire));
+			StartCoroutine(Timers.Countdown(cooldown,enableFire));
 		}
 	}
 
