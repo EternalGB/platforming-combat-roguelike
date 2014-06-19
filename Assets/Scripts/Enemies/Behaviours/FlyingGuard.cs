@@ -34,6 +34,8 @@ public class FlyingGuard : BaseEnemyBehaviour
 			dest = target.position;
 			lineColor = Color.red;
 			CancelInvoke("GetRandomDest");
+		} else if(tether == null) {
+			Invoke("Die",10);
 		} else if(!withinTetherRadius) {
 			dest = tether.position;
 			CancelInvoke("GetRandomDest");
@@ -62,7 +64,10 @@ public class FlyingGuard : BaseEnemyBehaviour
 
 	bool checkTether()
 	{
-		return Vector2.Distance(transform.position,tether.position) <= tetherRadius;
+		if(tether != null)
+			return Vector2.Distance(transform.position,tether.position) <= tetherRadius;
+		else
+			return false;
 	}
 
 	Transform getTarget()
