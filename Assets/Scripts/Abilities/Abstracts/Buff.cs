@@ -16,9 +16,6 @@ public abstract class Buff : Ability
 		base.Start();
 		origBuffDuration = buffDuration;
 		initBuffs();
-		if(upgrade != null) {
-			upgradeAbility(upgrade);
-		}
 	}
 
 	void initBuffs()

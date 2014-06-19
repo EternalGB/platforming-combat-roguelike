@@ -13,7 +13,6 @@ public abstract class Ability : MonoBehaviour
 	public bool canActivate = true;
 	public float effectSize;
 	public Sprite icon;
-	public Ability upgrade;
 	public System.Action<Transform> activeFunc;
 
 	private float origCooldown;
@@ -40,15 +39,13 @@ public abstract class Ability : MonoBehaviour
 		canActivate = true;
 	}
 
-	public void upgradeAbility(Ability ab)
+	public void getUpgradedBy(Ability ab)
 	{
-		upgrade = ab;
 		ab.upgradeOtherAbility(this);
 	}
 
 	public void removeUpgrade()
 	{
-		upgrade = null;
 		cooldown = origCooldown;
 		effectSize = origEffectSize;
 		activeFunc = activeEffect;

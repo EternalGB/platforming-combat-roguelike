@@ -38,9 +38,6 @@ public abstract class ProjectileAttack : Ability
 		origCollisionTargets = onCollisionTargets;
 
 		projectiles = ObjectPool.GetPoolByRepresentative(ProjectileRep);
-		if(upgrade != null) {
-			upgradeAbility(upgrade);
-		}
 	}
 
 

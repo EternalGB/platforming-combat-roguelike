@@ -44,6 +44,8 @@ public class PlayerGUI : MonoBehaviour
 	float abMenuHeight = 0;
 	Vector2 abMenuPosition = Vector2.zero;
 
+	public Texture upgOutline;
+
 	AbilitiesController abCont;
 	PlayerController pCont;
 
@@ -124,16 +126,26 @@ public class PlayerGUI : MonoBehaviour
 			}
 
 			Ability selectedAb = abCont.allAbilities[abMenuSelected];
-			if(!abCont.IsActive(selectedAb) && !abCont.IsUpgrade(selectedAb)) {
+			if(Input.GetButton("Unupgrade")) {
+				if(Input.GetButtonDown("A1")) {
+					abCont.RemoveUpgrade(0);
+				} else if(Input.GetButtonDown("A2")) {
+					abCont.RemoveUpgrade(1);
+				} else if(Input.GetButtonDown("A3")) {
+					abCont.RemoveUpgrade(2);
+				} else if(Input.GetButtonDown("A4")) {
+					abCont.RemoveUpgrade(3);
+				}
+			} else if(!abCont.IsActive(selectedAb) && !abCont.IsUpgrade(selectedAb)) {
 				if(Input.GetButton("Upgrade")) {
 					if(Input.GetButtonDown("A1")) {
-						abCont.UpgradeAbility(selectedAb,0);
+						abCont.SetUpgrade(abMenuSelected,0);
 					} else if(Input.GetButtonDown("A2")) {
-						abCont.UpgradeAbility(selectedAb,1);
+						abCont.SetUpgrade(abMenuSelected,1);
 					} else if(Input.GetButtonDown("A3")) {
-						abCont.UpgradeAbility(selectedAb,2);
+						abCont.SetUpgrade(abMenuSelected,2);
 					} else if(Input.GetButtonDown("A4")) {
-						abCont.UpgradeAbility(selectedAb,3);
+						abCont.SetUpgrade(abMenuSelected,3);
 					}
 				} else if(Input.GetButtonDown("A1")) {
 					abCont.SetAbility(abMenuSelected,0);
@@ -288,6 +300,7 @@ public class PlayerGUI : MonoBehaviour
 		
 		Color tmpColor = GUI.color;
 		for(int i = 0; i < abCont.activeAbilities.Length; i++) {
+			//draw the active ability in that slot
 			Ability ab = abCont.activeAbilities[i];
 			if(ab != null) {
 				//greyout the ability if it's on cooldown
@@ -301,10 +314,22 @@ public class PlayerGUI : MonoBehaviour
 					                         abBarArea.y + abSpacing,
 					                         abIconSize, abIconSize), ab.icon.texture);
 				}
-				if(ab.upgrade != null && ab.upgrade.icon != null) {
+			}
+			//draw the upgrades in that slot
+			Ability upg = abCont.upgrades[i];
+			if(upg != null) {
+				if(!ab.canActivate)
+					GUI.color = Color.gray;
+				else
+					GUI.color = tmpColor;
+
+				if(upg.icon != null) {
 					GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
 					                         abBarArea.y + abSpacing,
-					                         abIconSize/2, abIconSize/2), ab.upgrade.icon.texture);
+					                         abIconSize/2, abIconSize/2), upg.icon.texture);
+					GUI.DrawTexture(new Rect(abBarArea.x + (i+1)*abSpacing + i*abIconSize,
+					                         abBarArea.y + abSpacing,
+					                         abIconSize/2, abIconSize/2), upgOutline);
 				}
 			}
 

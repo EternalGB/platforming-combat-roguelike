@@ -81,7 +81,6 @@ public class FlyingGuard : BaseEnemyBehaviour
 
 	public void SetTether(Transform tether, float radius)
 	{
-		print(GetInstanceID() + " got tether with radius " + radius);
 		this.tether = tether;
 		tetherRadius = radius;
 	}

@@ -23,8 +23,6 @@ public class AimedTurret : MonoBehaviour
 	void Update()
 	{
 		target = getTarget();
-		if(target != null)
-			print("GOT TARGET " + target.name);
 	}
 
 	Transform getTarget()

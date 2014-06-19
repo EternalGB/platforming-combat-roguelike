@@ -41,9 +41,6 @@ public abstract class CloseBlast : Ability
 		origBlastObj = blastObj;
 		origBlastDelay = blastDelay;
 		origBurstTargets = burstTargets;
-		if(upgrade != null) {
-			upgradeAbility(upgrade);
-		}
 	}
 
 	public abstract void burstEffect(Transform blast, Transform target);
