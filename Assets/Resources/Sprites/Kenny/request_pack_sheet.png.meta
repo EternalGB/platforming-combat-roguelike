@@ -35,6 +35,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 70
   alphaIsTransparency: 1
   textureType: 8
@@ -54,6 +55,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_1
       rect:
         serializedVersion: 2
@@ -63,6 +65,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_2
       rect:
         serializedVersion: 2
@@ -72,6 +75,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_3
       rect:
         serializedVersion: 2
@@ -81,6 +85,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_4
       rect:
         serializedVersion: 2
@@ -90,6 +95,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_5
       rect:
         serializedVersion: 2
@@ -99,6 +105,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_6
       rect:
         serializedVersion: 2
@@ -108,6 +115,7 @@ TextureImporter:
         height: 70
       alignment: 9
       pivot: {x: .519999981, y: .50999999}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_7
       rect:
         serializedVersion: 2
@@ -117,6 +125,7 @@ TextureImporter:
         height: 70
       alignment: 9
       pivot: {x: .50999999, y: .50999999}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_8
       rect:
         serializedVersion: 2
@@ -126,6 +135,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_9
       rect:
         serializedVersion: 2
@@ -135,6 +145,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_10
       rect:
         serializedVersion: 2
@@ -144,6 +155,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_11
       rect:
         serializedVersion: 2
@@ -153,6 +165,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_12
       rect:
         serializedVersion: 2
@@ -162,6 +175,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_13
       rect:
         serializedVersion: 2
@@ -171,6 +185,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_14
       rect:
         serializedVersion: 2
@@ -180,6 +195,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_15
       rect:
         serializedVersion: 2
@@ -189,6 +205,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_16
       rect:
         serializedVersion: 2
@@ -198,6 +215,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_17
       rect:
         serializedVersion: 2
@@ -207,6 +225,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_18
       rect:
         serializedVersion: 2
@@ -216,6 +235,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_19
       rect:
         serializedVersion: 2
@@ -225,6 +245,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_20
       rect:
         serializedVersion: 2
@@ -234,6 +255,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_21
       rect:
         serializedVersion: 2
@@ -243,6 +265,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_22
       rect:
         serializedVersion: 2
@@ -252,6 +275,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_23
       rect:
         serializedVersion: 2
@@ -261,6 +285,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_24
       rect:
         serializedVersion: 2
@@ -270,6 +295,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_25
       rect:
         serializedVersion: 2
@@ -279,6 +305,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_26
       rect:
         serializedVersion: 2
@@ -288,6 +315,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_27
       rect:
         serializedVersion: 2
@@ -297,6 +325,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_28
       rect:
         serializedVersion: 2
@@ -306,6 +335,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_29
       rect:
         serializedVersion: 2
@@ -315,6 +345,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_30
       rect:
         serializedVersion: 2
@@ -324,6 +355,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_31
       rect:
         serializedVersion: 2
@@ -333,6 +365,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_32
       rect:
         serializedVersion: 2
@@ -342,6 +375,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_33
       rect:
         serializedVersion: 2
@@ -351,6 +385,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_34
       rect:
         serializedVersion: 2
@@ -360,6 +395,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_35
       rect:
         serializedVersion: 2
@@ -369,6 +405,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_36
       rect:
         serializedVersion: 2
@@ -378,6 +415,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_37
       rect:
         serializedVersion: 2
@@ -387,6 +425,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_38
       rect:
         serializedVersion: 2
@@ -396,6 +435,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_39
       rect:
         serializedVersion: 2
@@ -405,6 +445,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_40
       rect:
         serializedVersion: 2
@@ -414,6 +455,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_41
       rect:
         serializedVersion: 2
@@ -423,6 +465,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_42
       rect:
         serializedVersion: 2
@@ -432,6 +475,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_43
       rect:
         serializedVersion: 2
@@ -441,6 +485,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_44
       rect:
         serializedVersion: 2
@@ -450,6 +495,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_45
       rect:
         serializedVersion: 2
@@ -459,6 +505,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_46
       rect:
         serializedVersion: 2
@@ -468,6 +515,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_47
       rect:
         serializedVersion: 2
@@ -477,6 +525,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_48
       rect:
         serializedVersion: 2
@@ -486,6 +535,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_49
       rect:
         serializedVersion: 2
@@ -495,6 +545,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_50
       rect:
         serializedVersion: 2
@@ -504,6 +555,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_51
       rect:
         serializedVersion: 2
@@ -513,6 +565,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_52
       rect:
         serializedVersion: 2
@@ -522,6 +575,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_53
       rect:
         serializedVersion: 2
@@ -531,6 +585,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_54
       rect:
         serializedVersion: 2
@@ -540,6 +595,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_55
       rect:
         serializedVersion: 2
@@ -549,6 +605,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_56
       rect:
         serializedVersion: 2
@@ -558,6 +615,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_57
       rect:
         serializedVersion: 2
@@ -567,6 +625,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_58
       rect:
         serializedVersion: 2
@@ -576,6 +635,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_59
       rect:
         serializedVersion: 2
@@ -585,6 +645,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_60
       rect:
         serializedVersion: 2
@@ -594,6 +655,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_61
       rect:
         serializedVersion: 2
@@ -603,6 +665,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_62
       rect:
         serializedVersion: 2
@@ -612,6 +675,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_63
       rect:
         serializedVersion: 2
@@ -621,6 +685,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_64
       rect:
         serializedVersion: 2
@@ -630,6 +695,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_65
       rect:
         serializedVersion: 2
@@ -639,6 +705,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_66
       rect:
         serializedVersion: 2
@@ -648,6 +715,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_67
       rect:
         serializedVersion: 2
@@ -657,6 +725,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_68
       rect:
         serializedVersion: 2
@@ -666,6 +735,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_69
       rect:
         serializedVersion: 2
@@ -675,6 +745,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_70
       rect:
         serializedVersion: 2
@@ -684,6 +755,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_71
       rect:
         serializedVersion: 2
@@ -693,6 +765,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_72
       rect:
         serializedVersion: 2
@@ -702,6 +775,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_73
       rect:
         serializedVersion: 2
@@ -711,6 +785,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_74
       rect:
         serializedVersion: 2
@@ -720,6 +795,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_75
       rect:
         serializedVersion: 2
@@ -729,6 +805,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_76
       rect:
         serializedVersion: 2
@@ -738,6 +815,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_77
       rect:
         serializedVersion: 2
@@ -747,6 +825,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_78
       rect:
         serializedVersion: 2
@@ -756,6 +835,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_79
       rect:
         serializedVersion: 2
@@ -765,6 +845,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_80
       rect:
         serializedVersion: 2
@@ -774,6 +855,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_81
       rect:
         serializedVersion: 2
@@ -783,6 +865,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_82
       rect:
         serializedVersion: 2
@@ -792,6 +875,7 @@ TextureImporter:
         height: 70
       alignment: 9
       pivot: {x: .50999999, y: .479999989}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_83
       rect:
         serializedVersion: 2
@@ -801,6 +885,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_84
       rect:
         serializedVersion: 2
@@ -810,6 +895,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_85
       rect:
         serializedVersion: 2
@@ -819,6 +905,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_86
       rect:
         serializedVersion: 2
@@ -828,6 +915,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_87
       rect:
         serializedVersion: 2
@@ -837,6 +925,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_88
       rect:
         serializedVersion: 2
@@ -846,6 +935,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_89
       rect:
         serializedVersion: 2
@@ -855,6 +945,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_90
       rect:
         serializedVersion: 2
@@ -864,6 +955,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_91
       rect:
         serializedVersion: 2
@@ -873,6 +965,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_92
       rect:
         serializedVersion: 2
@@ -882,6 +975,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_93
       rect:
         serializedVersion: 2
@@ -891,6 +985,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_94
       rect:
         serializedVersion: 2
@@ -900,6 +995,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_95
       rect:
         serializedVersion: 2
@@ -909,6 +1005,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_96
       rect:
         serializedVersion: 2
@@ -918,6 +1015,7 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: request_pack_sheet_97
       rect:
         serializedVersion: 2
@@ -927,5 +1025,6 @@ TextureImporter:
         height: 70
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
