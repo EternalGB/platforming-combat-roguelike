@@ -36,6 +36,12 @@ public class TrackingProjectile : PoolableProjectile
 
 	}
 
+	override protected void OnDisable()
+	{
+		target = null;
+		base.OnDisable();
+	}
+
 	void EnableTracking()
 	{
 		tracking = true;

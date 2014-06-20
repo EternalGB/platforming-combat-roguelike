@@ -22,7 +22,7 @@ public class PoolableProjectile : MonoBehaviour
 		gameObject.SetActive (false);
 	}
 
-	void OnDisable()
+	protected virtual void OnDisable()
 	{
 		if(onDestroy != null)
 			onDestroy(transform);
