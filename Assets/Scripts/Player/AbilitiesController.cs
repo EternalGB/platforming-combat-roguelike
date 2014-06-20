@@ -66,17 +66,16 @@ public class AbilitiesController : MonoBehaviour
 		Ability active = activeAbilities[abIndex];
 		Ability upg = upgrades[abIndex];
 		if(active != null && upg != null) {
-			active.removeUpgrade();
+			active.resetAbility();
+			upg.resetAbility();
 			upgrades[abIndex] = null;
 		}
 	}
 
 	public void SetAbility(int abIndex, int activeIndex)
 	{
-		Ability active = activeAbilities[activeIndex];
-		if(active && upgrades[activeIndex]) {
-			activeAbilities[activeIndex].removeUpgrade();
-			upgrades[activeIndex] = null;
+		if(activeAbilities[activeIndex] && upgrades[activeIndex]) {
+			RemoveUpgrade(abIndex);
 		}
 		activeAbilities[activeIndex] = allAbilities[abIndex];
 	}

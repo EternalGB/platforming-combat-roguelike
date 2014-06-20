@@ -44,7 +44,7 @@ public abstract class Ability : MonoBehaviour
 		ab.upgradeOtherAbility(this);
 	}
 
-	public void removeUpgrade()
+	public void resetAbility()
 	{
 		cooldown = origCooldown;
 		effectSize = origEffectSize;

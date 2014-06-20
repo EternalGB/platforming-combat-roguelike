@@ -76,12 +76,14 @@ public class ClusterShower : Special
 	//shoots in an angle around from Vector2.right
 	void shootCluster(Transform origin, float baseAngle)
 	{
+		float angle = baseAngle + UnityEngine.Random.Range (-maxDeviation,maxDeviation);
+
 		GameObject bullet = clusterPool.getPooled();
 		bullet.SetActive(true);
-		bullet.transform.position = origin.position;
+		bullet.transform.position = Quaternion.AngleAxis(angle,Vector3.forward)*origin.position;
 		bullet.SendMessage("IgnoreCollider",PlayerController.GlobalPlayerInstance.collider2D);
 		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
-		float angle = baseAngle + UnityEngine.Random.Range (-maxDeviation,maxDeviation);
+
 		Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*Vector2.right;
 		bullet.rigidbody2D.AddForce(firingDir*fireForce);
 	}
