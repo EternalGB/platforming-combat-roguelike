@@ -33,6 +33,8 @@ public class ClusterShower : Special
 	private int origFireAmount;
 	private LayerMask origOnCollisionTargets;
 
+	public LayerMask passiveHitTargets;
+
 	void Start()
 	{
 		onCollision = defaultCollision;
@@ -80,7 +82,7 @@ public class ClusterShower : Special
 
 		GameObject bullet = clusterPool.getPooled();
 		bullet.SetActive(true);
-		bullet.transform.position = Quaternion.AngleAxis(angle,Vector3.forward)*origin.position;
+		bullet.transform.position = origin.position;
 		bullet.SendMessage("IgnoreCollider",PlayerController.GlobalPlayerInstance.collider2D);
 		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
 
@@ -91,6 +93,7 @@ public class ClusterShower : Special
 	void sprayClusters(Transform location, Transform notNeeded)
 	{
 		if(location.gameObject.layer != LayerMask.NameToLayer("Ground")) {
+			print("Spraying clusters from " + location + " at " + location.position);
 			for(int i = 0; i < fireAmount; i++) {
 				StartCoroutine(Timers.Countdown<Transform, float>(UnityEngine.Random.Range (0f,0.1f),shootCluster,location,90));
 			}
@@ -141,12 +144,14 @@ public class ClusterShower : Special
 	
 	override public void applyPassive(Transform player)
 	{
-		
+		ActionOnHit script = player.gameObject.AddComponent<ActionOnHit>();
+		script.init(sprayClusters, passiveHitTargets, cooldown);
 	}
 	
 	override public void undoPassive(Transform player)
 	{
-		
+		//TODO check for multiple scripts of the same type
+		Destroy(player.gameObject.GetComponent<ActionOnHit>());
 	}
 	
 }
