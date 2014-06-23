@@ -51,5 +51,10 @@ public class AimedTurret : MonoBehaviour
 		target.SendMessage("Damage",damage);
 	}
 
+	void OnDrawGizmosSelected()
+	{
+		Gizmos.DrawWireSphere(transform.position,detectionRadius);
+	}
+
 }
 
