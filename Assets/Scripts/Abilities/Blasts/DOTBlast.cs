@@ -14,6 +14,16 @@ public class DOTBlast : CloseBlast
 		}
 	}
 
+	override public void applyPassive(Transform player)
+	{
+		
+	}
+	
+	override public void undoPassive(Transform player)
+	{
+		
+	}
+
 
 }
 

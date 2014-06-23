@@ -8,9 +8,7 @@ public class PlayerController : GameActor
 	float hori = 0f;
 	
 	public Animator anim;
-
-
-	bool jumpPressed = false;
+	
 	public float jumpPower;
 	public float jumpDuration;
 	float jumpTimeStart;
@@ -28,16 +26,21 @@ public class PlayerController : GameActor
 		private set;
 	}
 
+	void Awake()
+	{
+		if(GlobalPlayerInstance != null && GlobalPlayerInstance != this) {
+			Destroy(gameObject);
+			
+		}
+		
+		GlobalPlayerInstance = gameObject;
+	}
+
 	void Start()
 	{
 		base.Start();
 		jumpTimeStart = -1;
-		if(GlobalPlayerInstance != null && GlobalPlayerInstance != this) {
-			Destroy(gameObject);
 
-		}
-
-		GlobalPlayerInstance = gameObject;
 	}
 
 	void Update()

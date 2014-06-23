@@ -23,9 +23,14 @@ public class LobShot : ProjectileAttack
 	}
 	
 
-	override public void passiveEffect(Transform player)
+	override public void applyPassive(Transform player)
 	{
-
+		
+	}
+	
+	override public void undoPassive(Transform player)
+	{
+		
 	}
 
 }

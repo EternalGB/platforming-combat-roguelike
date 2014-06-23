@@ -104,10 +104,7 @@ public abstract class CloseBlast : Ability
 		burstTargets = origBurstTargets;
 	}
 
-	override public void passiveEffect(Transform player)
-	{
 
-	}
 
 }
 

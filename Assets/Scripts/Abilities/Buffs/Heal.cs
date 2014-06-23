@@ -18,9 +18,16 @@ public class Heal : Buff
 	
 
 	
-	override public void passiveEffect(Transform player)
+	override public void applyPassive(Transform player)
 	{
-
+		GameActor actor = player.GetComponent<GameActor>();
+		actor.healthRegen += effectSize/10;
+	}
+	
+	override public void undoPassive(Transform player)
+	{
+		GameActor actor = player.GetComponent<GameActor>();
+		actor.healthRegen -= effectSize/10;
 	}
 
 }

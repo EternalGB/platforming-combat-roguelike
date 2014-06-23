@@ -18,6 +18,14 @@ public class StraightFire : ProjectileAttack
 		bullet.rigidbody2D.AddForce(player.right*Mathf.Sign(player.localScale.x)*bulletVelocity);
 	}
 	
-
+	override public void applyPassive(Transform player)
+	{
+		
+	}
+	
+	override public void undoPassive(Transform player)
+	{
+		
+	}
 }
 

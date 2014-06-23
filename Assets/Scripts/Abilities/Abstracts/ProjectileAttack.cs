@@ -92,10 +92,5 @@ public abstract class ProjectileAttack : Ability
 		onCollisionTargets = origCollisionTargets;
 	}
 
-	override public void passiveEffect(Transform player)
-	{
-		
-	}
-
 }
 

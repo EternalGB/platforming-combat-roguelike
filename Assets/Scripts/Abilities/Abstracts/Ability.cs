@@ -59,7 +59,9 @@ public abstract class Ability : MonoBehaviour
 
 	protected abstract void reset();
 
-	public abstract void passiveEffect(Transform player);
+	public abstract void applyPassive(Transform player);
+
+	public abstract void undoPassive(Transform player);
 
 }
 

@@ -6,8 +6,9 @@ public class AbilitiesController : MonoBehaviour
 {
 
 	public float[] abInput;
-	public Ability[] activeAbilities;
+	public Ability[] actives;
 	public Ability[] upgrades;
+	public Ability[] passives;
 	public List<Ability> allAbilities;
 	public Transform channeller;
 	bool inputAllowed = true;
@@ -22,9 +23,9 @@ public class AbilitiesController : MonoBehaviour
 	{
 		if(allAbilities == null)
 			allAbilities = new List<Ability>();
-		for(int i = 0; i < activeAbilities.Length; i++)
-			if(activeAbilities[i] != null)
-				allAbilities.Add(activeAbilities[i]);
+		for(int i = 0; i < actives.Length; i++)
+			if(actives[i] != null)
+				allAbilities.Add(actives[i]);
 	}
 
 	void Update()
@@ -38,63 +39,89 @@ public class AbilitiesController : MonoBehaviour
 
 
 		for(int i = 0; i < abInput.Length; i++) {
-			if(abInput[i] > 0 && activeAbilities[i] != null) {
-				activeAbilities[i].triggerActive(transform);
+			if(abInput[i] > 0 && actives[i] != null) {
+				actives[i].triggerActive(transform);
 			}
 		}
 	}
 
-	public void AddAbility(Ability ab, int slot)
+	public void AddActive(Ability ab, int slot)
 	{
-		allAbilities.Add(ab);
+		if(!allAbilities.Contains(ab))
+			allAbilities.Add(ab);
 		if(slot >= 0)
-			SetAbility(allAbilities.IndexOf(ab),slot);
+			SetActive(allAbilities.IndexOf(ab),slot);
 	}
 
-	public void UpgradeAbility(Ability upg, int slot)
+	public void AddUpgrade(Ability upg, int slot)
 	{
 		if(!allAbilities.Contains(upg))
 			allAbilities.Add(upg);
-		if(slot >= 0 && activeAbilities[slot] != null) {
-			activeAbilities[slot].getUpgradedBy(upg);
-			upgrades[slot] = upg;
+		if(slot >= 0) {
+			SetUpgrade(allAbilities.IndexOf(upg),slot);
+		}
+	}
+
+	public void AddPassive(Ability pass, int slot)
+	{
+		if(!allAbilities.Contains(pass))
+			allAbilities.Add(pass);
+		if(slot >= 0) {
+			SetPassive(allAbilities.IndexOf(pass),slot);
 		}
 	}
 
 	public void RemoveUpgrade(int abIndex)
 	{
-		Ability active = activeAbilities[abIndex];
+		Ability active = actives[abIndex];
 		Ability upg = upgrades[abIndex];
-		if(active != null && upg != null) {
+		if(active)
 			active.resetAbility();
+		if(upg)
 			upg.resetAbility();
-			upgrades[abIndex] = null;
+		upgrades[abIndex] = null;
+	}
+
+	public void RemovePassive(int passIndex)
+	{
+		Ability p;
+		if(p = passives[passIndex]) {
+			p.undoPassive(PlayerController.GlobalPlayerInstance.transform);
+			passives[passIndex] = null;
 		}
 	}
 
-	public void SetAbility(int abIndex, int activeIndex)
+	public void SetActive(int abIndex, int activeIndex)
 	{
-		if(activeAbilities[activeIndex] && upgrades[activeIndex]) {
+		if(actives[activeIndex] && upgrades[activeIndex]) {
 			RemoveUpgrade(abIndex);
 		}
-		activeAbilities[activeIndex] = allAbilities[abIndex];
+		actives[activeIndex] = allAbilities[abIndex];
 	}
 
-	public void SetUpgrade(int upgIndex, int activeIndex)
+	public void SetUpgrade(int abIndex, int upgIndex)
 	{
-		Ability active = activeAbilities[activeIndex];
-		Ability upgrade = allAbilities[upgIndex];
+		Ability active = actives[upgIndex];
+		Ability upgrade = allAbilities[abIndex];
 		if(active && upgrade) {
-			if(upgrades[activeIndex])
-				RemoveUpgrade(activeIndex);
+			if(upgrades[upgIndex])
+				RemoveUpgrade(upgIndex);
 			active.getUpgradedBy(upgrade);
-			upgrades[activeIndex] = upgrade;
+			upgrades[upgIndex] = upgrade;
 		}
+	}
+
+	public void SetPassive(int abIndex, int passIndex)
+	{
+		if(passives[passIndex])
+			RemovePassive(passIndex);
+		passives[passIndex] = allAbilities[abIndex];
+		passives[passIndex].applyPassive(PlayerController.GlobalPlayerInstance.transform);
 	}
 
 	public bool IsActive(Ability ab)
 	{
-		foreach(Ability active in activeAbilities) {
+		foreach(Ability active in actives) {
 			if(active != null && ab.abilityName == active.abilityName)
 				return true;
 		}
@@ -110,6 +137,21 @@ public class AbilitiesController : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	public bool IsPassive(Ability ab)
+	{
+		foreach(Ability pass in passives) {
+			if(pass != null && pass.abilityName == ab.abilityName) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public bool InUse(Ability ab)
+	{
+		return IsActive(ab) || IsUpgrade(ab) || IsPassive(ab);
 	}
 
 	public void ToggleInput()

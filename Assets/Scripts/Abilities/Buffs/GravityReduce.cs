@@ -31,9 +31,16 @@ public class GravityReduce : Buff
 	}
 	
 
-	override public void passiveEffect(Transform player)
+	override public void applyPassive(Transform player)
 	{
-		
+		GameActor actor = player.GetComponent<GameActor>();
+		actor.rigidbody2D.gravityScale -= effectSize/2;
+	}
+	
+	override public void undoPassive(Transform player)
+	{
+		GameActor actor = player.GetComponent<GameActor>();
+		actor.rigidbody2D.gravityScale += effectSize/2;
 	}
 }
 

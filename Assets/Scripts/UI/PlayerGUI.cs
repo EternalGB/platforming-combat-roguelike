@@ -18,6 +18,10 @@ public class PlayerGUI : MonoBehaviour
 	public float origWidth;
 	public float origHeight;
 	public Rect abBarArea;
+	public Rect passiveBarArea;
+	float passiveIconSize = 50;
+	float passiveSpacing = 5;
+
 	public GUIMode mode;
 	Vector3 scale;
 	float abIconSize = 100;
@@ -82,35 +86,47 @@ public class PlayerGUI : MonoBehaviour
 		if(mode == GUIMode.ABILITY_PREVIEW) {
 			if(Input.GetButton("Upgrade")) {
 				if(Input.GetButtonDown("A1")) {
-					abCont.UpgradeAbility(lastReceivedAbility,0);
+					abCont.AddUpgrade(lastReceivedAbility,0);
 					TogglePause();
 				} else if(Input.GetButtonDown("A2")) {
-					abCont.UpgradeAbility(lastReceivedAbility,1);
+					abCont.AddUpgrade(lastReceivedAbility,1);
 					TogglePause();
 				} else if(Input.GetButtonDown("A3")) {
-					abCont.UpgradeAbility(lastReceivedAbility,2);
+					abCont.AddUpgrade(lastReceivedAbility,2);
 					TogglePause();
 				} else if(Input.GetButtonDown("A4")) {
-					abCont.UpgradeAbility(lastReceivedAbility,3);
+					abCont.AddUpgrade(lastReceivedAbility,3);
 					TogglePause();
 				}
 			} else if(Input.GetButtonDown("A1")) {
-				abCont.AddAbility(lastReceivedAbility,0);
+				abCont.AddActive(lastReceivedAbility,0);
 				TogglePause();
 			} else if(Input.GetButtonDown("A2")) {
-				abCont.AddAbility(lastReceivedAbility,1);
+				abCont.AddActive(lastReceivedAbility,1);
 				TogglePause();
 			} else if(Input.GetButtonDown("A3")) {
-				abCont.AddAbility(lastReceivedAbility,2);
+				abCont.AddActive(lastReceivedAbility,2);
 				TogglePause();
 				Input.ResetInputAxes();
 			} else if(Input.GetButtonDown("A4")) {
-				abCont.AddAbility(lastReceivedAbility,3);
+				abCont.AddActive(lastReceivedAbility,3);
 				TogglePause();
 			} else if(Input.GetButtonDown("Pause")) {
-				abCont.AddAbility(lastReceivedAbility,-1);
+				abCont.AddActive(lastReceivedAbility,-1);
 				TogglePause();
-			} 
+			} else if(Input.GetButtonDown ("P1")) {
+				abCont.AddPassive(lastReceivedAbility,0);
+				TogglePause();
+			} else if(Input.GetButtonDown ("P2")) {
+				abCont.AddPassive(lastReceivedAbility,1);
+				TogglePause();
+			} else if(Input.GetButtonDown ("P3")) {
+				abCont.AddPassive(lastReceivedAbility,2);
+				TogglePause();
+			} else if(Input.GetButtonDown ("P4")) {
+				abCont.AddPassive(lastReceivedAbility,3);
+				TogglePause();
+			}
 		} else if(mode == GUIMode.ABILITY_MENU) {
 			if(abMenuCanSelect) {
 				int hori = (int)Input.GetAxisRaw("Horizontal");
@@ -135,8 +151,16 @@ public class PlayerGUI : MonoBehaviour
 					abCont.RemoveUpgrade(2);
 				} else if(Input.GetButtonDown("A4")) {
 					abCont.RemoveUpgrade(3);
+				} else if(Input.GetButtonDown ("P1")) {
+					abCont.RemovePassive(0);
+				} else if(Input.GetButtonDown ("P2")) {
+					abCont.RemovePassive(1);
+				} else if(Input.GetButtonDown ("P3")) {
+					abCont.RemovePassive(2);
+				} else if(Input.GetButtonDown ("P4")) {
+					abCont.RemovePassive(3);
 				}
-			} else if(!abCont.IsActive(selectedAb) && !abCont.IsUpgrade(selectedAb)) {
+			} else if(!abCont.InUse(selectedAb)) {
 				if(Input.GetButton("Upgrade")) {
 					if(Input.GetButtonDown("A1")) {
 						abCont.SetUpgrade(abMenuSelected,0);
@@ -148,13 +172,21 @@ public class PlayerGUI : MonoBehaviour
 						abCont.SetUpgrade(abMenuSelected,3);
 					}
 				} else if(Input.GetButtonDown("A1")) {
-					abCont.SetAbility(abMenuSelected,0);
+					abCont.SetActive(abMenuSelected,0);
 				} else if(Input.GetButtonDown ("A2")) {
-					abCont.SetAbility(abMenuSelected,1);
+					abCont.SetActive(abMenuSelected,1);
 				} else if(Input.GetButtonDown("A3")) {
-					abCont.SetAbility(abMenuSelected,2);
+					abCont.SetActive(abMenuSelected,2);
 				} else if(Input.GetButtonDown ("A4")) {
-					abCont.SetAbility(abMenuSelected,3);
+					abCont.SetActive(abMenuSelected,3);
+				} else if(Input.GetButtonDown ("P1")) {
+					abCont.SetPassive(abMenuSelected,0);
+				} else if(Input.GetButtonDown ("P2")) {
+					abCont.SetPassive(abMenuSelected,1);
+				} else if(Input.GetButtonDown ("P3")) {
+					abCont.SetPassive(abMenuSelected,2);
+				} else if(Input.GetButtonDown ("P4")) {
+					abCont.SetPassive(abMenuSelected,3);
 				}
 			}
 		}
@@ -257,7 +289,7 @@ public class PlayerGUI : MonoBehaviour
 			abMenuPosition = GUI.BeginScrollView(new Rect(0,0,720,480),abMenuPosition,new Rect(0,0,720,abMenuHeight));
 			for(int i = 0; i < abCont.allAbilities.Count; i++) {
 				Ability ab = abCont.allAbilities[i];
-				if(abCont.IsActive(ab) || abCont.IsUpgrade(ab)) {
+				if(abCont.InUse (ab)) {
 					GUI.color = Color.gray;
 				} else
 					GUI.color = tmpColor;
@@ -299,9 +331,9 @@ public class PlayerGUI : MonoBehaviour
 		GUI.DrawTexture(new Rect(0,0,origWidth,origHeight),abilitiesOverlay);
 		
 		Color tmpColor = GUI.color;
-		for(int i = 0; i < abCont.activeAbilities.Length; i++) {
+		for(int i = 0; i < abCont.actives.Length; i++) {
 			//draw the active ability in that slot
-			Ability ab = abCont.activeAbilities[i];
+			Ability ab = abCont.actives[i];
 			if(ab != null) {
 				//greyout the ability if it's on cooldown
 				if(!ab.canActivate)
@@ -333,6 +365,18 @@ public class PlayerGUI : MonoBehaviour
 				}
 			}
 
+		}
+
+		//draw the passives
+		for(int i = 0; i < abCont.passives.Length; i++) {
+			Ability ab = abCont.passives[i];
+			if(ab != null) {
+				if(ab.icon != null) {
+					GUI.DrawTexture(new Rect(passiveBarArea.x + (i+1)*passiveSpacing + i*passiveIconSize,
+					                         passiveBarArea.y + passiveSpacing,
+					                         passiveIconSize,passiveIconSize), ab.icon.texture);
+				}
+			}
 		}
 		GUI.color = tmpColor;
 	}

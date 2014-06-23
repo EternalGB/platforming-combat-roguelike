@@ -52,9 +52,14 @@ public class Dash : Special
 		preDashAction = null;
 	}
 
-	override public void passiveEffect(Transform player)
+	override public void applyPassive(Transform player)
 	{
-
+		
+	}
+	
+	override public void undoPassive(Transform player)
+	{
+		
 	}
 
 }
