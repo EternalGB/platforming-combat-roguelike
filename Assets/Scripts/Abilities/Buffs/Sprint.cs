@@ -4,6 +4,7 @@ using System.Collections;
 public class Sprint : Buff
 {
 
+	//TODO current effect is not symmetrical as a debuff
 	override public void buffEffect(Transform applier, Transform target)
 	{
 		float scaling;

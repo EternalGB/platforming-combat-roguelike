@@ -49,6 +49,7 @@ public class PoolableProjectile : MonoBehaviour
 
 	void IgnoreCollider(Collider2D col)
 	{
+
 		Physics2D.IgnoreCollision(collider2D,col);
 		if(ignored == null) {
 			ignored = new List<Collider2D>();
