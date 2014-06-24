@@ -29,6 +29,8 @@ public abstract class CloseBlast : Ability
 	private float origBlastDelay;
 	private LayerMask origBurstTargets;
 
+	int passiveActionID = 0;
+
 	void Start()
 	{
 		base.Start();
@@ -104,6 +106,23 @@ public abstract class CloseBlast : Ability
 		burstTargets = origBurstTargets;
 	}
 
+	override public void applyPassive(Transform player)
+	{
+		ActionOnHit action = player.gameObject.AddComponent<ActionOnHit>();
+		action.init(burstEffect,burstTargets,cooldown);
+		passiveActionID = action.GetInstanceID();
+	}
+	
+	override public void undoPassive(Transform player)
+	{
+		ActionOnHit[] actions = player.gameObject.GetComponents<ActionOnHit>();
+		ActionOnHit action = null;
+		foreach(ActionOnHit a in actions)
+			if(a.GetInstanceID() == passiveActionID)
+				action = a;
+		if(action)
+			Destroy(action);
+	}
 
 
 }
