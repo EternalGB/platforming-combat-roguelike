@@ -55,7 +55,7 @@ public class PlatformGuard : BaseEnemyBehaviour
 		} else if(behaviour == BehaviourState.CHASE) {
 			if(anim != null)
 				anim.SetBool("walking",true);
-			travelDir = (target.position - transform.position).x;
+			travelDir = (target.position - transform.position).normalized.x;
 			if(!groundInFront && onGround) {
 				if(anim != null)
 					anim.SetBool("walking",false);
