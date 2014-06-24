@@ -24,6 +24,10 @@ public abstract class GameActor : MonoBehaviour
 	List<DamageOverTime> dots;
 	protected SpriteRenderer spriteRenderer;
 
+	protected bool onGround = false;
+	public Transform groundCheck;
+	protected float groundCheckRadius = 0.2f;
+	public LayerMask groundLayer;
 
 	public Vector2 facingDir
 	{
@@ -55,6 +59,9 @@ public abstract class GameActor : MonoBehaviour
 
 	protected void FixedUpdate()
 	{
+		if(groundCheck != null)
+			onGround = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
+
 		if(!isStrafing()) {
 			if(movingDir().x > 0 && !facingRight)
 				Flip();

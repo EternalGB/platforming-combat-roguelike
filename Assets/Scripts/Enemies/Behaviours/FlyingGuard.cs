@@ -24,7 +24,7 @@ public class FlyingGuard : BaseEnemyBehaviour
 
 	void FixedUpdate ()
 	{
-
+		base.FixedUpdate();
 		withinTetherRadius = checkTether();
 		//print(withinTetherRadius);
 
@@ -48,7 +48,7 @@ public class FlyingGuard : BaseEnemyBehaviour
 
 		Debug.DrawLine(transform.position,dest,lineColor);
 		//transform.position += (dest - transform.position).normalized*maxSpeed*Time.fixedDeltaTime;
-		base.FixedUpdate();
+
 	}
 
 	override protected void physicsMove(Vector2 moveDir, float accel)

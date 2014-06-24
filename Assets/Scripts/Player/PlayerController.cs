@@ -15,10 +15,7 @@ public class PlayerController : GameActor
 
 
 
-	bool onGround = false;
-	public Transform groundCheck;
-	float groundCheckRadius = 0.2f;
-	public LayerMask groundLayer;
+
 	
 	public static GameObject GlobalPlayerInstance
 	{
@@ -67,17 +64,16 @@ public class PlayerController : GameActor
 	void FixedUpdate()
 	{
 
+		base.FixedUpdate();
+
 		anim.SetFloat("horiSpeed",Mathf.Abs(hori));
-		onGround = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
 		anim.SetBool("onGround",onGround);
-
-
 
 		if(Input.GetButton ("Jump") && jumpTimeStart > 0 && Time.time - jumpTimeStart <= jumpDuration) {
 			rigidbody2D.AddForce (new Vector2(0,2*jumpPower*Time.fixedDeltaTime));
 		}
 
-		base.FixedUpdate();
+
 	}
 
 	override protected void Die()

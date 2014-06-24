@@ -13,11 +13,12 @@ public class PlatformGuard : BaseEnemyBehaviour
 	Transform target;
 	public Transform forwardGroundCheck;
 	bool groundInFront = false;
-	float groundCheckRadius = 0.2f;
-	public LayerMask groundLayer;
+
 	public float detectionRange;
 	public LayerMask potentialTargets;
 	public Animator anim;
+
+
 
 	void Start()
 	{
@@ -29,7 +30,11 @@ public class PlatformGuard : BaseEnemyBehaviour
 	//TODO prevent from chasing off of platform boundaries
 	void FixedUpdate()
 	{
+		base.FixedUpdate();
+
 		groundInFront = Physics2D.OverlapCircle(forwardGroundCheck.position,groundCheckRadius,groundLayer);
+
+
 
 		float savedAccel = acceleration;
 
@@ -59,7 +64,7 @@ public class PlatformGuard : BaseEnemyBehaviour
 			}
 		}
 		//horizontalPhysicsMovement(travelDir,movementPower);
-		base.FixedUpdate();
+
 
 		acceleration = savedAccel;
 	}
