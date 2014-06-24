@@ -34,6 +34,7 @@ public class ClusterShower : Special
 	private LayerMask origOnCollisionTargets;
 
 	public LayerMask passiveHitTargets;
+	int passiveActionID = 0;
 
 	void Start()
 	{
@@ -146,12 +147,18 @@ public class ClusterShower : Special
 	{
 		ActionOnHit script = player.gameObject.AddComponent<ActionOnHit>();
 		script.init(sprayClusters, passiveHitTargets, cooldown);
+		passiveActionID = script.GetInstanceID();
 	}
 	
 	override public void undoPassive(Transform player)
 	{
-		//TODO check for multiple scripts of the same type
-		Destroy(player.gameObject.GetComponent<ActionOnHit>());
+		ActionOnHit[] actions = player.gameObject.GetComponents<ActionOnHit>();
+		ActionOnHit action = null;
+		foreach(ActionOnHit a in actions)
+			if(a.GetInstanceID() == passiveActionID)
+				action = a;
+		if(action)
+			Destroy(action);
 	}
 	
 }

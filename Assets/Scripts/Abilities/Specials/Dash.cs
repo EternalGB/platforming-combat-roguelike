@@ -7,8 +7,8 @@ public class Dash : Special
 	float knockbackScaling = 5;
 	float speedScaling = 5;
 	public System.Action<Transform> preDashAction;
-
-
+	public LayerMask onHitPassiveTargets;
+	int passiveActionID = 0;
 
 	override public void activeEffect(Transform player)
 	{
@@ -52,14 +52,35 @@ public class Dash : Special
 		preDashAction = null;
 	}
 
+	void speedBoost(Transform t1, Transform t2)
+	{
+		GameActor actor = t1.GetComponent<GameActor>();
+		actor.maxSpeed += effectSize/10;
+		StartCoroutine(Timers.Countdown<Transform>(cooldown/2,removeSpeedBoost,t1));
+	}
+
+	void removeSpeedBoost(Transform t1)
+	{
+		GameActor actor = t1.GetComponent<GameActor>();
+		actor.maxSpeed -= effectSize/10;
+	}
+
 	override public void applyPassive(Transform player)
 	{
-		
+		ActionOnHit action = player.gameObject.AddComponent<ActionOnHit>();
+		action.init(speedBoost,onHitPassiveTargets,cooldown);
+		passiveActionID = action.GetInstanceID();
 	}
 	
 	override public void undoPassive(Transform player)
 	{
-		
+		ActionOnHit[] actions = player.gameObject.GetComponents<ActionOnHit>();
+		ActionOnHit action = null;
+		foreach(ActionOnHit a in actions)
+			if(a.GetInstanceID() == passiveActionID)
+				action = a;
+		if(action)
+			Destroy(action);
 	}
 
 }
