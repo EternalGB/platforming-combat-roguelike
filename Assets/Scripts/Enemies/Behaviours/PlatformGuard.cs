@@ -48,7 +48,7 @@ public class PlatformGuard : BaseEnemyBehaviour
 		if(behaviour == BehaviourState.PATROL) {
 			if(anim != null)
 				anim.SetBool("walking",true);
-			if(!groundInFront) {
+			if(!groundInFront && onGround) {
 				patrolDir = -patrolDir;
 			}
 			travelDir = patrolDir;
@@ -56,7 +56,7 @@ public class PlatformGuard : BaseEnemyBehaviour
 			if(anim != null)
 				anim.SetBool("walking",true);
 			travelDir = (target.position - transform.position).x;
-			if(!groundInFront) {
+			if(!groundInFront && onGround) {
 				if(anim != null)
 					anim.SetBool("walking",false);
 				acceleration = 0;
