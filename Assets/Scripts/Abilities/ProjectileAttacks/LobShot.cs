@@ -22,15 +22,6 @@ public class LobShot : ProjectileAttack
 		bullet.rigidbody2D.AddForce(firingDir*bulletVelocity);
 	}
 	
-
-	override public void applyPassive(Transform player)
-	{
-		
-	}
 	
-	override public void undoPassive(Transform player)
-	{
-		
-	}
 
 }

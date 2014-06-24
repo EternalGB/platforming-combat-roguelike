@@ -29,6 +29,8 @@ public abstract class ProjectileAttack : Ability
 	private float origBulletVel;
 	private LayerMask origCollisionTargets;
 
+	int passiveActionID = 0;
+
 	public void Start()
 	{
 		base.Start();
@@ -90,6 +92,24 @@ public abstract class ProjectileAttack : Ability
 		bulletVelocity = origBulletVel;
 		onCollision = defaultCollision;
 		onCollisionTargets = origCollisionTargets;
+	}
+
+	override public void applyPassive(Transform player)
+	{
+		ActionOnHit action = player.gameObject.AddComponent<ActionOnHit>();
+		action.init(defaultCollision,onCollisionTargets,cooldown);
+		passiveActionID = action.GetInstanceID();
+	}
+	
+	override public void undoPassive(Transform player)
+	{
+		ActionOnHit[] actions = player.gameObject.GetComponents<ActionOnHit>();
+		ActionOnHit action = null;
+		foreach(ActionOnHit a in actions)
+			if(a.GetInstanceID() == passiveActionID)
+				action = a;
+		if(action)
+			Destroy(action);
 	}
 
 }
