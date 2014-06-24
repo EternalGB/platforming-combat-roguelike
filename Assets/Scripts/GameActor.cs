@@ -24,9 +24,10 @@ public abstract class GameActor : MonoBehaviour
 	List<DamageOverTime> dots;
 	protected SpriteRenderer spriteRenderer;
 
+	protected bool collidingWithGround = false;
 	protected bool onGround = false;
 	public Transform groundCheck;
-	protected float groundCheckRadius = 0.2f;
+	protected float groundCheckRadius = 0.5f;
 	public LayerMask groundLayer;
 
 	public Vector2 facingDir
@@ -59,8 +60,16 @@ public abstract class GameActor : MonoBehaviour
 
 	protected void FixedUpdate()
 	{
-		if(groundCheck != null)
+		if(groundCheck != null) {
 			onGround = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
+
+			//TODO one way platforms
+			//Physics2D.IgnoreLayerCollision(gameObject.layer,LayerMask.NameToLayer("Ground"),
+			//                               collidingWithGround && !onGround);
+		}
+
+
+
 
 		if(!isStrafing()) {
 			if(movingDir().x > 0 && !facingRight)
@@ -90,7 +99,9 @@ public abstract class GameActor : MonoBehaviour
 			rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity,globalMaxSpeed);
 		}
 
-
+		if(groundCheck && collidingWithGround && !onGround) {
+			rigidbody2D.velocity = new Vector2(0,rigidbody2D.velocity.y);
+		}
 
 
 		if(currentHealth <= 0)
@@ -191,7 +202,19 @@ public abstract class GameActor : MonoBehaviour
 	{
 		if(col.gameObject.layer == LayerMask.NameToLayer("KillTriggers")) {
 			Die();
-		}
+		} 
+	}
+	
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		if(col.gameObject.layer == LayerMask.NameToLayer("Ground"))
+			collidingWithGround = true;
+	}
+
+	void OnCollisionExit2D(Collision2D col)
+	{
+		if(col.gameObject.layer == LayerMask.NameToLayer("Ground"))
+			collidingWithGround = false;
 	}
 
 	protected abstract Vector2 movingDir();

@@ -17,7 +17,7 @@ public class PlatformGuard : BaseEnemyBehaviour
 	public float detectionRange;
 	public LayerMask potentialTargets;
 	public Animator anim;
-
+	float savedAccel;
 
 
 	void Start()
@@ -25,6 +25,7 @@ public class PlatformGuard : BaseEnemyBehaviour
 		base.Start ();
 		behaviour = BehaviourState.PATROL;
 		facingRight = false;
+		savedAccel = acceleration;
 	}
 
 	//TODO prevent from chasing off of platform boundaries
@@ -35,8 +36,8 @@ public class PlatformGuard : BaseEnemyBehaviour
 		groundInFront = Physics2D.OverlapCircle(forwardGroundCheck.position,groundCheckRadius,groundLayer);
 
 
-
-		float savedAccel = acceleration;
+		acceleration = savedAccel;
+		savedAccel = acceleration;
 
 		if((target = getTarget())) {
 			behaviour = BehaviourState.CHASE;
@@ -66,7 +67,7 @@ public class PlatformGuard : BaseEnemyBehaviour
 		//horizontalPhysicsMovement(travelDir,movementPower);
 
 
-		acceleration = savedAccel;
+
 	}
 
 	Transform getTarget()
