@@ -8,15 +8,20 @@ public class TrackingProjectile : PoolableProjectile
 	public bool tracking = true;
 	public float speed;
 	public float rearmingTime = 1f;
+	public float detectionRadius;
 	public float maxTurn = 20;
 	public float instability = 20;
 	Vector3 destination;
+	Collider2D[] nearbyEnemies;
+	int enemyListSize = 50;
 
 	void FixedUpdate()
 	{
+		float actualInstab = instability;
 		if(target != null) {
 			destination = target.position;
 		} else {
+			actualInstab *= 2;
 			if(!IsInvoking("findTarget"))
 				Invoke("findTarget",rearmingTime);
 			//otherwise just go in the direction we're already going
@@ -24,7 +29,7 @@ public class TrackingProjectile : PoolableProjectile
 		}
 
 		//jiggle the destination a bit
-		float instabAngle = Random.Range (-instability,instability);
+		float instabAngle = Random.Range (-actualInstab,actualInstab);
 		Vector3 toDir = (destination - transform.position).normalized;
 		toDir = Quaternion.AngleAxis(instabAngle,Vector3.forward)*toDir;
 
@@ -49,12 +54,27 @@ public class TrackingProjectile : PoolableProjectile
 
 	void findTarget()
 	{
-		//TODO may have to swap this to some kind of culled list eventually if it gets too slow
-		GameObject nearest = ActiveEnemiesSingleton.Instance.GetClosestEnemy(transform.position);
-		if(nearest == null)
-			target = null;
-		else
-			target = nearest.transform;
+		if(nearbyEnemies == null)
+			nearbyEnemies = new Collider2D[enemyListSize];
+		Physics2D.OverlapCircleNonAlloc(transform.position,detectionRadius,nearbyEnemies,onCollisionTargets.value);
+		float bestDist = float.MaxValue;
+		Transform best = null;
+		float dist = 0;
+		foreach(Collider2D col in nearbyEnemies) {
+			if(col != null) {
+				dist = Vector2.Distance(transform.position,col.transform.position);
+				if(dist < bestDist) {
+					best = col.transform;
+					bestDist = dist;
+				}
+			}
+		}
+		target = best;
+	}
+
+	void OnDrawGizmosSelected()
+	{
+		Gizmos.DrawWireSphere(transform.position,detectionRadius);
 	}
 }
 

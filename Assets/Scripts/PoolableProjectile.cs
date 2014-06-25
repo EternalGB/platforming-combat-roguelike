@@ -9,7 +9,7 @@ public class PoolableProjectile : MonoBehaviour
 	public LayerMask destructionMask;
 	public Action<Transform> onDestroy;
 	public Action<Transform, Transform> onCollision;
-	LayerMask onCollisionTargets;
+	protected LayerMask onCollisionTargets;
 	List<Collider2D> ignored;
 
 	void OnEnable()
