@@ -255,14 +255,17 @@ public class PlayerGUI : MonoBehaviour
 			//Description group
 			GUI.BeginGroup (new Rect(500,titleHeight,380,groupHeight - titleHeight));
 			GUI.Label (new Rect(0,0,380,50),"Active", skin.FindStyle("SubTitle"));
-			GUI.TextArea(new Rect(0,50,380,150),
-			             lastReceivedAbility.activeDescription.text, skin.FindStyle("DescriptiveText"));
+			if(lastReceivedAbility.activeDescription != null)
+				GUI.TextArea(new Rect(0,50,380,150),
+			             	lastReceivedAbility.activeDescription.text, skin.FindStyle("DescriptiveText"));
 			GUI.Label (new Rect(0,200,380,50),"Upgrade", skin.FindStyle("SubTitle"));
-			GUI.TextArea(new Rect(0,250,380,150),
-			             lastReceivedAbility.upgradeDescription.text, skin.FindStyle("DescriptiveText"));
+			if(lastReceivedAbility.upgradeDescription != null)
+				GUI.TextArea(new Rect(0,250,380,150),
+			             	lastReceivedAbility.upgradeDescription.text, skin.FindStyle("DescriptiveText"));
 			GUI.Label (new Rect(0,400,380,50),"Passive", skin.FindStyle("SubTitle"));
-			GUI.TextArea(new Rect(0,450,380,150),
-			             lastReceivedAbility.passiveDescription.text, skin.FindStyle("DescriptiveText"));
+			if(lastReceivedAbility.passiveDescription != null)
+				GUI.TextArea(new Rect(0,450,380,150),
+			             	lastReceivedAbility.passiveDescription.text, skin.FindStyle("DescriptiveText"));
 			GUI.EndGroup ();
 			//Help text group
 			GUI.BeginGroup (new Rect(100,500,500,220));
@@ -311,11 +314,17 @@ public class PlayerGUI : MonoBehaviour
 			GUI.DrawTexture(new Rect(0,0,410,480),abilityPreviewOverlay,ScaleMode.StretchToFill);
 			GUI.Label (new Rect(0,0,410,60),abCont.allAbilities[abMenuSelected].abilityName,skin.GetStyle("AbilityName"));
 			GUI.Label(new Rect(0,60,410,30),"Active Effect",skin.GetStyle("SubTitle"));
-			GUI.TextArea(new Rect(0,90,410,110), abCont.allAbilities[abMenuSelected].activeDescription.text, skin.GetStyle("DescriptiveText"));
+			if(abCont.allAbilities[abMenuSelected].activeDescription != null)
+				GUI.TextArea(new Rect(0,90,410,110), abCont.allAbilities[abMenuSelected].activeDescription.text,
+				             skin.GetStyle("DescriptiveText"));
 			GUI.Label(new Rect(0,200,410,30),"Upgrade Effect",skin.GetStyle("SubTitle"));
-			GUI.TextArea(new Rect(0,230,410,110), abCont.allAbilities[abMenuSelected].upgradeDescription.text, skin.GetStyle("DescriptiveText"));
+			if(abCont.allAbilities[abMenuSelected].upgradeDescription != null)
+				GUI.TextArea(new Rect(0,230,410,110), abCont.allAbilities[abMenuSelected].upgradeDescription.text,
+			            	 skin.GetStyle("DescriptiveText"));
 			GUI.Label(new Rect(0,340,410,30),"Passive Effect",skin.GetStyle("SubTitle"));
-			GUI.TextArea(new Rect(0,370,410,110), abCont.allAbilities[abMenuSelected].passiveDescription.text, skin.GetStyle("DescriptiveText"));
+			if(abCont.allAbilities[abMenuSelected].passiveDescription != null)
+				GUI.TextArea(new Rect(0,370,410,110), abCont.allAbilities[abMenuSelected].passiveDescription.text,
+			             	skin.GetStyle("DescriptiveText"));
 			GUI.EndGroup ();
 			//draw the help text area
 
