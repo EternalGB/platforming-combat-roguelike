@@ -10,7 +10,7 @@ public class HomingRocket : ProjectileAttack
 	ObjectPool explosionPool;
 	public float explosionSize;
 	public float explosionDuration;
-
+	public float passiveProcChance;
 
 	void Start()
 	{
@@ -60,7 +60,23 @@ public class HomingRocket : ProjectileAttack
 		}
 	}
 
+	public override void applyPassive (Transform player)
+	{
+		PeriodicAction action = player.gameObject.AddComponent<PeriodicAction>();
+		passiveActionID = action.GetInstanceID();
+		action.init(activeEffect,cooldown,passiveProcChance);
+	}
 
+	public override void undoPassive (Transform player)
+	{
+		PeriodicAction[] actions = player.gameObject.GetComponents<PeriodicAction>();
+		PeriodicAction action = null;
+		foreach(PeriodicAction a in actions)
+			if(a.GetInstanceID() == passiveActionID)
+				action = a;
+		if(action)
+			Destroy(action);
+	}
 
 	
 

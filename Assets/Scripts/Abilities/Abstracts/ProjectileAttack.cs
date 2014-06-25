@@ -29,7 +29,7 @@ public abstract class ProjectileAttack : Ability
 	private float origBulletVel;
 	private LayerMask origCollisionTargets;
 
-	int passiveActionID = 0;
+	protected int passiveActionID = 0;
 
 	public void Start()
 	{
