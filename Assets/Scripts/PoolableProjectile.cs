@@ -14,7 +14,8 @@ public class PoolableProjectile : MonoBehaviour
 
 	void OnEnable()
 	{
-		Invoke("Destroy",bulletLifetime);
+		if(bulletLifetime > 0)
+			Invoke("Destroy",bulletLifetime);
 	}
 
 	void Destroy()
