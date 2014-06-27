@@ -34,6 +34,9 @@ public class Dash : Special
 			if(other.GetType() == typeof(ClusterShower)) {
 				ClusterShower cs = (ClusterShower)other;
 				cs.onCollision = knockback;
+			} else if(other.GetType() == typeof(OrbGenerator)) {
+				OrbGenerator og = (OrbGenerator)other;
+				og.IncreaseOrbSpeed(effectSize);
 			}
 		}
 	}

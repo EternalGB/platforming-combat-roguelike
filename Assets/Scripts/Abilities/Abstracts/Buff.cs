@@ -77,6 +77,10 @@ public abstract class Buff : Ability
 				ClusterShower cs = (ClusterShower)other;
 				effectSize = -effectSize;
 				cs.onCollision = doBuff;
+			}  else if(other.GetType() == typeof(OrbGenerator)) {
+				OrbGenerator og = (OrbGenerator)other;
+				effectSize -= effectSize;
+				og.onCollision = doBuff;
 			}
 		}
 	}

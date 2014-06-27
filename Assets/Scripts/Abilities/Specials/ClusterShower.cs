@@ -139,7 +139,10 @@ public class ClusterShower : Special
 			if(other.GetType() == typeof(Dash)) {
 				Dash d = (Dash)other;
 				d.preDashAction = sprayClusters;
-			} 
+			}  else if(other.GetType() == typeof(OrbGenerator)) {
+				OrbGenerator og = (OrbGenerator)other;
+				og.onCollision = sprayClusters;
+			}
 		}
 	}
 	

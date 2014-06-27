@@ -76,6 +76,10 @@ public abstract class ProjectileAttack : Ability
 				ClusterShower cs = (ClusterShower)other;
 				cs.onCollision = onCollision;
 				cs.onCollisionTargets = onCollisionTargets;
+			}  else if(other.GetType() == typeof(OrbGenerator)) {
+				OrbGenerator og = (OrbGenerator)other;
+				og.onCollision = onCollision;
+				og.onCollisionTargets = onCollisionTargets;
 			}
 		}
 	}

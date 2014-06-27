@@ -18,6 +18,8 @@ public class OrbController : MonoBehaviour
 		get; private set;
 	}
 
+
+
 	void Start()
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();

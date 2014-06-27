@@ -13,11 +13,17 @@ public class OrbGenerator : Special
 	List<OrbController> orbs;
 	public int maxOrbs;
 	float interOrbAngle;
-	int passiveOrbCounter = 0;
+	float orbRadius;
+	float orbSpeed;
 
-	Action<Transform, Transform> onCollision;
+	public Action<Transform, Transform> onCollision;
 	public LayerMask onCollisionTargets;
 	
+	Action<Transform, Transform> origOnCollision;
+	LayerMask origOnCollisionTargets;
+	float origRadius;
+	float origSpeed;
+
 	void Start()
 	{
 		onCollision = defaultCollision;
@@ -30,8 +36,13 @@ public class OrbGenerator : Special
 			oc.owner = PlayerController.GlobalPlayerInstance.transform;
 			oc.SetOnCollision(onCollision,onCollisionTargets);
 			orbs.Add(oc);
+			orbRadius = oc.radius;
+			orbSpeed = oc.rotationSpeed;
 		}
-
+		origOnCollision = onCollision;
+		origOnCollisionTargets = onCollisionTargets;
+		origRadius = orbRadius;
+		origSpeed = orbSpeed;
 		base.Start ();
 	}
 
@@ -51,12 +62,34 @@ public class OrbGenerator : Special
 
 	protected override void upgradeOtherAbility (Ability other)
 	{
-		throw new System.NotImplementedException ();
+		if(other.GetType().BaseType == typeof(ProjectileAttack)) {
+			ProjectileAttack pa = (ProjectileAttack)other;
+			pa.onCollision = defaultCollision;
+		} else if(other.GetType().BaseType == typeof(CloseBlast)) {
+			CloseBlast cb = (CloseBlast)other;
+			cb.onHitByBurst = defaultCollision;
+		} else if(other.GetType().BaseType == typeof(Buff)) {
+			Buff b = (Buff)other;
+			b.effectSize += effectSize/5;
+		} else if(other.GetType().BaseType == typeof(Special)) {
+			if(other.GetType() == typeof(ClusterShower)) {
+				ClusterShower cs = (ClusterShower)other;
+				cs.onCollision = defaultCollision;
+			} else if(other.GetType() == typeof(Dash)) {
+				Dash d = (Dash)other;
+				d.preDashAction = activeEffect;
+			}
+		}
 	}
 
 	protected override void reset ()
 	{
-		throw new System.NotImplementedException ();
+		onCollision = origOnCollision;
+		onCollisionTargets = origOnCollisionTargets;
+		orbRadius = origRadius;
+		orbSpeed = origSpeed;
+		SetOrbRadius(orbRadius);
+		SetOrbSpeed(orbSpeed);
 	}
 
 	void turnOnNextOrb()
@@ -89,6 +122,24 @@ public class OrbGenerator : Special
 		StopCoroutine("passiveCoroutine");
 	}
 
+
+	public void SetOrbRadius(float radius)
+	{
+		foreach(OrbController orb in orbs)
+			orb.radius = radius;
+	}
+
+	public void SetOrbSpeed(float speed)
+	{
+		foreach(OrbController orb in orbs)
+			orb.rotationSpeed = speed;
+	}
+
+	public void IncreaseOrbSpeed(float inc)
+	{
+		foreach(OrbController orb in orbs)
+			orb.rotationSpeed += inc;
+	}
 
 
 

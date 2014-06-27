@@ -88,6 +88,10 @@ public abstract class CloseBlast : Ability
 				ClusterShower cs = (ClusterShower)other;
 				cs.onCollision = createBlast;
 				cs.onCollisionTargets = burstTargets;
+			}  else if(other.GetType() == typeof(OrbGenerator)) {
+				OrbGenerator og = (OrbGenerator)other;
+				og.onCollision = createBlast;
+				og.onCollisionTargets = burstTargets;
 			}
 		}
 	}
