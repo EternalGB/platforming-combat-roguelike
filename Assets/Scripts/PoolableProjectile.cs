@@ -18,7 +18,7 @@ public class PoolableProjectile : MonoBehaviour
 			Invoke("Destroy",bulletLifetime);
 	}
 
-	void Destroy()
+	public void Destroy()
 	{
 		gameObject.SetActive (false);
 	}
@@ -35,6 +35,7 @@ public class PoolableProjectile : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
+		Debug.Log(gameObject.name + " colliding with " + col.gameObject.name);
 		if(onCollision != null && (onCollisionTargets.value &1 << col.gameObject.layer) != 0) {
 			onCollision(transform, col.transform);
 		}
@@ -56,6 +57,12 @@ public class PoolableProjectile : MonoBehaviour
 			ignored = new List<Collider2D>();
 		}
 		ignored.Add(col);
+		//ignore each child collider as well
+		Collider2D[] childCols = col.GetComponentsInChildren<Collider2D>();
+		foreach(Collider2D childCol in childCols) {
+			Physics2D.IgnoreCollision(collider2D,childCol);
+			ignored.Add (childCol);
+		}
 	}
 
 	void ResetIgnores()

@@ -47,7 +47,7 @@ public abstract class ProjectileAttack : Ability
 	{
 		GameObject bullet = projectiles.getPooled();
 		bullet.SetActive(true);
-		bullet.SendMessage("IgnoreCollider",PlayerController.GlobalPlayerInstance.collider2D);
+		bullet.SendMessage("IgnoreCollider",player.collider2D);
 		fireProjectile(bullet,player);
 	}
 

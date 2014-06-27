@@ -24,6 +24,8 @@ public abstract class GameActor : MonoBehaviour
 	List<DamageOverTime> dots;
 	protected SpriteRenderer spriteRenderer;
 
+	float dmgTakenMulti = 1;
+
 	protected bool collidingWithGround = false;
 	protected bool onGround = false;
 	public Transform groundCheck;
@@ -144,9 +146,14 @@ public abstract class GameActor : MonoBehaviour
 		dots.Clear();
 	}
 
+	public void SetDamageTakenMultiplier(float multiplier)
+	{
+		dmgTakenMulti = multiplier;
+	}
+
 	protected void Damage(float amount)
 	{
-		currentHealth -= amount;
+		currentHealth -= dmgTakenMulti*amount;
 	}
 
 	protected virtual void Die()

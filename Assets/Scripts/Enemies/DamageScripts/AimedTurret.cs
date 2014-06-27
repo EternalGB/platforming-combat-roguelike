@@ -48,7 +48,8 @@ public class AimedTurret : MonoBehaviour
 
 	void ProjectileDamage(Transform projectile, Transform target)
 	{
-		target.SendMessage("Damage",damage);
+		if(target.GetComponent<GameActor>() && target.GetComponent<ProjectileBlocker>() == null)
+			target.SendMessage("Damage",damage);
 	}
 
 	void OnDrawGizmosSelected()
