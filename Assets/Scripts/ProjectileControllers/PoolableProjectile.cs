@@ -12,7 +12,7 @@ public class PoolableProjectile : MonoBehaviour
 	protected LayerMask onCollisionTargets;
 	List<Collider2D> ignored;
 
-	void OnEnable()
+	protected virtual void OnEnable()
 	{
 		if(bulletLifetime > 0)
 			Invoke("Destroy",bulletLifetime);
@@ -33,9 +33,8 @@ public class PoolableProjectile : MonoBehaviour
 		CancelInvoke();
 	}
 
-	void OnCollisionEnter2D(Collision2D col)
+	protected void OnCollisionEnter2D(Collision2D col)
 	{
-		Debug.Log(gameObject.name + " colliding with " + col.gameObject.name);
 		if(onCollision != null && (onCollisionTargets.value &1 << col.gameObject.layer) != 0) {
 			onCollision(transform, col.transform);
 		}
