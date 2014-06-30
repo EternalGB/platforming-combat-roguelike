@@ -122,7 +122,7 @@ public abstract class GameActor : MonoBehaviour
 		}
 	}
 
-	protected void SetColor(Color color)
+	public void SetColor(Color color)
 	{
 		GetComponent<SpriteRenderer>().color = color;
 	}
@@ -132,7 +132,7 @@ public abstract class GameActor : MonoBehaviour
 		ApplyDOT(values.x,(int)values.y);
 	}
 
-	protected void ApplyDOT(float amount, int intervals)
+	public void ApplyDOT(float amount, int intervals)
 	{
 		DamageOverTime dot = new DamageOverTime(intervals,amount,Damage);
 		StartCoroutine(dot.Start());
@@ -151,12 +151,12 @@ public abstract class GameActor : MonoBehaviour
 		dmgTakenMulti = multiplier;
 	}
 
-	protected void Damage(float amount)
+	public void Damage(float amount)
 	{
 		currentHealth -= dmgTakenMulti*amount;
 	}
 
-	protected virtual void Die()
+	public virtual void Die()
 	{
 		GameObject.Destroy(gameObject);
 	}

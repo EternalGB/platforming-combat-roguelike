@@ -19,10 +19,12 @@ public abstract class CloseBlast : Ability
 		}
 	}
 	ObjectPool blastPool;
+	public bool attachedToFirer = false;
 	public Action<Transform, Transform> onHitByBurst;
 	public Action<Transform, Transform> blastFunc;
 	public float blastDelay;
 	public LayerMask burstTargets;
+
 	protected Transform channeler;
 
 	private GameObject origBlastObj;
@@ -63,6 +65,8 @@ public abstract class CloseBlast : Ability
 		blast.SendMessage("SetBlastEffect",new UpgradeAction(onHitByBurst,burstTargets));
 		blast.transform.position = location.position;
 		blast.transform.right = location.right*Mathf.Sign (location.localScale.x);
+		if(attachedToFirer)
+			blast.SendMessage("SetOwner",player.GetComponent<GameActor>());
 	}
 	
 	override protected void upgradeOtherAbility(Ability other)

@@ -3,18 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class BlastController : MonoBehaviour 
+public abstract class BlastController : MonoBehaviour 
 {
 
+	public GameActor owner;
 	public float existanceTime;
 	public Sprite preBlastSprite;
 	public Sprite blastSprite;
-	Action<Transform, Transform> onHitByBlast;
-	LayerMask blastTargets;
-	float delay = 0f;
-	Vector3 originalScale;
-	float origDuration;
-	Collider2D[] colliders;
+	protected Action<Transform, Transform> onHitByBlast;
+	protected LayerMask blastTargets;
+	protected float delay = 0f;
+	protected Vector3 originalScale;
+	protected float origDuration;
+	protected Collider2D[] colliders;
+
+	void Update()
+	{
+		if(owner != null) {
+			transform.position = owner.transform.position;
+			transform.right = owner.facingDir;
+		}
+	}
 
 	void OnEnable()
 	{
@@ -60,18 +69,14 @@ public class BlastController : MonoBehaviour
 			col.enabled = true;
 	}
 
-	void OnTriggerEnter2D(Collider2D col)
-	{
-
-		if(onHitByBlast != null && (blastTargets.value &1 << col.gameObject.layer) != 0) {
-			onHitByBlast(transform, col.transform);
-		}
-
-	}
-
 	void SetDuration(float duration)
 	{
 		existanceTime = duration;
+	}
+
+	void SetOwner(GameActor ga)
+	{
+		this.owner = ga;
 	}
 
 }

@@ -76,7 +76,7 @@ public class PlayerController : GameActor
 
 	}
 
-	override protected void Die()
+	override public void Die()
 	{
 		hori = 0;
 		rigidbody2D.velocity = Vector2.zero;
