@@ -5,7 +5,7 @@ using System;
 public class DamageOverTime 
 {
 
-	const float DOTTickInterval = 1f;
+	const float DOTTickInterval = 0.5f;
 	bool stopped = false;
 	int intervals;
 	float damage;

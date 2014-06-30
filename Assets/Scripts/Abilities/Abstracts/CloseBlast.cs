@@ -18,7 +18,7 @@ public abstract class CloseBlast : Ability
 			blastPool = ObjectPool.GetPoolByRepresentative(blastObj);
 		}
 	}
-	ObjectPool blastPool;
+	protected ObjectPool blastPool;
 	public bool attachedToFirer = false;
 	public Action<Transform, Transform> onHitByBurst;
 	public Action<Transform, Transform> blastFunc;
@@ -57,7 +57,7 @@ public abstract class CloseBlast : Ability
 		blastFunc(channeler,player);
 	}
 
-	void createBlast(Transform location, Transform player)
+	protected virtual void createBlast(Transform location, Transform player)
 	{
 		GameObject blast = blastPool.getPooled();
 		blast.SetActive(true);
