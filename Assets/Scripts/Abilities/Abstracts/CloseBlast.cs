@@ -64,7 +64,7 @@ public abstract class CloseBlast : Ability
 		blast.SendMessage ("StartDelay",blastDelay);
 		blast.SendMessage("SetBlastEffect",new UpgradeAction(onHitByBurst,burstTargets));
 		blast.transform.position = location.position;
-		blast.transform.right = location.right*Mathf.Sign (location.localScale.x);
+		blast.transform.right = player.right*Mathf.Sign (player.localScale.x);
 		if(attachedToFirer)
 			blast.SendMessage("SetOwner",player.GetComponent<GameActor>());
 	}
