@@ -17,7 +17,8 @@ public class ObjectPool : MonoBehaviour
 	{
 		if(currentPools == null)
 			currentPools = new Dictionary<string, ObjectPool>();
-		currentPools.Add(gameObject.name,this);
+		if(!currentPools.ContainsKey(gameObject.name))
+			currentPools.Add(gameObject.name,this);
 	}
 
 	public static ObjectPool GetPoolByName(string name)
@@ -31,7 +32,6 @@ public class ObjectPool : MonoBehaviour
 			currentPools = new Dictionary<string, ObjectPool>();
 		ObjectPool pool = null;
 		if(!currentPools.TryGetValue(rep.gameObject.name + "Pool", out pool)) {
-
 			pool = ((GameObject)GameObject.Instantiate
 			        (Resources.LoadAssetAtPath<GameObject>(poolPrefabLocation)))
 				.GetComponent<ObjectPool>();
