@@ -13,6 +13,11 @@ public class UpgradeAction
 		this.locationAction = function;
 	}
 
+	public UpgradeAction(Action<Transform> function, LayerMask targets) {
+		this.locationAction = function;
+		this.targets = targets;
+	}
+
 	public UpgradeAction(Action<Transform, Transform> action, LayerMask target) {
 		this.targetAction = action;
 		this.targets = target;

@@ -20,13 +20,14 @@ public class PoolableProjectile : MonoBehaviour
 
 	public void Destroy()
 	{
+		if(onDestroy != null) {
+			onDestroy(transform);
+		}
 		gameObject.SetActive (false);
 	}
 
 	protected virtual void OnDisable()
 	{
-		if(onDestroy != null)
-			onDestroy(transform);
 		ResetOnDestroy();
 		ResetOnCollision();
 		ResetIgnores();
@@ -83,9 +84,15 @@ public class PoolableProjectile : MonoBehaviour
 		}
 	}
 
+	public void SetOnDestroy(System.Action<Transform> action, LayerMask targets)
+	{
+		onDestroy = action;
+		destructionMask = targets;
+	}
+
 	void SetOnDestroy(UpgradeAction ua)
 	{
-		onDestroy = ua.locationAction;
+		SetOnDestroy(ua.locationAction,ua.targets);
 	}
 
 	void ResetOnDestroy()
@@ -93,10 +100,15 @@ public class PoolableProjectile : MonoBehaviour
 		onDestroy = null;
 	}
 
+	public void SetOnCollision(System.Action<Transform, Transform> action, LayerMask targets)
+	{
+		onCollision = action;
+		onCollisionTargets = targets;
+	}
+
 	void SetOnCollision(UpgradeAction ua)
 	{
-		onCollision = ua.targetAction;
-		onCollisionTargets = ua.targets;
+		SetOnCollision(ua.targetAction, ua.targets);
 	}
 
 	void ResetOnCollision()

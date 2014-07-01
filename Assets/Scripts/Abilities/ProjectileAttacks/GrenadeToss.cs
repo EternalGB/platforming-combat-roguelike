@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class HomingRocket : ProjectileAttack 
+public class GrenadeToss : ProjectileAttack 
 {
 
 	public GameObject explosionRep;
 	ObjectPool explosionPool;
 	public float explosionSize;
 	public float explosionDuration;
-	public float passiveProcChance;
 	public LayerMask onDestroyTargets;
 
 	void Start()
@@ -28,13 +27,12 @@ public class HomingRocket : ProjectileAttack
 			channeler = player.FindChild("channeler");
 		}
 		bullet.transform.position = channeler.position;
-		bullet.transform.right = player.up;//*Mathf.Sign (player.localScale.x);
-		PoolableProjectile proj = bullet.GetComponent<PoolableProjectile>();
-		proj.SetOnDestroy(createExplosion, onDestroyTargets);
-		proj.SetOnCollision(collisionExplosion, onCollisionTargets);
-		//bullet.SendMessage("SetOnDestroy",new UpgradeAction(createExplosion,onDestroyTargets));
-		//bullet.SendMessage("SetOnCollision",new UpgradeAction(createExplosion,onCollisionTargets));
-
+		
+		float angle = 45*Mathf.Sign (player.localScale.x);
+		Vector3 facingDir = player.right*Mathf.Sign (player.localScale.x);
+		Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*facingDir;
+		bullet.rigidbody2D.AddForce(firingDir*bulletVelocity);
+		bullet.SendMessage("SetOnDestroy",new UpgradeAction(createExplosion,onDestroyTargets));
 	}
 
 	void createExplosion(Transform projectile)
@@ -53,11 +51,6 @@ public class HomingRocket : ProjectileAttack
 		}
 	}
 
-	void collisionExplosion(Transform projectile, Transform target)
-	{
-		createExplosion(projectile);
-	}
-
 	override protected void defaultCollision(Transform projectile, Transform target)
 	{
 		if(target.GetComponent<GameActor>())
@@ -68,24 +61,7 @@ public class HomingRocket : ProjectileAttack
 			target.rigidbody2D.AddForce(force);
 		}
 	}
-
-	public override void applyPassive (Transform player)
-	{
-		PeriodicAction action = player.gameObject.AddComponent<PeriodicAction>();
-		passiveActionID = action.GetInstanceID();
-		action.init(activeEffect,cooldown,passiveProcChance);
-	}
-
-	public override void undoPassive (Transform player)
-	{
-		PeriodicAction[] actions = player.gameObject.GetComponents<PeriodicAction>();
-		PeriodicAction action = null;
-		foreach(PeriodicAction a in actions)
-			if(a.GetInstanceID() == passiveActionID)
-				action = a;
-		if(action)
-			Destroy(action);
-	}
+	
 
 	
 
