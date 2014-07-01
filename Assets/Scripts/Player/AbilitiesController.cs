@@ -122,7 +122,7 @@ public class AbilitiesController : MonoBehaviour
 	public bool IsActive(Ability ab)
 	{
 		foreach(Ability active in actives) {
-			if(active != null && ab.abilityName == active.abilityName)
+			if(active != null && ab != null && ab.abilityName == active.abilityName)
 				return true;
 		}
 		return false;

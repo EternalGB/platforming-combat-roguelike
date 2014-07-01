@@ -15,8 +15,8 @@ public class BouncingShot : ProjectileAttack
 		}
 		bullet.transform.position = channeler.position;
 		bullet.transform.right = player.right*Mathf.Sign (player.localScale.x);
-		bullet.SendMessage("SetOnDestroy",new UpgradeAction(onCollision,onCollisionTargets));
-		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
+		PoolableProjectile proj = bullet.GetComponent<PoolableProjectile>();
+		proj.SetOnCollision(onCollision, onCollisionTargets);
 		bullet.GetComponent<BouncingProjectile>().numBounces = numBounces;
 	}
 

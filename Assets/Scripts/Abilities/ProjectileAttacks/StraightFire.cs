@@ -11,7 +11,8 @@ public class StraightFire : ProjectileAttack
 		if(channeler == null) {
 			channeler = player.FindChild("channeler");
 		}
-		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
+		PoolableProjectile proj = bullet.GetComponent<PoolableProjectile>();
+		proj.SetOnCollision(onCollision, onCollisionTargets);
 		bullet.transform.position = channeler.position;
 		bullet.transform.right = player.right*Mathf.Sign (player.localScale.x);
 		bullet.rigidbody2D.AddForce(player.right*Mathf.Sign(player.localScale.x)*bulletVelocity);

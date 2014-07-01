@@ -13,7 +13,8 @@ public class LobShot : ProjectileAttack
 		if(channeler == null) {
 			channeler = player.FindChild("channeler");
 		}
-		bullet.SendMessage("SetOnCollision",new UpgradeAction(onCollision,onCollisionTargets));
+		PoolableProjectile proj = bullet.GetComponent<PoolableProjectile>();
+		proj.SetOnCollision(onCollision, onCollisionTargets);
 		bullet.transform.position = channeler.position;
 		
 		float angle = 45*Mathf.Sign (player.localScale.x);

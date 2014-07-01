@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ObjectPool : MonoBehaviour
 {
 
+	public const string poolPrefabLocation = "Assets/Prefabs/objectPool.prefab";
 	public static Dictionary<string,ObjectPool> currentPools;
 	public GameObject pooledObject;
 	public int pooledAmount = 20;
@@ -26,12 +27,34 @@ public class ObjectPool : MonoBehaviour
 
 	public static ObjectPool GetPoolByRepresentative(GameObject rep)
 	{	
-		return currentPools[rep.name + "Pool"];
+		if(currentPools == null)
+			currentPools = new Dictionary<string, ObjectPool>();
+		ObjectPool pool = null;
+		if(!currentPools.TryGetValue(rep.gameObject.name + "Pool", out pool)) {
+
+			pool = ((GameObject)GameObject.Instantiate
+			        (Resources.LoadAssetAtPath<GameObject>(poolPrefabLocation)))
+				.GetComponent<ObjectPool>();
+			pool.init(rep,10,true);
+			pool.gameObject.name = rep.gameObject.name + "Pool";
+			currentPools.Add(pool.gameObject.name, pool);
+		}
+		return pool;
 	}
+
 
 	void Start()
 	{
+		if(pooledObject != null)
+			init(pooledObject, pooledAmount, growable);
+	}
+
+	void init(GameObject pooledObject, int pooledAmount, bool growable) 
+	{
 		pool = new List<GameObject>();
+		this.pooledObject = pooledObject;
+		this.pooledAmount = pooledAmount;
+		this.growable = growable;
 		for(int i = 0; i < pooledAmount; i++) {
 			GameObject obj = (GameObject)Instantiate(pooledObject);
 			obj.SetActive(false);
