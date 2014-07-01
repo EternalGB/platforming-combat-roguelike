@@ -24,22 +24,5 @@ public class StraightBoomerang : PoolableProjectile
 		rigidbody2D.velocity = Vector3.ClampMagnitude(rigidbody2D.velocity,Mathf.Abs(origVelocity));
 	}
 
-
-
-	void OnTriggerEnter2D(Collider2D col)
-	{
-		if(onCollision != null && (onCollisionTargets.value &1 << col.gameObject.layer) != 0) {
-			onCollision(transform, col.transform);
-		}
-		
-		//print(col.gameObject.layer + " " + destructionMask.value);
-		if((destructionMask.value & 1 << col.gameObject.layer) != 0) {
-			if(col.gameObject.layer == LayerMask.NameToLayer("CollProj")
-			   || col.gameObject.layer == LayerMask.NameToLayer ("NonCollProj"))
-				col.gameObject.SendMessage("Destroy");
-			Destroy();
-		}
-	}
-	
 }
 

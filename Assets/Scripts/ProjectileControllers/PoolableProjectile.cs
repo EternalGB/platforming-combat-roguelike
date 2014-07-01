@@ -35,10 +35,20 @@ public class PoolableProjectile : MonoBehaviour
 
 	protected void OnCollisionEnter2D(Collision2D col)
 	{
+		CollisionHandler(col.collider);
+	}
+
+	protected void OnTriggerEnter2D(Collider2D col)
+	{
+		CollisionHandler(col);
+	}
+
+	protected void CollisionHandler(Collider2D col)
+	{
 		if(onCollision != null && (onCollisionTargets.value &1 << col.gameObject.layer) != 0) {
 			onCollision(transform, col.transform);
 		}
-
+		
 		//print(col.gameObject.layer + " " + destructionMask.value);
 		if((destructionMask.value & 1 << col.gameObject.layer) != 0) {
 			if(col.gameObject.layer == LayerMask.NameToLayer("CollProj")
