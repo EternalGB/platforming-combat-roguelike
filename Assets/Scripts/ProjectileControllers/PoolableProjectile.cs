@@ -33,12 +33,12 @@ public class PoolableProjectile : MonoBehaviour
 		CancelInvoke();
 	}
 
-	protected void OnCollisionEnter2D(Collision2D col)
+	protected virtual void OnCollisionEnter2D(Collision2D col)
 	{
 		CollisionHandler(col.collider);
 	}
 
-	protected void OnTriggerEnter2D(Collider2D col)
+	protected virtual void OnTriggerEnter2D(Collider2D col)
 	{
 		CollisionHandler(col);
 	}
