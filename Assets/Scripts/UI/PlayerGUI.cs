@@ -47,6 +47,8 @@ public class PlayerGUI : MonoBehaviour
 	int numAbilities;
 	float abMenuHeight = 0;
 	Vector2 abMenuPosition = Vector2.zero;
+	float iconSize = 100;
+	float iconMargin = 30;
 
 	public Texture upgOutline;
 
@@ -137,6 +139,7 @@ public class PlayerGUI : MonoBehaviour
 						abMenuSelected = newSelection;
 						abMenuCanSelect = false;
 						StartCoroutine(Timers.CountdownRealtime(selectionInterval,EnableSelect));
+						abMenuPosition = new Vector2(0,(abMenuSelected/abMenuRowSize)*iconSize);
 					}
 				}
 			}
@@ -194,6 +197,9 @@ public class PlayerGUI : MonoBehaviour
 		if(Input.GetKeyDown("f2")) {
 			GetAbility((Ability)GameObject.Find ("Boulder").GetComponent<ClusterShower>());
 		}
+
+		abMenuHeight = (numAbilities/abMenuRowSize+1)*iconSize 
+			+ (Mathf.Ceil(numAbilities/abMenuRowSize)+2)*iconMargin;
 	}
 
 
@@ -281,11 +287,9 @@ public class PlayerGUI : MonoBehaviour
 			//draw the abilities overlay and ability icons
 			DrawAbilityIcons();
 			//draw the abilities area
-			float iconSize = 100;
-			float iconMargin = 30;
+			
 			numAbilities = abCont.allAbilities.Count;
-			abMenuHeight = Mathf.Ceil(numAbilities/abMenuRowSize)*iconSize 
-				+ (Mathf.Ceil(numAbilities/abMenuRowSize)+1)*iconMargin;
+
 			Color tmpColor = GUI.color;
 			GUI.BeginGroup(new Rect(50,50,720,480));
 			GUI.DrawTexture(new Rect(0,0,720,480),abilityPreviewOverlay,ScaleMode.StretchToFill);
@@ -298,6 +302,7 @@ public class PlayerGUI : MonoBehaviour
 					GUI.color = tmpColor;
 				int x = i%abMenuRowSize;
 				int y = i/abMenuRowSize;
+				GUI.Box(new Rect((x+1)*iconMargin + x*iconSize,(y+1)*iconMargin + y*iconSize,iconSize,iconSize),"");
 				GUI.DrawTexture(new Rect((x+1)*iconMargin + x*iconSize,(y+1)*iconMargin + y*iconSize,iconSize,iconSize),
 				                ab.icon.texture);
 			}
