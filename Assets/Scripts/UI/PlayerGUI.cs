@@ -303,8 +303,11 @@ public class PlayerGUI : MonoBehaviour
 				int x = i%abMenuRowSize;
 				int y = i/abMenuRowSize;
 				GUI.Box(new Rect((x+1)*iconMargin + x*iconSize,(y+1)*iconMargin + y*iconSize,iconSize,iconSize),"");
-				GUI.DrawTexture(new Rect((x+1)*iconMargin + x*iconSize,(y+1)*iconMargin + y*iconSize,iconSize,iconSize),
-				                ab.icon.texture);
+				//change the selected if an ability is clicked
+				if(GUI.Button(new Rect((x+1)*iconMargin + x*iconSize,(y+1)*iconMargin + y*iconSize,iconSize,iconSize),
+				                ab.icon.texture)) {
+					abMenuSelected = i;
+				}
 			}
 			GUI.color = tmpColor;
 			//draw the selection box
