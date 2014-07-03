@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ImproveableFields>
+	<Field name="cooldown">
+		<DisplayName>Firing Speed</DisplayName>
+		<CostPerPoint>1</CostPerPoint>
+		<PointValue>-0.1</PointValue>
+		<FinalValue>0.1</FinalValue>
+	</Field>
+	<Field name="effectSize">
+		<DisplayName>Damage</DisplayName>
+		<CostPerPoint>1</CostPerPoint>
+		<PointValue>1</PointValue>
+		<FinalValue>15</FinalValue>
+	</Field>
+</ImproveableFields>

@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(AbilitiesController))]
 [RequireComponent(typeof(PlayerController))]
@@ -51,6 +51,9 @@ public class PlayerGUI : MonoBehaviour
 	float iconMargin = 30;
 
 	public Texture upgOutline;
+	
+	public Texture impOn;
+	public Texture impOff;
 
 	AbilitiesController abCont;
 	PlayerController pCont;
@@ -320,19 +323,42 @@ public class PlayerGUI : MonoBehaviour
 			//draw the ability description area
 			GUI.BeginGroup(new Rect(820,50,410,480));
 			GUI.DrawTexture(new Rect(0,0,410,480),abilityPreviewOverlay,ScaleMode.StretchToFill);
-			GUI.Label (new Rect(0,0,410,60),abCont.allAbilities[abMenuSelected].abilityName,skin.GetStyle("AbilityName"));
-			GUI.Label(new Rect(0,60,410,30),"Active Effect",skin.GetStyle("SubTitle"));
+
+			GUI.Label (new Rect(0,0,410,40),abCont.allAbilities[abMenuSelected].abilityName,skin.GetStyle("AbilityName"));
+
+			GUI.Label(new Rect(0,40,410,20),"Active Effect",skin.GetStyle("SubTitle"));
 			if(abCont.allAbilities[abMenuSelected].activeDescription != null)
-				GUI.TextArea(new Rect(0,90,410,110), abCont.allAbilities[abMenuSelected].activeDescription.text,
+				GUI.TextArea(new Rect(0,60,410,90), abCont.allAbilities[abMenuSelected].activeDescription.text,
 				             skin.GetStyle("DescriptiveText"));
-			GUI.Label(new Rect(0,200,410,30),"Upgrade Effect",skin.GetStyle("SubTitle"));
+
+			GUI.Label(new Rect(0,150,410,20),"Upgrade Effect",skin.GetStyle("SubTitle"));
 			if(abCont.allAbilities[abMenuSelected].upgradeDescription != null)
-				GUI.TextArea(new Rect(0,230,410,110), abCont.allAbilities[abMenuSelected].upgradeDescription.text,
+				GUI.TextArea(new Rect(0,170,410,90), abCont.allAbilities[abMenuSelected].upgradeDescription.text,
 			            	 skin.GetStyle("DescriptiveText"));
-			GUI.Label(new Rect(0,340,410,30),"Passive Effect",skin.GetStyle("SubTitle"));
+
+			GUI.Label(new Rect(0,260,410,20),"Passive Effect",skin.GetStyle("SubTitle"));
 			if(abCont.allAbilities[abMenuSelected].passiveDescription != null)
-				GUI.TextArea(new Rect(0,370,410,110), abCont.allAbilities[abMenuSelected].passiveDescription.text,
+				GUI.TextArea(new Rect(0,280,410,90), abCont.allAbilities[abMenuSelected].passiveDescription.text,
 			             	skin.GetStyle("DescriptiveText"));
+
+			if(abCont.allAbilities[abMenuSelected].improvements != null) {
+				GUI.Label(new Rect(0,370,410,20),"Improvements",skin.GetStyle("SubTitle"));
+				GUI.BeginGroup(new Rect(0,390,410,110));
+
+				List<Improvement> improvements = abCont.allAbilities[abMenuSelected].improvements;
+
+				for(int i = 0; i < improvements.Count; i++) {
+					Improvement imp = improvements[i];
+					GUI.Label(new Rect(0,20*i,100,20),imp.displayName,skin.GetStyle("DescriptiveText"));
+					GUIUtility.PointStripDisplay(new Rect(120,20*i,340,20),20,
+					                             imp.maxPoints,imp.pointsAllocated-1,impOn,impOff);
+					if(GUI.Button (new Rect(380,20*i,20,20),"",skin.GetStyle("ImpButton"))) {
+						abCont.allAbilities[abMenuSelected].improveAttribute(i);
+					}
+				}
+				GUI.EndGroup ();
+			}
+
 			GUI.EndGroup ();
 			//draw the help text area
 
@@ -343,6 +369,8 @@ public class PlayerGUI : MonoBehaviour
 		GUI.matrix = lastMat;
 	}
 		
+
+
 	void DrawAbilityIcons()
 	{
 		GUI.DrawTexture(new Rect(0,0,origWidth,origHeight),abilitiesOverlay);

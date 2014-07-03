@@ -19,6 +19,7 @@ public class AbilityBox : MonoBehaviour
 	{
 		openable = false;
 		spriteRenderer = GetComponent<SpriteRenderer>();
+
 	}
 
 	void Update()

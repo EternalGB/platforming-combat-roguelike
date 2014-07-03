@@ -1,5 +1,6 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 
 public abstract class Ability : MonoBehaviour
 {
@@ -8,12 +9,14 @@ public abstract class Ability : MonoBehaviour
 	public TextAsset activeDescription;
 	public TextAsset upgradeDescription;
 	public TextAsset passiveDescription;
-
+	
 	public float cooldown;
 	public bool canActivate = true;
 	public float effectSize;
 	public Sprite icon;
 	public System.Action<Transform> activeFunc;
+
+	public List<Improvement> improvements;
 
 	private float origCooldown;
 	private float origEffectSize;
@@ -51,7 +54,23 @@ public abstract class Ability : MonoBehaviour
 		activeFunc = activeEffect;
 		reset();
 	}
-	
+
+	public void improveAttribute(int improvementIndex)
+	{
+		Improvement imp = improvements[improvementIndex];
+		if(imp.pointsAllocated < imp.maxPoints) {
+			string fieldName = imp.fieldName;
+			float amount = imp.pointValue;
+			FieldInfo info = this.GetType().GetField(fieldName, BindingFlags.Public |
+			                                         BindingFlags.NonPublic | BindingFlags.SetField |
+			                                         BindingFlags.Instance);
+			//we only improve numerical values
+			float value = (float)info.GetValue(this);
+			info.SetValue(this,value+amount);
+			imp.pointsAllocated++;
+		}
+
+	}
 
 	public abstract void activeEffect(Transform player);
 
@@ -62,6 +81,8 @@ public abstract class Ability : MonoBehaviour
 	public abstract void applyPassive(Transform player);
 
 	public abstract void undoPassive(Transform player);
+
+
 
 }
 

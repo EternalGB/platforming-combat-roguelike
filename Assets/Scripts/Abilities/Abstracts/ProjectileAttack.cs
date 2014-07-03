@@ -31,6 +31,7 @@ public abstract class ProjectileAttack : Ability
 
 	protected int passiveActionID = 0;
 
+
 	public void Start()
 	{
 		base.Start();

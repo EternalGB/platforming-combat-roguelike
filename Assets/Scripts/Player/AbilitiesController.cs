@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 public class AbilitiesController : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class AbilitiesController : MonoBehaviour
 
 		for(int i = 0; i < abInput.Length; i++) {
 			if(abInput[i] > 0 && actives[i] != null) {
+
 				actives[i].triggerActive(transform);
 			}
 		}
