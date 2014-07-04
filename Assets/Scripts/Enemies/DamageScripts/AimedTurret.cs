@@ -40,7 +40,8 @@ public class AimedTurret : MonoBehaviour
 			GameObject bullet = (GameObject)projectiles.getPooled();
 			bullet.SetActive(true);
 			bullet.SendMessage ("IgnoreCollider",collider2D);
-			bullet.SendMessage("SetOnCollision",new UpgradeAction(ProjectileDamage,targets));
+			PoolableProjectile proj = bullet.GetComponent<PoolableProjectile>();
+			proj.SetOnCollision(ProjectileDamage,targets);
 			bullet.transform.position = firePosition.position;
 			bullet.rigidbody2D.AddForce((target.position - firePosition.position).normalized*projectileVelocity);
 		}

@@ -349,8 +349,8 @@ public class PlayerGUI : MonoBehaviour
 
 				for(int i = 0; i < improvements.Count; i++) {
 					Improvement imp = improvements[i];
-					GUI.Label(new Rect(0,20*i,100,20),imp.displayName,skin.GetStyle("DescriptiveText"));
-					GUIUtility.PointStripDisplay(new Rect(120,20*i,340,20),20,
+					GUI.Label(new Rect(0,20*i,200,20),imp.displayName,skin.GetStyle("DescriptiveText"));
+					GUIUtility.PointStripDisplay(new Rect(220,20*i,240,20),20,
 					                             imp.maxPoints,imp.pointsAllocated-1,impOn,impOff);
 					if(GUI.Button (new Rect(380,20*i,20,20),"",skin.GetStyle("ImpButton"))) {
 						abCont.allAbilities[abMenuSelected].improveAttribute(i);

@@ -23,6 +23,7 @@ public abstract class CloseBlast : Ability
 	public Action<Transform, Transform> onHitByBurst;
 	public Action<Transform, Transform> blastFunc;
 	public float blastDelay;
+	public float blastSize = 1;
 	public LayerMask burstTargets;
 
 	protected Transform channeler;
@@ -65,8 +66,15 @@ public abstract class CloseBlast : Ability
 		blast.SendMessage("SetBlastEffect",new UpgradeAction(onHitByBurst,burstTargets));
 		blast.transform.position = location.position;
 		blast.transform.right = player.right*Mathf.Sign (player.localScale.x);
+		scaleBlast(blast,blastSize);
 		if(attachedToFirer)
 			blast.SendMessage("SetOwner",player.GetComponent<GameActor>());
+	}
+
+	protected virtual void scaleBlast(GameObject blast, float scaling)
+	{
+		Vector3 scale = blast.transform.localScale;
+		blast.transform.localScale = scaling*scale;
 	}
 	
 	override protected void upgradeOtherAbility(Ability other)
