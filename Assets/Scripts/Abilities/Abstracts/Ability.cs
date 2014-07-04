@@ -65,8 +65,16 @@ public abstract class Ability : MonoBehaviour
 			                                         BindingFlags.NonPublic | BindingFlags.SetField |
 			                                         BindingFlags.Instance);
 			//we only improve numerical values
-			float value = (float)info.GetValue(this);
-			info.SetValue(this,value+amount);
+			if(info.GetValue(this).GetType() == typeof(float)) {
+				float value = (float)info.GetValue(this);
+				info.SetValue(this,value+amount);
+			} else if(info.GetValue(this).GetType() == typeof(int)) {
+				int value = (int)info.GetValue(this);
+				print(abilityName + ": the value of " + info.Name + " is " + value);
+				info.SetValue(this,(int)(value+amount));
+				print(abilityName + ": setting " + info.Name + " to " + (int)(value+amount));
+			}
+
 			imp.pointsAllocated++;
 		}
 

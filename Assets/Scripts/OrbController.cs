@@ -12,7 +12,6 @@ public class OrbController : MonoBehaviour
 	public LayerMask destructionMask;
 	public Action<Transform, Transform> onCollision;
 	protected LayerMask onCollisionTargets;
-	SpriteRenderer spriteRenderer;
 	public bool IsOn
 	{
 		get; private set;
@@ -22,11 +21,16 @@ public class OrbController : MonoBehaviour
 
 	void Start()
 	{
-		spriteRenderer = GetComponent<SpriteRenderer>();
-		TurnOff();
+		orbMove();
+		//TurnOff();
 	}
 
 	void Update()
+	{
+		orbMove();
+	}
+
+	void orbMove()
 	{
 		if(owner) {
 			offset = Quaternion.Euler(0,0,-rotationSpeed*Time.deltaTime)*offset;
@@ -37,14 +41,14 @@ public class OrbController : MonoBehaviour
 	public void TurnOn()
 	{
 		collider2D.enabled = true;
-		spriteRenderer.enabled = true;
+		renderer.enabled = true;
 		IsOn = true;
 	}
 
 	public void TurnOff()
 	{
 		collider2D.enabled = false;
-		spriteRenderer.enabled = false;
+		renderer.enabled = false;
 		IsOn = false;
 	}
 

@@ -10,7 +10,7 @@ public class OrbGenerator : Special
 
 
 
-	List<OrbController> orbs;
+	public List<OrbController> orbs = null;
 	public int maxOrbs;
 	float interOrbAngle;
 	float orbRadius;
@@ -27,18 +27,6 @@ public class OrbGenerator : Special
 	void Start()
 	{
 		onCollision = defaultCollision;
-		orbs = new List<OrbController>();
-		if(maxOrbs > 0)
-			interOrbAngle = 360/maxOrbs;
-		for(int i = 0; i < maxOrbs; i++) {
-			OrbController oc = ((GameObject)GameObject.Instantiate(orbObj)).GetComponent<OrbController>();
-			oc.offset = Quaternion.AngleAxis(i*interOrbAngle,Vector3.forward)*Vector3.right;
-			oc.owner = PlayerController.GlobalPlayerInstance.transform;
-			oc.SetOnCollision(onCollision,onCollisionTargets);
-			orbs.Add(oc);
-			orbRadius = oc.radius;
-			orbSpeed = oc.rotationSpeed;
-		}
 		origOnCollision = onCollision;
 		origOnCollisionTargets = onCollisionTargets;
 		origRadius = orbRadius;
@@ -48,6 +36,8 @@ public class OrbGenerator : Special
 
 	public override void activeEffect (Transform player)
 	{
+		resetOrbs();
+		print("Turning on " + orbs.Count + " orbs");
 		foreach(OrbController orb in orbs)
 			orb.TurnOn();
 	}
@@ -90,6 +80,7 @@ public class OrbGenerator : Special
 		orbSpeed = origSpeed;
 		SetOrbRadius(orbRadius);
 		SetOrbSpeed(orbSpeed);
+		resetOrbs();
 	}
 
 	void turnOnNextOrb()
@@ -114,6 +105,9 @@ public class OrbGenerator : Special
 
 	public override void applyPassive (Transform player)
 	{
+		resetOrbs();
+		foreach(OrbController orb in orbs)
+			orb.TurnOff();
 		StartCoroutine("passiveCoroutine", cooldown);
 	}
 
@@ -139,6 +133,28 @@ public class OrbGenerator : Special
 	{
 		foreach(OrbController orb in orbs)
 			orb.rotationSpeed += inc;
+	}
+
+	public void resetOrbs()
+	{
+		if(orbs != null) {
+			foreach(OrbController orb in orbs)
+				Destroy(orb.gameObject);
+			orbs.Clear();
+		} else {
+			orbs = new List<OrbController>();
+		}
+		if(maxOrbs > 0)
+			interOrbAngle = 360/maxOrbs;
+		for(int i = 0; i < maxOrbs; i++) {
+			OrbController oc = ((GameObject)GameObject.Instantiate(orbObj)).GetComponent<OrbController>();
+			oc.offset = Quaternion.AngleAxis(i*interOrbAngle,Vector3.forward)*Vector3.right;
+			oc.owner = PlayerController.GlobalPlayerInstance.transform;
+			oc.SetOnCollision(onCollision,onCollisionTargets);
+			orbs.Add(oc);
+			orbRadius = oc.radius;
+			orbSpeed = oc.rotationSpeed;
+		}
 	}
 
 
