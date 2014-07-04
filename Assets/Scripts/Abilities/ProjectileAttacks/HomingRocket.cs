@@ -17,7 +17,7 @@ public class HomingRocket : ProjectileAttack
 	{
 
 		if(explosionPool == null && explosionRep != null) {
-			explosionPool = ObjectPool.GetPoolByRepresentative(explosionRep);
+			explosionPool = PoolManager.Instance.GetPoolByRepresentative(explosionRep);
 		}
 		base.Start ();
 	}

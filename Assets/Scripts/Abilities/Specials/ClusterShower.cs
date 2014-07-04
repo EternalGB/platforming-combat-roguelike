@@ -16,7 +16,7 @@ public class ClusterShower : Special
 		set
 		{
 			clusterObj = value;
-			clusterPool = ObjectPool.GetPoolByRepresentative(clusterObj);
+			clusterPool = PoolManager.Instance.GetPoolByRepresentative(clusterObj);
 		}
 	}
 	ObjectPool clusterPool;
@@ -40,7 +40,7 @@ public class ClusterShower : Special
 	{
 		onCollision = defaultCollision;
 		if(clusterPool == null && clusterObj != null) {
-			clusterPool = ObjectPool.GetPoolByRepresentative(clusterObj);
+			clusterPool = PoolManager.Instance.GetPoolByRepresentative(clusterObj);
 		}
 
 		origClusterObj = clusterObj;

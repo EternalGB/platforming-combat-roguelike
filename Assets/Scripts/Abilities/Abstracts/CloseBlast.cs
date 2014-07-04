@@ -15,7 +15,7 @@ public abstract class CloseBlast : Ability
 		set
 		{
 			blastObj = value;
-			blastPool = ObjectPool.GetPoolByRepresentative(blastObj);
+			blastPool = PoolManager.Instance.GetPoolByRepresentative(blastObj);
 		}
 	}
 	protected ObjectPool blastPool;
@@ -38,7 +38,7 @@ public abstract class CloseBlast : Ability
 	{
 		base.Start();
 		if(blastObj != null) {
-			blastPool = ObjectPool.GetPoolByRepresentative(blastObj);
+			blastPool = PoolManager.Instance.GetPoolByRepresentative(blastObj);
 		}
 		onHitByBurst = burstEffect;
 		blastFunc = createBlast;

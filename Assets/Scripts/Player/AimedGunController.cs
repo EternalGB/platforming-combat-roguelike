@@ -24,7 +24,7 @@ public class AimedGunController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		bulletPool = ObjectPool.GetPoolByName("bulletPool");
+		bulletPool = PoolManager.Instance.GetPoolByName("bulletPool");
 	}
 
 

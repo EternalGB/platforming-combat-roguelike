@@ -16,7 +16,7 @@ public class AimedTurret : MonoBehaviour
 
 	void Start()
 	{
-		projectiles = ObjectPool.GetPoolByRepresentative(projectileRep);
+		projectiles = PoolManager.Instance.GetPoolByRepresentative(projectileRep);
 		InvokeRepeating("Fire",0,fireInterval);
 	}
 

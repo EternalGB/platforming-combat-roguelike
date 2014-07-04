@@ -16,7 +16,7 @@ public abstract class ProjectileAttack : Ability
 		set
 		{
 			projectileRep = value;
-			projectiles = ObjectPool.GetPoolByRepresentative(projectileRep);
+			projectiles = PoolManager.Instance.GetPoolByRepresentative(projectileRep);
 		}
 
 	}
@@ -40,7 +40,7 @@ public abstract class ProjectileAttack : Ability
 		origBulletVel = bulletVelocity;
 		origCollisionTargets = onCollisionTargets;
 
-		projectiles = ObjectPool.GetPoolByRepresentative(ProjectileRep);
+		projectiles = PoolManager.Instance.GetPoolByRepresentative(ProjectileRep);
 	}
 
 
