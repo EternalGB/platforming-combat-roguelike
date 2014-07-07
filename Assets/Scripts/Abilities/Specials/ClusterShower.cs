@@ -96,29 +96,34 @@ public class ClusterShower : Special
 	}
 
 	//shoots in an angle around from Vector2.right
-	void shootCluster(Transform origin, float baseAngle)
+	void shootCluster(Transform origin, Vector2 dir)
 	{
-		float angle = baseAngle + UnityEngine.Random.Range (-maxDeviation,maxDeviation);
+		float angle = UnityEngine.Random.Range (-maxDeviation,maxDeviation);
 		GameObject bullet = getBullet(origin);
-		Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*Vector2.right;
+		Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*dir;
 		bullet.rigidbody2D.AddForce(firingDir*fireForce);
 	}
 
 	List<Transform> lastSprayLocs;
 
-	void sprayClusters(Transform location, Transform notNeeded)
+	void sprayClusters(Transform actingLoc, Transform actedUponLoc)
 	{
 		if(lastSprayLocs == null)
 			lastSprayLocs = new List<Transform>();
-		if(!lastSprayLocs.Contains(location)) {
+		if(!lastSprayLocs.Contains(actingLoc)) {
 			canSpray = true;
 		}
-		lastSprayLocs.Add(location);
+		lastSprayLocs.Add(actingLoc);
 		//canSpray puts a global cap on how fast this can fire
-		if(canSpray && location.gameObject.layer != LayerMask.NameToLayer("Ground")) {
+		if(canSpray && actingLoc.gameObject.layer != LayerMask.NameToLayer("Ground")) {
 			//print("Spraying clusters from " + location + " at " + location.position);
+			Vector2 dir = Vector2.up;
+			if(actedUponLoc != null) {
+				dir = (actingLoc.position - actedUponLoc.position).normalized;
+			}
 			for(int i = 0; i < fireAmount; i++) {
-				StartCoroutine(Timers.Countdown<Transform, float>(UnityEngine.Random.Range (0f,0.1f),shootCluster,location,90));
+				StartCoroutine(Timers.Countdown<Transform, Vector2>(
+					UnityEngine.Random.Range (0f,0.1f),shootCluster,actingLoc,dir));
 			}
 			canSpray = false;
 			Invoke("enableSpray",cooldown);
@@ -130,9 +135,9 @@ public class ClusterShower : Special
 		sprayClusters(location);
 	}
 
-	void upgradeSpray(Transform other, Transform location)
+	void upgradeSpray(Transform projBlastLoc, Transform targetLoc)
 	{
-		sprayClusters(location);
+		sprayClusters(projBlastLoc,targetLoc);
 	}
 
 	void enableSpray()
