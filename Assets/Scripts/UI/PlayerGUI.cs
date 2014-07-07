@@ -118,7 +118,7 @@ public class PlayerGUI : MonoBehaviour
 				abCont.AddActive(lastReceivedAbility,3);
 				TogglePause();
 			} else if(Input.GetButtonDown("Pause")) {
-				abCont.AddActive(lastReceivedAbility,-1);
+				//abCont.AddActive(lastReceivedAbility,-1);
 				TogglePause();
 			} else if(Input.GetButtonDown ("P1")) {
 				abCont.AddPassive(lastReceivedAbility,0);
@@ -169,6 +169,7 @@ public class PlayerGUI : MonoBehaviour
 				}
 			} else if(!abCont.InUse(selectedAb)) {
 				if(Input.GetButton("Upgrade")) {
+
 					if(Input.GetButtonDown("A1")) {
 						abCont.SetUpgrade(abMenuSelected,0);
 					} else if(Input.GetButtonDown("A2")) {
