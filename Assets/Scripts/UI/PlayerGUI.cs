@@ -54,6 +54,7 @@ public class PlayerGUI : MonoBehaviour
 	
 	public Texture impOn;
 	public Texture impOff;
+	public Texture blankWhite;
 
 	AbilitiesController abCont;
 	PlayerController pCont;
@@ -248,8 +249,11 @@ public class PlayerGUI : MonoBehaviour
 			GUI.DrawTexture(new Rect(healthBarDefault.x + healthBarDefault.height,healthBarDefault.y,
 			                         healthBarDefault.width*percentHealth,healthBarDefault.height),
 			                healthBarTexture,ScaleMode.StretchToFill);
-
+			if(paused)
+				GUI.DrawTexture(new Rect(0,0,origWidth,origHeight), pauseOverlay);
 		} else if(mode == GUIMode.ABILITY_PREVIEW) {
+			if(paused)
+				GUI.DrawTexture(new Rect(0,0,origWidth,origHeight), pauseOverlay);
 			float groupWidth = 880;
 			float groupHeight = 720;
 			float titleHeight = 100;
@@ -286,7 +290,11 @@ public class PlayerGUI : MonoBehaviour
 			GUI.EndGroup ();
 
 			GUI.EndGroup ();
+			if(paused)
+			GUI.DrawTexture(new Rect(0,0,origWidth,origHeight), pauseOverlay);
 		} else if(mode == GUIMode.ABILITY_MENU) {
+			if(paused)
+				GUI.DrawTexture(new Rect(0,0,origWidth,origHeight), pauseOverlay);
 			//draw the abilities overlay and ability icons
 			DrawAbilityIcons();
 			//draw the abilities area
@@ -305,10 +313,11 @@ public class PlayerGUI : MonoBehaviour
 					GUI.color = tmpColor;
 				int x = i%abMenuRowSize;
 				int y = i/abMenuRowSize;
-				GUI.Box(new Rect((x+1)*iconMargin + x*iconSize,(y+1)*iconMargin + y*iconSize,iconSize,iconSize),"");
+				Rect abRect = new Rect((x+1)*iconMargin + x*iconSize,(y+1)*iconMargin + y*iconSize,iconSize,iconSize);
+				GUI.Box(abRect,"");
+				GUI.DrawTexture(abRect,blankWhite);
 				//change the selected if an ability is clicked
-				if(GUI.Button(new Rect((x+1)*iconMargin + x*iconSize,(y+1)*iconMargin + y*iconSize,iconSize,iconSize),
-				                ab.icon.texture)) {
+				if(GUI.Button(abRect,ab.icon.texture)) {
 					abMenuSelected = i;
 				}
 			}
@@ -363,8 +372,7 @@ public class PlayerGUI : MonoBehaviour
 			//draw the help text area
 
 		}
-		if(paused)
-			GUI.DrawTexture(new Rect(0,0,origWidth,origHeight), pauseOverlay);
+
 
 		GUI.matrix = lastMat;
 	}

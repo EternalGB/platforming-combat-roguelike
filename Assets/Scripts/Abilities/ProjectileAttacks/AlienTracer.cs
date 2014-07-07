@@ -21,7 +21,8 @@ public class AlienTracer : ProjectileAttack
 		float angle = 45*Mathf.Sign (player.localScale.x);
 		Vector3 facingDir = player.right*Mathf.Sign (player.localScale.x);
 		Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*facingDir;
-		bullet.rigidbody2D.AddForce(firingDir*bulletVelocity);
+		bullet.transform.right = firingDir;
+		//bullet.rigidbody2D.AddForce(firingDir*bulletVelocity);
 	}
 	
 	

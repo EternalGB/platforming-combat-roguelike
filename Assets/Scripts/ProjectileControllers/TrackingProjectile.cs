@@ -31,7 +31,8 @@ public class TrackingProjectile : PoolableProjectile
 		//jiggle the destination a bit
 		float instabAngle = Random.Range (-actualInstab,actualInstab);
 		Vector3 toDir = (destination - transform.position).normalized;
-		toDir = Quaternion.AngleAxis(instabAngle,Vector3.forward)*toDir;
+		if(instability > 0)
+			toDir = Quaternion.AngleAxis(instabAngle,Vector3.forward)*toDir;
 
 		//face the destination
 		transform.right = Vector3.RotateTowards(transform.right,toDir,maxTurn*Time.fixedDeltaTime,1);
