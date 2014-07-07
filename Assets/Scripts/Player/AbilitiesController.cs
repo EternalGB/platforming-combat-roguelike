@@ -73,15 +73,15 @@ public class AbilitiesController : MonoBehaviour
 		}
 	}
 
-	public void RemoveUpgrade(int abIndex)
+	public void RemoveUpgrade(int activeIndex)
 	{
-		Ability active = actives[abIndex];
-		Ability upg = upgrades[abIndex];
+		Ability active = actives[activeIndex];
+		Ability upg = upgrades[activeIndex];
 		if(active)
 			active.resetAbility();
 		if(upg)
 			upg.resetAbility();
-		upgrades[abIndex] = null;
+		upgrades[activeIndex] = null;
 	}
 
 	public void RemovePassive(int passIndex)
@@ -96,7 +96,7 @@ public class AbilitiesController : MonoBehaviour
 	public void SetActive(int abIndex, int activeIndex)
 	{
 		if(actives[activeIndex] && upgrades[activeIndex]) {
-			RemoveUpgrade(abIndex);
+			RemoveUpgrade(activeIndex);
 		}
 		actives[activeIndex] = allAbilities[abIndex];
 	}
