@@ -13,7 +13,7 @@ public class PlayerController : GameActor
 	public float jumpDuration;
 	float jumpTimeStart;
 
-
+	public int xp;
 
 
 	
@@ -84,7 +84,10 @@ public class PlayerController : GameActor
 		transform.position = GameObject.Find("PlayerSpawn").transform.position;
 	}
 
-
+	public void GetXP(int amount)
+	{
+		xp += amount;
+	}
 	
 
 
