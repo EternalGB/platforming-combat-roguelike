@@ -58,17 +58,30 @@ public abstract class CloseBlast : Ability
 		blastFunc(channeler,player);
 	}
 
-	protected virtual void createBlast(Transform location, Transform player)
+	GameObject getBlast()
 	{
 		GameObject blast = blastPool.getPooled();
 		blast.SetActive(true);
 		blast.SendMessage ("StartDelay",blastDelay);
 		blast.SendMessage("SetBlastEffect",new UpgradeAction(onHitByBurst,burstTargets));
+		scaleBlast(blast,blastSize);
+		return blast;
+	}
+
+	protected virtual void createBlast(Transform location, Transform player)
+	{
+		GameObject blast = getBlast();
 		blast.transform.position = location.position;
 		blast.transform.right = player.right*Mathf.Sign (player.localScale.x);
-		scaleBlast(blast,blastSize);
 		if(attachedToFirer)
 			blast.SendMessage("SetOwner",player.GetComponent<GameActor>());
+	}
+
+	void createBlastFromProjCollision(Transform proj, Transform target)
+	{
+		GameObject blast = getBlast();
+		blast.transform.position = target.position;
+		blast.transform.right = (proj.position - target.position).normalized;
 	}
 
 	protected virtual void scaleBlast(GameObject blast, float scaling)
@@ -82,7 +95,7 @@ public abstract class CloseBlast : Ability
 		print(abilityName + " upgrading " + other.abilityName);
 		if(other.GetType().BaseType == typeof(ProjectileAttack)) {
 			ProjectileAttack pa = (ProjectileAttack)other;
-			pa.onCollision = createBlast;
+			pa.onCollision = createBlastFromProjCollision;
 			pa.onCollisionTargets = burstTargets;
 		} else if(other.GetType().BaseType == typeof(CloseBlast)) {
 			CloseBlast cb = (CloseBlast)other;

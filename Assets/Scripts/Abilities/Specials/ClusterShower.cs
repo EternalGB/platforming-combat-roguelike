@@ -94,8 +94,7 @@ public class ClusterShower : Special
 		Vector3 firingDir = Quaternion.AngleAxis(angle,Vector3.forward)*facingDir;
 		bullet.rigidbody2D.AddForce(firingDir*fireForce);
 	}
-
-	//shoots in an angle around from Vector2.right
+	
 	void shootCluster(Transform origin, Vector2 dir)
 	{
 		float angle = UnityEngine.Random.Range (-maxDeviation,maxDeviation);
