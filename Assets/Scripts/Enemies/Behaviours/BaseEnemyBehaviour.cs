@@ -4,6 +4,8 @@ using System.Collections;
 public abstract class BaseEnemyBehaviour : GameActor
 {
 
+	public Vector2 xpDropRange;
+
 	protected void Start()
 	{
 		base.Start ();
@@ -12,6 +14,7 @@ public abstract class BaseEnemyBehaviour : GameActor
 
 	void OnDestroy()
 	{
+
 		ActiveEnemiesSingleton.Instance.RemoveEnemy(gameObject);
 	}
 

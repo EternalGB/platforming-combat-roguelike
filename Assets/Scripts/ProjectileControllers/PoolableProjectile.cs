@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class PoolableProjectile : MonoBehaviour
+public class PoolableProjectile : PoolableObject
 {
 
 	public float bulletLifetime = 3f;
@@ -12,26 +12,24 @@ public class PoolableProjectile : MonoBehaviour
 	protected LayerMask onCollisionTargets;
 	List<Collider2D> ignored;
 
-	protected virtual void OnEnable()
+	protected override void Init()
 	{
 		if(bulletLifetime > 0)
 			Invoke("Destroy",bulletLifetime);
 	}
 
-	public void Destroy()
+	protected override void PreDestroy()
 	{
 		if(onDestroy != null) {
 			onDestroy(transform);
 		}
-		gameObject.SetActive (false);
 	}
 
-	protected virtual void OnDisable()
+	protected override void Reset()
 	{
 		ResetOnDestroy();
 		ResetOnCollision();
 		ResetIgnores();
-		CancelInvoke();
 	}
 
 	protected virtual void OnCollisionEnter2D(Collision2D col)

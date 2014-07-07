@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public abstract class BlastController : MonoBehaviour 
+public abstract class BlastController : PoolableObject 
 {
 
 	public GameActor owner;
@@ -25,7 +25,7 @@ public abstract class BlastController : MonoBehaviour
 		}
 	}
 
-	void OnEnable()
+	protected override void Init()
 	{
 		if(colliders == null)
 			colliders = GetComponents<Collider2D>();
@@ -33,12 +33,13 @@ public abstract class BlastController : MonoBehaviour
 		origDuration = existanceTime;
 	}
 
-	void Destroy()
+
+	protected override void PreDestroy()
 	{
-		gameObject.SetActive (false);
+
 	}
 
-	void OnDisable()
+	protected override void Reset()
 	{
 		onHitByBlast = null;
 		foreach(Collider2D col in colliders)
@@ -46,7 +47,6 @@ public abstract class BlastController : MonoBehaviour
 		GetComponent<SpriteRenderer>().sprite = preBlastSprite;
 		transform.localScale = originalScale;
 		existanceTime = origDuration;
-		CancelInvoke();
 	}
 
 	void SetBlastEffect(UpgradeAction ua)

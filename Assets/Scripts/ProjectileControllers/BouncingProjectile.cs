@@ -33,13 +33,13 @@ public class BouncingProjectile : PoolableProjectile
 		rigidbody2D.velocity = transform.right*speed;
 	}
 
-	override protected void OnDisable()
+	override protected void Reset()
 	{
 		target = null;
 		if(lastTargets != null)
 			lastTargets.Clear();
 		bounceCount = 0;
-		base.OnDisable();
+		base.Reset();
 	}
 
 	protected override void OnTriggerEnter2D(Collider2D col)
