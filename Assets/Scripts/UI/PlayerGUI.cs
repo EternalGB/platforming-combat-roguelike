@@ -32,7 +32,7 @@ public class PlayerGUI : MonoBehaviour
 	public Texture healthBarIcon;
 	public Texture healthBarTexture;
 	public Texture healthBarBacking;
-	public Rect healthBarDefault;
+	//public Rect healthBarDefault;
 
 	float upgradeButton = 0;
 
@@ -239,8 +239,8 @@ public class PlayerGUI : MonoBehaviour
 			//draw the abilities overlay and ability icons
 			DrawAbilityIcons();
 
-			//draw the player's health bar
-			float percentHealth = pCont.currentHealth/pCont.maxHealth;
+
+			/*
 			GUI.DrawTexture(new Rect(healthBarDefault.x,healthBarDefault.y
 			                         ,healthBarDefault.height,healthBarDefault.height),
 			                healthBarIcon);
@@ -250,6 +250,28 @@ public class PlayerGUI : MonoBehaviour
 			GUI.DrawTexture(new Rect(healthBarDefault.x + healthBarDefault.height,healthBarDefault.y,
 			                         healthBarDefault.width*percentHealth,healthBarDefault.height),
 			                healthBarTexture,ScaleMode.StretchToFill);
+			*/
+
+			//draw the resources
+			float barWidth = 200;
+			float barHeight = 40;
+			GUI.BeginGroup(new Rect(10, 10,barWidth,800));
+			//draw the player's health bar
+			float percentHealth = pCont.currentHealth/pCont.maxHealth;
+			GUI.DrawTexture(new Rect(0,0,barHeight,barHeight),
+			                healthBarIcon);
+			GUI.DrawTexture(new Rect(barHeight,0,barWidth,barHeight),
+			                healthBarBacking,ScaleMode.StretchToFill);
+			GUI.DrawTexture(new Rect(barHeight,0,barWidth*percentHealth,barHeight),
+			                healthBarTexture,ScaleMode.StretchToFill);
+			//draw the xp
+			GUI.Label(new Rect(0,barHeight,40,30),"XP ",skin.GetStyle("XPDisplay"));
+			GUI.Label(new Rect(30,barHeight,50,30),pCont.xp.ToString(),skin.GetStyle("XPDisplay"));
+
+			GUI.EndGroup();
+
+
+
 			if(paused)
 				GUI.DrawTexture(new Rect(0,0,origWidth,origHeight), pauseOverlay);
 		} else if(mode == GUIMode.ABILITY_PREVIEW) {
@@ -303,7 +325,7 @@ public class PlayerGUI : MonoBehaviour
 			numAbilities = abCont.allAbilities.Count;
 
 			Color tmpColor = GUI.color;
-			GUI.BeginGroup(new Rect(50,50,720,480));
+			GUI.BeginGroup(new Rect(50,80,720,480));
 			GUI.DrawTexture(new Rect(0,0,720,480),abilityPreviewOverlay,ScaleMode.StretchToFill);
 			abMenuPosition = GUI.BeginScrollView(new Rect(0,0,720,480),abMenuPosition,new Rect(0,0,720,abMenuHeight));
 			for(int i = 0; i < abCont.allAbilities.Count; i++) {
@@ -331,7 +353,7 @@ public class PlayerGUI : MonoBehaviour
 			GUI.EndScrollView();
 			GUI.EndGroup();
 			//draw the ability description area
-			GUI.BeginGroup(new Rect(820,50,410,480));
+			GUI.BeginGroup(new Rect(820,80,410,480));
 			GUI.DrawTexture(new Rect(0,0,410,480),abilityPreviewOverlay,ScaleMode.StretchToFill);
 
 			GUI.Label (new Rect(0,0,410,40),abCont.allAbilities[abMenuSelected].abilityName,skin.GetStyle("AbilityName"));
