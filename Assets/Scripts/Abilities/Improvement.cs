@@ -7,7 +7,7 @@ public class Improvement : ScriptableObject
 
 	public string fieldName;
 	public string displayName;
-	public float costPerPoint;
+	public int costPerPoint;
 	public float pointValue;
 	[System.NonSerialized]
 	public int pointsAllocated;
