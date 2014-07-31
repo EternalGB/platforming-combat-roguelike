@@ -15,10 +15,16 @@ public abstract class BaseEnemyBehaviour : GameActor
 		ActiveEnemiesSingleton.Instance.AddEnemy(gameObject);
 	}
 
-	void OnDestroy()
+	public override void Die ()
 	{
 		DropXP();
-		ActiveEnemiesSingleton.Instance.RemoveEnemy(gameObject);
+		base.Die ();
+	}
+
+	void OnDestroy()
+	{
+		if(ActiveEnemiesSingleton.Instance)
+			ActiveEnemiesSingleton.Instance.RemoveEnemy(gameObject);
 	}
 
 	void DropXP()
