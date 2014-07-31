@@ -387,6 +387,7 @@ public class PlayerGUI : MonoBehaviour
 					if(xp >= imp.costPerPoint &&
 						GUI.Button (new Rect(380,20*i,20,20),"",skin.GetStyle("ImpButton"))) {
 						abCont.allAbilities[abMenuSelected].improveAttribute(i);
+						pCont.xp -= imp.costPerPoint;
 					}
 				}
 				GUI.EndGroup ();
