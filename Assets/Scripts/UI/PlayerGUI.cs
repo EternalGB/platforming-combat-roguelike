@@ -265,8 +265,7 @@ public class PlayerGUI : MonoBehaviour
 			GUI.DrawTexture(new Rect(barHeight,0,barWidth*percentHealth,barHeight),
 			                healthBarTexture,ScaleMode.StretchToFill);
 			//draw the xp
-			GUI.Label(new Rect(0,barHeight,40,30),"XP ",skin.GetStyle("XPDisplay"));
-			GUI.Label(new Rect(30,barHeight,50,30),pCont.xp.ToString(),skin.GetStyle("XPDisplay"));
+			GUI.Label(new Rect(0,barHeight,100,30),"XP " + pCont.xp,skin.GetStyle("XPDisplay"));
 
 			GUI.EndGroup();
 
@@ -392,8 +391,13 @@ public class PlayerGUI : MonoBehaviour
 				}
 				GUI.EndGroup ();
 			}
-
 			GUI.EndGroup ();
+
+			GUI.BeginGroup(new Rect(910,600,320,90));
+			GUI.DrawTexture(new Rect(0,0,320,90),abilityPreviewOverlay,ScaleMode.StretchToFill);
+			GUI.Label (new Rect(0,0,320,490), "XP: " + pCont.xp, skin.GetStyle("AvailXPDisplay"));
+			GUI.EndGroup();
+
 			//draw the help text area
 
 		}
