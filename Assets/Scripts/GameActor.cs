@@ -96,15 +96,15 @@ public abstract class GameActor : MonoBehaviour
 
 			rigidbody2D.velocity = dashPower*facingDir;
 			//doing it this way allows for other physics forces to affect the player
-		} else {
+		} else if(groundCheck && (!collidingWithGround || onGround)){
 			physicsMove(movingDir(),acceleration);
 			rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity,globalMaxSpeed);
 		}
-
+		/*
 		if(groundCheck && collidingWithGround && !onGround) {
 			rigidbody2D.velocity = new Vector2(0,rigidbody2D.velocity.y);
 		}
-
+		*/
 
 		if(currentHealth <= 0)
 			Die();
@@ -205,7 +205,7 @@ public abstract class GameActor : MonoBehaviour
 
 	}
 
-	void OnTriggerEnter2D(Collider2D col)
+	public void OnTriggerEnter2D(Collider2D col)
 	{
 		if(col.gameObject.layer == LayerMask.NameToLayer("KillTriggers")) {
 			Die();
