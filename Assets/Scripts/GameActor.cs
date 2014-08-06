@@ -93,13 +93,8 @@ public abstract class GameActor : MonoBehaviour
 		if(dots.Count == 0)
 			GetComponent<SpriteRenderer>().color = defaultColor;
 
-		if (dashing) {
-			rigidbody2D.velocity = dashPower * facingDir;
-		} else if((!collidingWithGround || onGround) || !groundCheck) {
-			//doing it this way allows for other physics forces to affect the player
-			physicsMove(movingDir(),acceleration);
 
-		}
+		movementDecision ();
 		/*
 		 * This way the old way of doing it. Setting velocity to zero = bad
 		if(groundCheck && collidingWithGround && !onGround) {
@@ -111,6 +106,17 @@ public abstract class GameActor : MonoBehaviour
 
 		if(currentHealth <= 0)
 			Die();
+	}
+
+	protected virtual void movementDecision()
+	{
+		if (dashing) {
+			rigidbody2D.velocity = dashPower * facingDir;
+		} else if((!collidingWithGround || onGround) || !groundCheck) {
+			//doing it this way allows for other physics forces to affect the player
+			physicsMove(movingDir(),acceleration);
+			
+		}
 	}
 
 	protected virtual void physicsMove(Vector2 moveDir, float accel)
