@@ -11,7 +11,7 @@ public abstract class GameActor : MonoBehaviour
 	protected float acceleration;
 	public bool dashing = false;
 	float dashPower;
-	float savedGravity = 1;
+	protected float savedGravity = 1;
 	protected bool facingRight = true;
 	public Texture healthBar;
 	public Texture healthBarBacking;
@@ -29,8 +29,10 @@ public abstract class GameActor : MonoBehaviour
 	protected bool collidingWithGround = false;
 	protected bool onGround = false;
 	public Transform groundCheck;
-	protected float groundCheckRadius = 0.5f;
+	protected float groundCheckRadius = 0.3f;
 	public LayerMask groundLayer;
+
+
 
 	public Vector2 facingDir
 	{
@@ -72,7 +74,6 @@ public abstract class GameActor : MonoBehaviour
 
 
 
-
 		if(!isStrafing()) {
 			if(movingDir().x > 0 && !facingRight)
 				Flip();
@@ -92,19 +93,21 @@ public abstract class GameActor : MonoBehaviour
 		if(dots.Count == 0)
 			GetComponent<SpriteRenderer>().color = defaultColor;
 
-		if(dashing) {
-
-			rigidbody2D.velocity = dashPower*facingDir;
+		if (dashing) {
+			rigidbody2D.velocity = dashPower * facingDir;
+		} else if((!collidingWithGround || onGround) || !groundCheck) {
 			//doing it this way allows for other physics forces to affect the player
-		} else if(groundCheck && (!collidingWithGround || onGround)){
 			physicsMove(movingDir(),acceleration);
-			rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity,globalMaxSpeed);
+
 		}
 		/*
+		 * This way the old way of doing it. Setting velocity to zero = bad
 		if(groundCheck && collidingWithGround && !onGround) {
 			rigidbody2D.velocity = new Vector2(0,rigidbody2D.velocity.y);
 		}
 		*/
+
+		rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity,globalMaxSpeed);
 
 		if(currentHealth <= 0)
 			Die();
@@ -212,7 +215,7 @@ public abstract class GameActor : MonoBehaviour
 		} 
 	}
 	
-	void OnCollisionEnter2D(Collision2D col)
+	void OnCollisionStay2D(Collision2D col)
 	{
 		if(col.gameObject.layer == LayerMask.NameToLayer("Ground"))
 			collidingWithGround = true;
