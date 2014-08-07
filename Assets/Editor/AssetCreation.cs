@@ -2,6 +2,7 @@
 using UnityEditor;
 using System.Collections;
 using System.IO;
+using System;
 
 public class AssetCreation 
 {
@@ -11,7 +12,6 @@ public class AssetCreation
 	{
 		CreateAsset<Improvement>();
 	}
-
 
 	public static void CreateAsset<T> () where T : ScriptableObject
 	{
