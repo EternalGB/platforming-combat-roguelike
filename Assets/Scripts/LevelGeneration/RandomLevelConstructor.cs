@@ -30,6 +30,8 @@ public class RandomLevelConstructor : MonoBehaviour
 				if(nextRoom.Width == roomWidth && nextRoom.Height == roomHeight) {
 					if(Random.value < 0.5)
 						nextRoom = Room.flipHorizontally(nextRoom);
+					if(Random.value < 0.5)
+						nextRoom = Room.flipVertically(nextRoom);
 					nextRoom.construct(tilePath,tileSize,startingPos + 
 					                   new Vector3(i*roomWidth*tileSize,-j*roomHeight*tileSize));
 				} else

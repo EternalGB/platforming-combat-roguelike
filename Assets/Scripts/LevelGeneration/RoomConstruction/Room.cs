@@ -85,7 +85,8 @@ public class Room
 	public void flipVertically()
 	{
 		TileType tmp;
-		for(int i = 0; i < roomTiles.Length; i++) {
+		for(int i = 0; i < roomTiles.Length/2; i++) {
+			Debug.Log ("Swapping row " + i + " and " + (roomTiles.Length-1-i));
 			for(int j = 0; j < roomTiles[i].Length; j++) {
 				tmp = roomTiles[i][j];
 				roomTiles[i][j] = roomTiles[roomTiles.Length-1-i][j];
