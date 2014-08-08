@@ -7,7 +7,7 @@ public class RandomLevelConstructor : MonoBehaviour
 	public int width;
 	public int height;
 	public string tilePath;
-	public float tileWidth;
+	public float tileSize;
 	public Vector3 startingPos;
 
 
@@ -27,10 +27,12 @@ public class RandomLevelConstructor : MonoBehaviour
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
 				Room nextRoom = possibleRooms[Random.Range(0,possibleRooms.Length-1)];
-				if(nextRoom.Width == roomWidth && nextRoom.Height == roomHeight)
-					nextRoom.construct(tilePath,tileWidth,startingPos + 
-					                   new Vector3(i*roomWidth*tileWidth,-j*roomHeight*tileWidth));
-				else
+				if(nextRoom.Width == roomWidth && nextRoom.Height == roomHeight) {
+					if(Random.value < 0.5)
+						nextRoom = Room.flipHorizontally(nextRoom);
+					nextRoom.construct(tilePath,tileSize,startingPos + 
+					                   new Vector3(i*roomWidth*tileSize,-j*roomHeight*tileSize));
+				} else
 					Debug.LogError("Room " + nextRoom.name + " does not have the right dimensions");
 
 			}

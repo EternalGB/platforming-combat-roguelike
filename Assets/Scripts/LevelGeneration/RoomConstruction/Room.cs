@@ -28,6 +28,12 @@ public class Room
 	}
 	public string name;
 
+	public Room(TileType[][] tiles, string name)
+	{
+		this.roomTiles = (TileType[][])tiles.Clone();
+		this.name = name;
+	}
+
 	public Room(TextAsset roomText) : this(roomText.text,roomText.name)
 	{}
 
@@ -67,6 +73,52 @@ public class Room
 			}
 		}
 		return tiles;
+	}
+
+	public void flipHorizontally()
+	{
+		foreach(TileType[] row in roomTiles) {
+			reverseArray(row);
+		}
+	}
+
+	public void flipVertically()
+	{
+		TileType tmp;
+		for(int i = 0; i < roomTiles.Length; i++) {
+			for(int j = 0; j < roomTiles[i].Length; j++) {
+				tmp = roomTiles[i][j];
+				roomTiles[i][j] = roomTiles[roomTiles.Length-1-i][j];
+				roomTiles[roomTiles.Length-1-i][j] = tmp;
+			}
+		}
+	}
+
+	public static Room flipHorizontally(Room room)
+	{
+		Room newRoom = new Room(room.roomTiles,room.name);
+		newRoom.flipHorizontally();
+		return newRoom;
+	}
+
+	public static Room flipVertically(Room room)
+	{
+		Room newRoom = new Room(room.roomTiles,room.name);
+		newRoom.flipVertically();
+		return newRoom;
+	}
+
+
+	
+
+	public static void reverseArray<T>(T[] array)
+	{
+		T tmp;
+		for(int i = 0; i < array.Length/2; i++) {
+			tmp = array[i];
+			array[i] = array[array.Length-1-i];
+			array[array.Length-1-i] = tmp;
+		}
 	}
 
 	public void construct(string tileSetPath, float tileSize, Vector3 origin)
