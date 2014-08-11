@@ -1,4 +1,4 @@
 public enum TileType
 {
-	EMPTY,GROUND,WALL,LADDER
+	EMPTY,GROUND,LADDER
 }

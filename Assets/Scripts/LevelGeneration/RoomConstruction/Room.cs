@@ -64,9 +64,6 @@ public class Room
 			case 'H':
 				tiles[i] = TileType.LADDER;
 				break;
-			case '|':
-				tiles[i] = TileType.WALL;
-				break;
 			default:
 				tiles[i] = TileType.EMPTY;
 				break;
@@ -127,20 +124,32 @@ public class Room
 		constructRoom (tileSetPath,tileSize,this,this.name,origin);
 	}
 
+	//TODO create tops
 	public static void constructRoom(string tileSetPath, float tileSize, Room room, string name, Vector3 origin)
 	{
 		GameObject parent = new GameObject(name);
 		parent.transform.position = origin;
+		bool[] needsTop = new bool[room.roomTiles[0].Length];
+		for(int i = 0; i < needsTop.Length; i++)
+			needsTop[i] = true;
 		for(int i = 0; i < room.roomTiles.Length; i++) {
 			for(int j = 0; j < room.roomTiles[i].Length; j++) {
 				TileType tt = room.roomTiles[i][j];
 				if(tt != TileType.EMPTY) {
 					//Debug.Log ("Adding " + tileSetPath + tt.ToString() + " at " + new Vector2(i*tileSize,j*tileSize));
-					GameObject tile = (GameObject)GameObject.Instantiate
-						(Resources.Load<GameObject>(tileSetPath + tt.ToString()));
+					GameObject tile;
+					if(tt == TileType.GROUND && needsTop[j]) {
+						tile = (GameObject)GameObject.Instantiate
+							(Resources.Load<GameObject>(tileSetPath + "TOP"));
+						needsTop[j] = false;
+					} else
+						tile = (GameObject)GameObject.Instantiate
+							(Resources.Load<GameObject>(tileSetPath + tt.ToString()));
 					tile.transform.position = origin;
 					tile.transform.parent = parent.transform;
 					tile.transform.localPosition = new Vector3(j*tileSize,-i*tileSize);
+				} else {
+					needsTop[j] = true;
 				}
 			}
 		}
