@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Room
 {
@@ -67,6 +68,9 @@ public class Room
 			case 'D':
 				tiles[i] = TileType.DAMAGE;
 				break;
+			case '@':
+				tiles[i] = TileType.ENEMY;
+				break;
 			default:
 				tiles[i] = TileType.EMPTY;
 				break;
@@ -124,11 +128,30 @@ public class Room
 
 	public void construct(string tileSetPath, float tileSize, Vector3 origin)
 	{
-		constructRoom (tileSetPath,tileSize,this,this.name,origin);
+		constructRoom (this,this.name,tileSetPath,tileSize,origin);
 	}
 
-	//TODO create tops
-	public static void constructRoom(string tileSetPath, float tileSize, Room room, string name, Vector3 origin)
+	/*
+	public void construct(string tileSetPath, float tileSize, Vector3 origin, out List<Vector2> enemyLocs)
+	{
+		constructRoom (this,this.name,tileSetPath,tileSize,origin, out enemyLocs);
+	}
+
+	public static void constructRoom(Room room, string name, string tileSetPath, float tileSize, Vector3 origin,
+	                                 out List<Vector2> enemyLocs)
+	{
+		enemyLocs = new List<Vector2>();
+		constructRoom(room,name,tileSetPath,tileSize,origin);
+		for(int i = 0; i < room.roomTiles.Length; i++) {
+			for(int j = 0; j < room.roomTiles[i].Length; j++) {
+				if(room.roomTiles[i][j] == TileType.ENEMY)
+					enemyLocs.Add(new Vector2(i,j));
+			}
+		}
+	}
+	*/
+
+	public static void constructRoom(Room room, string name, string tileSetPath, float tileSize, Vector3 origin)
 	{
 		GameObject parent = new GameObject(name);
 		parent.transform.position = origin;
