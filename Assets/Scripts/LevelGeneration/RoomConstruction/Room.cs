@@ -64,6 +64,9 @@ public class Room
 			case 'H':
 				tiles[i] = TileType.LADDER;
 				break;
+			case 'D':
+				tiles[i] = TileType.DAMAGE;
+				break;
 			default:
 				tiles[i] = TileType.EMPTY;
 				break;
@@ -138,9 +141,9 @@ public class Room
 				if(tt != TileType.EMPTY) {
 					//Debug.Log ("Adding " + tileSetPath + tt.ToString() + " at " + new Vector2(i*tileSize,j*tileSize));
 					GameObject tile;
-					if(tt == TileType.GROUND && needsTop[j]) {
+					if(tt != TileType.LADDER && needsTop[j]) {
 						tile = (GameObject)GameObject.Instantiate
-							(Resources.Load<GameObject>(tileSetPath + "TOP"));
+							(Resources.Load<GameObject>(tileSetPath + tt.ToString() + "_TOP"));
 						needsTop[j] = false;
 					} else
 						tile = (GameObject)GameObject.Instantiate
