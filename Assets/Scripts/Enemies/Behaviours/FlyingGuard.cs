@@ -81,7 +81,8 @@ public class FlyingGuard : BaseEnemyBehaviour
 
 	void GetRandomDest()
 	{
-		dest = (Vector2)tether.position + Random.insideUnitCircle*tetherRadius;
+		if(tether != null)
+			dest = (Vector2)tether.position + Random.insideUnitCircle*tetherRadius;
 	}
 
 	public void SetTether(Transform tether, float radius)
