@@ -161,7 +161,7 @@ public class Room
 		for(int i = 0; i < room.roomTiles.Length; i++) {
 			for(int j = 0; j < room.roomTiles[i].Length; j++) {
 				TileType tt = room.roomTiles[i][j];
-				if(tt != TileType.EMPTY) {
+				if(tt != TileType.EMPTY && tt != TileType.ENEMY) {
 					//Debug.Log ("Adding " + tileSetPath + tt.ToString() + " at " + new Vector2(i*tileSize,j*tileSize));
 					GameObject tile;
 					if(tt != TileType.LADDER && needsTop[j]) {
