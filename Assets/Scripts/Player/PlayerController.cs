@@ -66,6 +66,9 @@ public class PlayerController : GameActor
 			firstClimbingStep = true;
 		}
 
+		anim.SetFloat("horiSpeed",Mathf.Abs(hori));
+		anim.SetBool("onGround",onGround);
+
 	}
 
 	void OnDrawGizmos()
@@ -88,14 +91,6 @@ public class PlayerController : GameActor
 
 
 		base.FixedUpdate();
-
-
-
-
-
-		anim.SetFloat("horiSpeed",Mathf.Abs(hori));
-		anim.SetBool("onGround",onGround);
-
 		if(Input.GetButton ("Jump") && jumpTimeStart > 0 && Time.time - jumpTimeStart <= jumpDuration) {
 			rigidbody2D.AddForce (new Vector2(0,2*jumpPower*Time.fixedDeltaTime));
 		}
@@ -112,8 +107,11 @@ public class PlayerController : GameActor
 			}
 			transform.position += (new Vector3(hori,vert))
 			                       *(maxSpeed/2)*Time.fixedDeltaTime;
-		} else 
+			anim.SetBool("climbing",true);
+		} else  {
 			base.movementDecision ();
+			anim.SetBool("climbing",false);
+		}
 	}
 
 	override public void Die()
