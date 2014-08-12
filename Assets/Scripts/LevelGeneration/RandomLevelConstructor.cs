@@ -12,6 +12,8 @@ public class RandomLevelConstructor : MonoBehaviour
 	public string enemiesPath;
 	public int numEnemies;
 
+	public LayerMask groundLayer;
+
 	string path = "RoomGeneration/Rooms/";
 
 	void Start()
@@ -70,16 +72,23 @@ public class RandomLevelConstructor : MonoBehaviour
 			Vector3 nextPos = roomLocations[(int)loc.x] + new Vector3(loc.y*tileSize,-loc.z*tileSize);
 			GameObject enemy = (GameObject)GameObject.Instantiate(possibleEnemies[Random.Range(0,possibleEnemies.Length-1)]
 			                                                      ,nextPos,Quaternion.identity);
-			//TODO maybe push the enemy up until it's definitely not inside a block
-			//this is mostly not a problem though
+			//push up until not inside a block
+			while(boundsOverlapping(enemy.collider2D.bounds,groundLayer)) {
+				enemy.transform.position += new Vector3(0,5,0);
+			}
 		}
+	}
+
+	public bool boundsOverlapping(Bounds bounds, int layerMask)
+	{
+		return Physics2D.OverlapArea(bounds.min,bounds.max,layerMask);
 	}
 
 	public static List<T> selectN<T>(List<T> list, int n)
 	{
 
 		n = Mathf.Min (n,list.Count);
-		Debug.Log ("Selecting " + n + " from " + list.Count);
+		//Debug.Log ("Selecting " + n + " from " + list.Count);
 		int l = list.Count;
 		float prob;
 		List<T> result = new List<T>(n);
