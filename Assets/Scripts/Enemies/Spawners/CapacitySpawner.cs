@@ -22,11 +22,9 @@ public class CapacitySpawner : Spawner
 			}
 		}
 		if(spawned.Count < capacity) {
-			GameObject enemy = (GameObject)GameObject.Instantiate(enemyType,pos,Quaternion.identity);
-			FlyingGuard flying;
-			if(flying = enemy.GetComponent<FlyingGuard>())
-				flying.SetTether(transform,range);
-			AddChild(enemy);
+			GameObject enemy = Create(pos);
+			if(enemy)
+				AddChild(enemy);
 		}
 	}
 

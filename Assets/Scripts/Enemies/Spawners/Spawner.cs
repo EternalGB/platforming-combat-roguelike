@@ -64,7 +64,21 @@ public abstract class Spawner : MonoBehaviour
 	}
 
 	protected abstract void Spawn(Vector2 pos);
-	
+
+	protected GameObject Create(Vector2 pos)
+	{
+		if(!Physics2D.OverlapPoint(pos)) {
+			GameObject enemy = (GameObject)GameObject.Instantiate(enemyType,pos,Quaternion.identity);
+			FlyingGuard flying;
+			if(flying = enemy.GetComponent<FlyingGuard>())
+				flying.SetTether(transform,range);
+			return enemy;
+		} else
+			return null;
+	}
+
+
+
 	void OnDrawGizmosSelected()
 	{
 		Vector3 pos = transform.position;
