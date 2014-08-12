@@ -67,7 +67,7 @@ public abstract class Spawner : MonoBehaviour
 
 	protected GameObject Create(Vector2 pos)
 	{
-		if(!Physics2D.OverlapPoint(pos)) {
+		if(!Physics2D.OverlapPoint(pos, LayerMask.NameToLayer("Ground"))) {
 			GameObject enemy = (GameObject)GameObject.Instantiate(enemyType,pos,Quaternion.identity);
 			FlyingGuard flying;
 			if(flying = enemy.GetComponent<FlyingGuard>())
