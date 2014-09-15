@@ -25,8 +25,7 @@ public abstract class GameActor : MonoBehaviour
 	protected SpriteRenderer spriteRenderer;
 
 	float dmgTakenMulti = 1;
-
-	protected bool collidingWithGround = false;
+	
 	protected bool onGround = false;
 	public Transform groundCheck;
 	protected float groundCheckRadius = 0.3f;
@@ -112,7 +111,7 @@ public abstract class GameActor : MonoBehaviour
 	{
 		if (dashing) {
 			rigidbody2D.velocity = dashPower * facingDir;
-		} else if((!collidingWithGround || onGround) || !groundCheck) {
+		} else {
 			//doing it this way allows for other physics forces to affect the player
 			physicsMove(movingDir(),acceleration);
 			
@@ -220,18 +219,7 @@ public abstract class GameActor : MonoBehaviour
 			Die();
 		} 
 	}
-	
-	void OnCollisionStay2D(Collision2D col)
-	{
-		if(col.gameObject.layer == LayerMask.NameToLayer("Ground"))
-			collidingWithGround = true;
-	}
 
-	void OnCollisionExit2D(Collision2D col)
-	{
-		if(col.gameObject.layer == LayerMask.NameToLayer("Ground"))
-			collidingWithGround = false;
-	}
 
 	protected abstract Vector2 movingDir();
 
